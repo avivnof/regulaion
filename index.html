@@ -313,6 +313,14 @@
 
     .play:hover { transform: translateY(-1px); filter: saturate(1.08); }
 
+    .play.disabled,
+    .play:disabled {
+      opacity: 0.54;
+      cursor: not-allowed;
+      filter: grayscale(0.35);
+      transform: none;
+    }
+
     .status {
       color: var(--muted);
       font-size: 0.88rem;
@@ -537,47 +545,6 @@
       display: none;
     }
 
-    .now-playing {
-      position: sticky;
-      bottom: 14px;
-      z-index: 5;
-      margin: 24px auto 0;
-      width: min(720px, calc(100% - 8px));
-      border-radius: 26px;
-      background: rgba(255,255,255,0.90);
-      border: 1px solid rgba(255,255,255,0.78);
-      box-shadow: 0 18px 48px rgba(48,72,86,0.18);
-      backdrop-filter: blur(18px);
-      padding: 12px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .np-title {
-      font-weight: 800;
-      color: var(--deep);
-      font-size: 0.98rem;
-    }
-
-    .np-sub {
-      color: var(--muted);
-      font-size: 0.86rem;
-      margin-top: 3px;
-    }
-
-    .stop-all {
-      border: 0;
-      cursor: pointer;
-      border-radius: 999px;
-      padding: 10px 14px;
-      background: #eef4f5;
-      color: var(--deep);
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
     .disclaimer {
       position: relative;
       z-index: 2;
@@ -650,7 +617,6 @@
       .card { min-height: 190px; }
       .play-row { justify-content: space-between; }
       .play { min-width: 122px; }
-      .now-playing { bottom: 9px; border-radius: 22px; }
       .viz-core {
         width: min(74vw, 320px);
         height: min(74vw, 320px);
@@ -730,7 +696,7 @@
         <p>תרגול נשימה איטית, עמוקה ומווסתת דרך הסרעפת.</p>
         <div class="play-row">
           <button class="play" data-audio="audio1" data-title="הרפיית נשימה סרעפתית">▶︎ נגן</button>
-          <span class="status" id="status-audio1">מוכן</span>
+          <span class="status" id="status-audio1">בהכנה</span>
         </div>
         <audio id="audio1" src="audio/diaphragmatic-breathing.mp3"></audio>
       </article>
@@ -743,7 +709,7 @@
         <p>נשימה בקצב מובנה עם עצירות קצרות ליצירת ויסות.</p>
         <div class="play-row">
           <button class="play" data-audio="audio2" data-title="הרפיית נשימה עם עצירות">▶︎ נגן</button>
-          <span class="status" id="status-audio2">מוכן</span>
+          <span class="status" id="status-audio2">בהכנה</span>
         </div>
         <audio id="audio2" src="audio/breath-holds.mp3"></audio>
       </article>
@@ -756,7 +722,7 @@
         <p>כיווץ ושחרור הדרגתי של קבוצות שרירים להפחתת מתח.</p>
         <div class="play-row">
           <button class="play" data-audio="audio3" data-title="הרפיית שרירים פרוגרסיבית">▶︎ נגן</button>
-          <span class="status" id="status-audio3">מוכן</span>
+          <span class="status" id="status-audio3">בהכנה</span>
         </div>
         <audio id="audio3" src="audio/progressive-muscle-relaxation.mp3"></audio>
       </article>
@@ -769,7 +735,7 @@
         <p>תרגול קצר, פשוט ונגיש לרגעי עומס במהלך היום.</p>
         <div class="play-row">
           <button class="play" data-audio="audio4" data-title="הרפיה מקוצרת">▶︎ נגן</button>
-          <span class="status" id="status-audio4">מוכן</span>
+          <span class="status" id="status-audio4">בהכנה</span>
         </div>
         <audio id="audio4" src="audio/short-relaxation.mp3"></audio>
       </article>
@@ -782,7 +748,7 @@
         <p>הפניית קשב עדינה לרגע הנוכחי, לנשימה ולתחושות הגוף.</p>
         <div class="play-row">
           <button class="play" data-audio="audio5" data-title="תרגול מיינדפולנס">▶︎ נגן</button>
-          <span class="status" id="status-audio5">מוכן</span>
+          <span class="status" id="status-audio5">בהכנה</span>
         </div>
         <audio id="audio5" src="audio/mindfulness.mp3"></audio>
       </article>
@@ -795,7 +761,7 @@
         <p>דימוי מרגיע של עשן דק, תנועה איטית והתבוננות שקטה.</p>
         <div class="play-row">
           <button class="play" data-audio="audio6" data-title="עשן דק">▶︎ נגן</button>
-          <span class="status" id="status-audio6">מוכן</span>
+          <span class="status" id="status-audio6">בהכנה</span>
         </div>
         <audio id="audio6" src="audio/thin-smoke.mp3"></audio>
       </article>
@@ -805,14 +771,6 @@
       התכנים באתר מיועדים לתרגול הרגעה וויסות עצמי. הם אינם מהווים תחליף לייעוץ, אבחון או טיפול רפואי או נפשי. במקרה של מצוקה חריפה, יש לפנות לגורם מקצועי מתאים או לשירותי חירום.
     </section>
 
-    <div class="now-playing" aria-live="polite">
-      <div>
-        <div class="np-title" id="np-title">לא מתנגן כעת</div>
-        <div class="np-sub" id="np-sub">בחר/י תרגיל כדי להתחיל</div>
-      </div>
-      <button class="stop-all" id="stopAll">עצור הכול</button>
-    </div>
-
     <footer>ד״ר אביב נוף, פסיכולוג קליני</footer>
   </main>
 
@@ -820,9 +778,6 @@
     const bodyEl = document.body;
     const buttons = document.querySelectorAll('.play');
     const audios = document.querySelectorAll('audio');
-    const npTitle = document.getElementById('np-title');
-    const npSub = document.getElementById('np-sub');
-    const stopAll = document.getElementById('stopAll');
     const visualizer = document.getElementById('visualizer');
     const vizCenter = document.getElementById('vizCenter');
     const vizPauseMessage = document.getElementById('vizPauseMessage');
@@ -836,8 +791,13 @@
     function setIdle(audio) {
       const btn = document.querySelector(`[data-audio="${audio.id}"]`);
       const status = document.getElementById(`status-${audio.id}`);
-      if (btn) btn.textContent = '▶︎ נגן';
-      if (status) status.textContent = 'מוכן';
+      const available = audio.dataset.available === 'true';
+      if (btn) {
+        btn.textContent = '▶︎ נגן';
+        btn.disabled = !available;
+        btn.classList.toggle('disabled', !available);
+      }
+      if (status) status.textContent = available ? 'מוכן' : 'בהכנה';
     }
 
     function getButtonForAudio(audio) {
@@ -899,6 +859,10 @@
     function playAudio(audio, title) {
       const btn = getButtonForAudio(audio);
       const status = getStatusForAudio(audio);
+      if (audio.dataset.available !== 'true') {
+        if (status) status.textContent = 'בהכנה';
+        return;
+      }
       stopOtherAudios(audio.id);
       currentAudio = audio;
       currentTitle = title;
@@ -906,13 +870,9 @@
       audio.play().then(() => {
         if (btn) btn.textContent = '❚❚ עצור';
         if (status) status.textContent = 'מנגן';
-        npTitle.textContent = title;
-        npSub.textContent = 'מתנגן כעת';
         showVisualizer(title);
       }).catch(() => {
         if (status) status.textContent = 'לא ניתן לנגן';
-        npTitle.textContent = 'שגיאה בניגון';
-        npSub.textContent = 'ודא/י שקובץ ה־MP3 קיים בתיקיית audio';
         hideVisualizer();
       });
     }
@@ -924,8 +884,6 @@
       const status = getStatusForAudio(currentAudio);
       if (btn) btn.textContent = '▶︎ נגן';
       if (status) status.textContent = 'הושהה';
-      npTitle.textContent = currentTitle || 'לא מתנגן כעת';
-      npSub.textContent = 'השהייה — האם להמשיך?';
       showPausedVisualizer(currentTitle || 'השהייה');
     }
 
@@ -936,8 +894,6 @@
       setIdle(currentAudio);
       currentAudio = null;
       currentTitle = '';
-      npTitle.textContent = 'לא מתנגן כעת';
-      npSub.textContent = 'בחר/י תרגיל כדי להתחיל';
       hideVisualizer();
     }
 
@@ -949,10 +905,43 @@
       });
       currentAudio = null;
       currentTitle = '';
-      npTitle.textContent = 'לא מתנגן כעת';
-      npSub.textContent = 'בחר/י תרגיל כדי להתחיל';
       hideVisualizer();
     }
+
+
+    function markAudioReady(audio) {
+      audio.dataset.available = 'true';
+      setIdle(audio);
+    }
+
+    function markAudioPreparing(audio) {
+      audio.dataset.available = 'false';
+      const btn = getButtonForAudio(audio);
+      const status = getStatusForAudio(audio);
+      if (btn) {
+        btn.disabled = true;
+        btn.classList.add('disabled');
+      }
+      if (status) status.textContent = 'בהכנה';
+    }
+
+    audios.forEach(audio => {
+      markAudioPreparing(audio);
+
+      audio.addEventListener('canplaythrough', () => {
+        markAudioReady(audio);
+      }, { once: true });
+
+      audio.addEventListener('loadedmetadata', () => {
+        markAudioReady(audio);
+      }, { once: true });
+
+      audio.addEventListener('error', () => {
+        markAudioPreparing(audio);
+      });
+
+      audio.load();
+    });
 
     buttons.forEach(button => {
       const audioId = button.dataset.audio;
@@ -961,6 +950,10 @@
       const status = document.getElementById(`status-${audioId}`);
 
       button.addEventListener('click', () => {
+        if (audio.dataset.available !== 'true') {
+          status.textContent = 'בהכנה';
+          return;
+        }
         if (audio.paused) {
           playAudio(audio, title);
         } else {
@@ -969,8 +962,6 @@
           audio.pause();
           button.textContent = '▶︎ נגן';
           status.textContent = 'הושהה';
-          npTitle.textContent = title;
-          npSub.textContent = 'השהייה — האם להמשיך?';
           showPausedVisualizer(title);
         }
       });
@@ -978,8 +969,6 @@
       audio.addEventListener('ended', () => {
         button.textContent = '▶︎ נגן';
         status.textContent = 'הסתיים';
-        npTitle.textContent = title;
-        npSub.textContent = 'התרגיל הסתיים';
         if (currentAudio === audio) {
           currentAudio = null;
           currentTitle = '';
@@ -997,7 +986,6 @@
 
     vizPause.addEventListener('click', pauseCurrent);
     vizStop.addEventListener('click', stopCurrent);
-    stopAll.addEventListener('click', stopEverything);
   </script>
 </body>
 </html>
