@@ -1,67 +1,160 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>מרחב של רוגע</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>אתר ההרפיות</title>
   <style>
+    :root {
+      --bg: #f4f1ed;
+      --card: #ffffff;
+      --text: #1f2933;
+      --muted: #6b7280;
+      --primary: #0f7f8c;
+      --primary-light: #dff2f1;
+      --shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f1ed;
-      color: #222;
+      font-family: Arial, "Noto Sans Hebrew", sans-serif;
+      background: linear-gradient(180deg, #eef7f6 0%, var(--bg) 42%, #f8f6f3 100%);
+      color: var(--text);
       direction: rtl;
     }
 
+    .page {
+      width: 100%;
+      max-width: 560px;
+      min-height: 100vh;
+      margin: 0 auto;
+      padding-bottom: 28px;
+    }
+
     .hero {
-      padding: 45px 22px 35px;
+      padding: 34px 22px 28px;
       text-align: center;
-      background: linear-gradient(135deg, #d9e7e3, #f2dfcf);
-      border-bottom-left-radius: 35px;
-      border-bottom-right-radius: 35px;
+      background: linear-gradient(135deg, #d9f0ee, #f5e7da);
+      border-bottom-left-radius: 38px;
+      border-bottom-right-radius: 38px;
+      box-shadow: 0 8px 25px rgba(15, 127, 140, 0.10);
+    }
+
+    .logo {
+      width: 132px;
+      height: auto;
+      display: block;
+      margin: 0 auto 18px;
+      border-radius: 18px;
     }
 
     .hero h1 {
       margin: 0;
       font-size: 32px;
-      font-weight: 700;
+      line-height: 1.25;
+      font-weight: 800;
+      letter-spacing: -0.4px;
     }
 
-    .hero p {
-      margin-top: 10px;
-      font-size: 17px;
-      color: #555;
+    .hero .subtitle {
+      margin: 8px 0 0;
+      font-size: 18px;
+      color: #374151;
+      font-weight: 600;
+    }
+
+    .hero .caption {
+      margin: 7px 0 0;
+      font-size: 15px;
+      color: var(--muted);
     }
 
     .container {
-      padding: 22px;
-      max-width: 520px;
-      margin: auto;
+      padding: 24px 18px 0;
     }
 
-    h2 {
+    .section-title {
+      margin: 0 4px 16px;
       font-size: 22px;
-      margin-bottom: 18px;
+      font-weight: 800;
     }
 
     .track {
-      background: white;
-      border-radius: 22px;
-      padding: 18px;
-      margin-bottom: 16px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 17px 18px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(15, 127, 140, 0.08);
     }
 
     .track-title {
-      font-size: 21px;
-      font-weight: bold;
-      margin-bottom: 8px;
+      font-size: 19px;
+      font-weight: 800;
+      margin-bottom: 5px;
     }
 
     .track-info {
-      font-size: 15px;
-      color: #777;
-      margin-bottom: 14px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .play-button {
+      width: 52px;
+      height: 52px;
+      border: none;
+      border-radius: 50%;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    .play-button:active {
+      transform: scale(0.96);
+    }
+
+    .player-panel {
+      position: sticky;
+      bottom: 12px;
+      margin: 22px 18px 0;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 14px 16px 16px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.13);
+      border: 1px solid rgba(15, 127, 140, 0.12);
+    }
+
+    .now-playing {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .now-title {
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .now-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 3px;
     }
 
     audio {
@@ -69,55 +162,116 @@
     }
 
     .notice {
-      margin-top: 25px;
-      padding: 16px;
+      margin: 24px 18px 0;
+      padding: 16px 18px;
       font-size: 14px;
-      line-height: 1.6;
-      color: #555;
-      background: #ffffffaa;
-      border-radius: 18px;
+      line-height: 1.65;
+      color: #4b5563;
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 20px;
+      border: 1px solid rgba(15, 127, 140, 0.10);
+    }
+
+    .footer {
+      text-align: center;
+      margin: 24px 0 0;
+      color: #4b5563;
+      font-size: 14px;
     }
   </style>
 </head>
 
 <body>
+  <div class="page">
+    <header class="hero">
+      <img class="logo" src="assets/nof-logo.jpg" alt="לוגו מכון נוף" />
+      <h1>אתר ההרפיות</h1>
+      <p class="subtitle">ד"ר אביב נוף, פסיכולוג קליני</p>
+      <p class="caption">תרגילי ויסות והרפיה להקשבה מודרכת</p>
+    </header>
 
-  <section class="hero">
-    <h1>מרחב של רוגע</h1>
-    <p>הרפיות מוקלטות להקשבה מיטיבה</p>
-  </section>
+    <main class="container">
+      <h2 class="section-title">בחר/י תרגיל ויסות</h2>
 
-  <main class="container">
-    <h2>בחר/י הרפיה</h2>
+      <section class="track">
+        <div>
+          <div class="track-title">הרפיית נשימה סרעפתית</div>
+          <div class="track-info">תרגול נשימה רגוע ומווסת</div>
+        </div>
+        <button class="play-button" onclick="playTrack('audio/diaphragmatic-breathing.mp3', 'הרפיית נשימה סרעפתית')">▶</button>
+      </section>
 
-    <div class="track">
-      <div class="track-title">הרפיית נשימה</div>
-      <div class="track-info">תרגול נשימה קצר להרגעה</div>
-      <audio controls>
-        <source src="audio/breathing.mp3" type="audio/mpeg">
-      </audio>
-    </div>
+      <section class="track">
+        <div>
+          <div class="track-title">הרפיית נשימה עם עצירות</div>
+          <div class="track-info">נשימה מודרכת עם הפסקות קצרות</div>
+        </div>
+        <button class="play-button" onclick="playTrack('audio/breath-holds.mp3', 'הרפיית נשימה עם עצירות')">▶</button>
+      </section>
 
-    <div class="track">
-      <div class="track-title">סריקת גוף</div>
-      <div class="track-info">הרפיה מודרכת דרך הגוף</div>
-      <audio controls>
-        <source src="audio/body-scan.mp3" type="audio/mpeg">
-      </audio>
-    </div>
+      <section class="track">
+        <div>
+          <div class="track-title">הרפיית שרירים פרוגרסיבית</div>
+          <div class="track-info">כיווץ ושחרור הדרגתי של שרירים</div>
+        </div>
+        <button class="play-button" onclick="playTrack('audio/progressive-muscle-relaxation.mp3', 'הרפיית שרירים פרוגרסיבית')">▶</button>
+      </section>
 
-    <div class="track">
-      <div class="track-title">הרפיה לפני שינה</div>
-      <div class="track-info">תרגול רגוע לסיום היום</div>
-      <audio controls>
-        <source src="audio/sleep.mp3" type="audio/mpeg">
-      </audio>
-    </div>
+      <section class="track">
+        <div>
+          <div class="track-title">הרפיה מקוצרת</div>
+          <div class="track-info">תרגול קצר למצבי עומס</div>
+        </div>
+        <button class="play-button" onclick="playTrack('audio/short-relaxation.mp3', 'הרפיה מקוצרת')">▶</button>
+      </section>
 
-    <div class="notice">
-      ההקלטות מיועדות לתרגול אישי ולהרגעה כללית. הן אינן מהוות תחליף לייעוץ, אבחון או טיפול רפואי או נפשי.
-    </div>
-  </main>
+      <section class="track">
+        <div>
+          <div class="track-title">תרגול מיינדפולנס</div>
+          <div class="track-info">קשב נוכח ועדין לרגע הנוכחי</div>
+        </div>
+        <button class="play-button" onclick="playTrack('audio/mindfulness.mp3', 'תרגול מיינדפולנס')">▶</button>
+      </section>
 
+      <section class="track">
+        <div>
+          <div class="track-title">עשן דק</div>
+          <div class="track-info">דימוי מודרך לוויסות והרגעה</div>
+        </div>
+        <button class="play-button" onclick="playTrack('audio/thin-smoke.mp3', 'עשן דק')">▶</button>
+      </section>
+    </main>
+
+    <section class="player-panel">
+      <div class="now-playing">
+        <div>
+          <div class="now-title" id="nowTitle">בחר/י תרגיל להפעלה</div>
+          <div class="now-subtitle">לא מתנגן כעת</div>
+        </div>
+      </div>
+      <audio id="audioPlayer" controls></audio>
+    </section>
+
+    <section class="notice">
+      ההקלטות מיועדות לתרגול אישי ולהרגעה כללית. הן אינן מהוות תחליף לייעוץ, אבחון או טיפול רפואי או נפשי. במקרה של מצוקה חריפה, יש לפנות לעזרה מקצועית מתאימה.
+    </section>
+
+    <footer class="footer">
+      © ד"ר אביב נוף
+    </footer>
+  </div>
+
+  <script>
+    function playTrack(src, title) {
+      const player = document.getElementById("audioPlayer");
+      const nowTitle = document.getElementById("nowTitle");
+
+      player.src = src;
+      nowTitle.textContent = title;
+      player.play().catch(() => {
+        // בדפדפנים מסוימים המשתמש צריך ללחוץ שוב על נגן האודיו.
+      });
+    }
+  </script>
 </body>
 </html>
