@@ -12,18 +12,17 @@
       --teal: #4e9fb0;
       --deep: #314c5b;
       --cyan: #9fd5dd;
-      --violet: #7d8d9f;
       --mint: #c8dddd;
       --glass: rgba(255, 255, 255, 0.72);
-      --glass-strong: rgba(255, 255, 255, 0.88);
       --line: rgba(79, 104, 117, 0.20);
       --shadow: 0 22px 55px rgba(48, 72, 86, 0.16);
       --soft-shadow: 0 10px 28px rgba(48, 72, 86, 0.12);
       --radius-xl: 34px;
       --radius-lg: 26px;
-      --viz1: rgba(41, 61, 72, 0.96);
-      --viz2: rgba(70, 92, 105, 0.88);
-      --viz3: rgba(110, 129, 140, 0.74);
+      --viz1: rgba(41, 61, 72, 0.98);
+      --viz2: rgba(70, 92, 105, 0.92);
+      --viz3: rgba(110, 129, 140, 0.78);
+      --drop: rgba(181, 213, 220, 0.72);
     }
 
     * { box-sizing: border-box; }
@@ -50,8 +49,8 @@
     }
 
     body.playing .shell {
-      filter: blur(2.5px) brightness(0.72) saturate(0.82);
-      opacity: 0.82;
+      filter: blur(3px) brightness(0.68) saturate(0.8);
+      opacity: 0.78;
       transform: scale(0.995);
     }
 
@@ -344,6 +343,39 @@
       backdrop-filter: blur(1px);
     }
 
+    .viz-droplets {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .drop {
+      position: absolute;
+      top: -12%;
+      width: 10px;
+      height: 26px;
+      background: linear-gradient(180deg, rgba(214,233,236,0.15), var(--drop));
+      border-radius: 50% 50% 60% 60%;
+      box-shadow: 0 0 12px rgba(181,213,220,0.22);
+      opacity: 0.7;
+      animation: rainFall linear infinite;
+    }
+
+    .drop::before {
+      content: "";
+      position: absolute;
+      inset: 1px 2px auto 2px;
+      height: 60%;
+      border-radius: inherit;
+      background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.08));
+    }
+
+    .d1 { left: 44%; animation-duration: 5.4s; animation-delay: -0.8s; }
+    .d2 { left: 49%; animation-duration: 6s; animation-delay: -2.2s; height: 20px; width: 8px; }
+    .d3 { left: 54%; animation-duration: 5.8s; animation-delay: -1.4s; }
+    .d4 { left: 41%; animation-duration: 6.4s; animation-delay: -3.1s; height: 18px; width: 7px; }
+    .d5 { left: 57%; animation-duration: 6.2s; animation-delay: -2.5s; height: 16px; width: 7px; }
+
     .viz-core {
       position: relative;
       width: min(58vw, 420px);
@@ -354,6 +386,7 @@
       align-items: center;
       justify-content: center;
       filter: drop-shadow(0 0 28px rgba(35, 52, 62, 0.22));
+      pointer-events: auto;
     }
 
     .viz-ring {
@@ -434,20 +467,56 @@
 
     .viz-center {
       position: relative;
-      width: 45%;
-      height: 45%;
+      width: 48%;
+      height: 48%;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.92), rgba(232,238,240,0.62));
+      background: radial-gradient(circle, rgba(255,255,255,0.94), rgba(232,238,240,0.66));
       box-shadow: 0 14px 40px rgba(48,72,86,0.20);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 18px;
+      padding: 14px 12px 16px;
       color: var(--deep);
       font-weight: 700;
-      line-height: 1.45;
-      font-size: clamp(0.92rem, 2vw, 1.08rem);
+      line-height: 1.4;
+      font-size: clamp(0.9rem, 2vw, 1.04rem);
+      gap: 12px;
+    }
+
+    .viz-title {
+      max-width: 90%;
+    }
+
+    .viz-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .viz-btn {
+      width: 38px;
+      height: 38px;
+      border: 0;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(69, 96, 111, 0.96), rgba(96, 121, 134, 0.92));
+      color: white;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 18px rgba(48,72,86,0.22);
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .viz-btn:hover {
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+    }
+
+    .viz-btn:active {
+      transform: translateY(0);
     }
 
     .now-playing {
@@ -537,6 +606,13 @@
       100% { transform: rotate(-8deg) translateY(0px); }
     }
 
+    @keyframes rainFall {
+      0%   { transform: translateY(0) scale(0.9); opacity: 0; }
+      12%  { opacity: 0.75; }
+      88%  { opacity: 0.7; }
+      100% { transform: translateY(120vh) scale(1.05); opacity: 0; }
+    }
+
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; }
       .hero-art { min-height: 210px; }
@@ -563,6 +639,11 @@
         min-width: 220px;
         min-height: 220px;
       }
+      .viz-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 0.92rem;
+      }
     }
   </style>
 </head>
@@ -575,13 +656,27 @@
 
   <div class="visualizer" id="visualizer" aria-hidden="true">
     <div class="viz-backdrop"></div>
+    <div class="viz-droplets" aria-hidden="true">
+      <span class="drop d1"></span>
+      <span class="drop d2"></span>
+      <span class="drop d3"></span>
+      <span class="drop d4"></span>
+      <span class="drop d5"></span>
+    </div>
     <div class="viz-core">
       <div class="viz-ring r1"></div>
       <div class="viz-ring r2"></div>
       <div class="viz-ring r3"></div>
       <div class="viz-ring r4"></div>
       <div class="viz-wave"></div>
-      <div class="viz-center" id="vizCenter">לא מתנגן כעת</div>
+      <div class="viz-center">
+        <div class="viz-title" id="vizCenter">לא מתנגן כעת</div>
+        <div class="viz-controls">
+          <button class="viz-btn" id="vizPlay" aria-label="נגן">▶</button>
+          <button class="viz-btn" id="vizPause" aria-label="השהה">⏸</button>
+          <button class="viz-btn" id="vizStop" aria-label="עצור">⏹</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -711,12 +806,26 @@
     const stopAll = document.getElementById('stopAll');
     const visualizer = document.getElementById('visualizer');
     const vizCenter = document.getElementById('vizCenter');
+    const vizPlay = document.getElementById('vizPlay');
+    const vizPause = document.getElementById('vizPause');
+    const vizStop = document.getElementById('vizStop');
+
+    let currentAudio = null;
+    let currentTitle = '';
 
     function setIdle(audio) {
       const btn = document.querySelector(`[data-audio="${audio.id}"]`);
       const status = document.getElementById(`status-${audio.id}`);
       if (btn) btn.textContent = '▶︎ נגן';
       if (status) status.textContent = 'מוכן';
+    }
+
+    function getButtonForAudio(audio) {
+      return document.querySelector(`[data-audio="${audio.id}"]`);
+    }
+
+    function getStatusForAudio(audio) {
+      return document.getElementById(`status-${audio.id}`);
     }
 
     function showVisualizer(title) {
@@ -741,12 +850,59 @@
       });
     }
 
+    function playAudio(audio, title) {
+      const btn = getButtonForAudio(audio);
+      const status = getStatusForAudio(audio);
+      stopOtherAudios(audio.id);
+      currentAudio = audio;
+      currentTitle = title;
+
+      audio.play().then(() => {
+        if (btn) btn.textContent = '❚❚ עצור';
+        if (status) status.textContent = 'מנגן';
+        npTitle.textContent = title;
+        npSub.textContent = 'מתנגן כעת';
+        showVisualizer(title);
+      }).catch(() => {
+        if (status) status.textContent = 'לא ניתן לנגן';
+        npTitle.textContent = 'שגיאה בניגון';
+        npSub.textContent = 'ודא/י שקובץ ה־MP3 קיים בתיקיית audio';
+        hideVisualizer();
+      });
+    }
+
+    function pauseCurrent() {
+      if (!currentAudio) return;
+      currentAudio.pause();
+      const btn = getButtonForAudio(currentAudio);
+      const status = getStatusForAudio(currentAudio);
+      if (btn) btn.textContent = '▶︎ נגן';
+      if (status) status.textContent = 'הושהה';
+      npTitle.textContent = currentTitle || 'לא מתנגן כעת';
+      npSub.textContent = 'הושהה';
+      hideVisualizer();
+    }
+
+    function stopCurrent() {
+      if (!currentAudio) return;
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      setIdle(currentAudio);
+      currentAudio = null;
+      currentTitle = '';
+      npTitle.textContent = 'לא מתנגן כעת';
+      npSub.textContent = 'בחר/י תרגיל כדי להתחיל';
+      hideVisualizer();
+    }
+
     function stopEverything() {
       audios.forEach(audio => {
         audio.pause();
         audio.currentTime = 0;
         setIdle(audio);
       });
+      currentAudio = null;
+      currentTitle = '';
       npTitle.textContent = 'לא מתנגן כעת';
       npSub.textContent = 'בחר/י תרגיל כדי להתחיל';
       hideVisualizer();
@@ -758,22 +914,9 @@
       const title = button.dataset.title;
       const status = document.getElementById(`status-${audioId}`);
 
-      button.addEventListener('click', async () => {
+      button.addEventListener('click', () => {
         if (audio.paused) {
-          stopOtherAudios(audioId);
-          try {
-            await audio.play();
-            button.textContent = '❚❚ עצור';
-            status.textContent = 'מנגן';
-            npTitle.textContent = title;
-            npSub.textContent = 'מתנגן כעת';
-            showVisualizer(title);
-          } catch (e) {
-            status.textContent = 'לא ניתן לנגן';
-            npTitle.textContent = 'שגיאה בניגון';
-            npSub.textContent = 'ודא/י שקובץ ה־MP3 קיים בתיקיית audio';
-            hideVisualizer();
-          }
+          playAudio(audio, title);
         } else {
           audio.pause();
           button.textContent = '▶︎ נגן';
@@ -789,17 +932,23 @@
         status.textContent = 'הסתיים';
         npTitle.textContent = title;
         npSub.textContent = 'התרגיל הסתיים';
-        hideVisualizer();
-      });
-
-      audio.addEventListener('pause', () => {
-        const anyPlaying = Array.from(audios).some(a => !a.paused);
-        if (!anyPlaying && !audio.ended) {
-          hideVisualizer();
+        if (currentAudio === audio) {
+          currentAudio = null;
+          currentTitle = '';
         }
+        hideVisualizer();
       });
     });
 
+    vizPlay.addEventListener('click', () => {
+      if (!currentAudio && audios.length > 0) return;
+      if (currentAudio && currentAudio.paused) {
+        playAudio(currentAudio, currentTitle);
+      }
+    });
+
+    vizPause.addEventListener('click', pauseCurrent);
+    vizStop.addEventListener('click', stopCurrent);
     stopAll.addEventListener('click', stopEverything);
   </script>
 </body>
