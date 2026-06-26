@@ -489,6 +489,20 @@
       max-width: 90%;
     }
 
+    .viz-pause-message {
+      min-height: 1.2em;
+      color: #5f7280;
+      font-size: clamp(0.78rem, 1.6vw, 0.92rem);
+      font-weight: 700;
+      line-height: 1.35;
+      opacity: 0;
+      transition: opacity 180ms ease;
+    }
+
+    .viz-pause-message.active {
+      opacity: 1;
+    }
+
     .viz-controls {
       display: flex;
       align-items: center;
@@ -671,6 +685,7 @@
       <div class="viz-wave"></div>
       <div class="viz-center">
         <div class="viz-title" id="vizCenter">לא מתנגן כעת</div>
+        <div class="viz-pause-message" id="vizPauseMessage"></div>
         <div class="viz-controls">
           <button class="viz-btn" id="vizPlay" aria-label="נגן">▶</button>
           <button class="viz-btn" id="vizPause" aria-label="השהה">⏸</button>
@@ -806,6 +821,7 @@
     const stopAll = document.getElementById('stopAll');
     const visualizer = document.getElementById('visualizer');
     const vizCenter = document.getElementById('vizCenter');
+    const vizPauseMessage = document.getElementById('vizPauseMessage');
     const vizPlay = document.getElementById('vizPlay');
     const vizPause = document.getElementById('vizPause');
     const vizStop = document.getElementById('vizStop');
@@ -832,12 +848,24 @@
       bodyEl.classList.add('playing');
       visualizer.classList.add('active');
       vizCenter.textContent = title;
+      vizPauseMessage.textContent = '';
+      vizPauseMessage.classList.remove('active');
+    }
+
+    function showPausedVisualizer(title) {
+      bodyEl.classList.add('playing');
+      visualizer.classList.add('active');
+      vizCenter.textContent = title;
+      vizPauseMessage.textContent = 'השהייה — האם להמשיך או לסגור?';
+      vizPauseMessage.classList.add('active');
     }
 
     function hideVisualizer() {
       bodyEl.classList.remove('playing');
       visualizer.classList.remove('active');
       vizCenter.textContent = 'לא מתנגן כעת';
+      vizPauseMessage.textContent = '';
+      vizPauseMessage.classList.remove('active');
     }
 
     function stopOtherAudios(currentId) {
@@ -879,8 +907,8 @@
       if (btn) btn.textContent = '▶︎ נגן';
       if (status) status.textContent = 'הושהה';
       npTitle.textContent = currentTitle || 'לא מתנגן כעת';
-      npSub.textContent = 'הושהה';
-      hideVisualizer();
+      npSub.textContent = 'השהייה — האם להמשיך או לסגור?';
+      showPausedVisualizer(currentTitle || 'השהייה');
     }
 
     function stopCurrent() {
@@ -918,12 +946,14 @@
         if (audio.paused) {
           playAudio(audio, title);
         } else {
+          currentAudio = audio;
+          currentTitle = title;
           audio.pause();
           button.textContent = '▶︎ נגן';
           status.textContent = 'הושהה';
           npTitle.textContent = title;
-          npSub.textContent = 'הושהה';
-          hideVisualizer();
+          npSub.textContent = 'השהייה — האם להמשיך או לסגור?';
+          showPausedVisualizer(title);
         }
       });
 
