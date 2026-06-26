@@ -24,6 +24,9 @@
       --radius-xl: 34px;
       --radius-lg: 26px;
       --radius-md: 18px;
+      --viz1: rgba(54, 76, 90, 0.70);
+      --viz2: rgba(89, 112, 126, 0.56);
+      --viz3: rgba(115, 138, 148, 0.34);
     }
 
     * { box-sizing: border-box; }
@@ -151,7 +154,7 @@
     }
 
     .scene-card {
-      width: min(100%, 560px);
+      width: min(100%, 336px);
       border-radius: 32px;
       padding: 10px;
       background:
@@ -315,6 +318,140 @@
 
     audio { display: none; }
 
+    .visualizer {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .visualizer.active {
+      display: flex;
+    }
+
+    .viz-backdrop {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.06), rgba(29,51,64,0.03) 45%, rgba(29,51,64,0.10) 100%);
+    }
+
+    .viz-marquee {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      opacity: 0.17;
+    }
+
+    .viz-marquee-track {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      font-size: clamp(2.2rem, 6vw, 5rem);
+      font-weight: 700;
+      color: #314c5b;
+      animation: marqueeMove 22s linear infinite;
+      letter-spacing: 0.04em;
+    }
+
+    .viz-core {
+      position: relative;
+      width: min(52vw, 360px);
+      height: min(52vw, 360px);
+      min-width: 220px;
+      min-height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .viz-ring,
+    .viz-ring::before,
+    .viz-ring::after {
+      position: absolute;
+      border-radius: 50%;
+      border-style: solid;
+      content: "";
+      inset: 0;
+    }
+
+    .viz-ring {
+      border-width: 3px;
+      border-color: var(--viz1) transparent var(--viz2) transparent;
+      animation: spinSlow 13s linear infinite;
+      filter: drop-shadow(0 0 18px rgba(48,72,86,0.18));
+    }
+
+    .viz-ring::before {
+      inset: 18px;
+      border-width: 2px;
+      border-color: transparent var(--viz2) transparent var(--viz3);
+      animation: spinReverse 10s linear infinite;
+    }
+
+    .viz-ring::after {
+      inset: 42px;
+      border-width: 2px;
+      border-color: var(--viz3) transparent var(--viz1) transparent;
+      animation: pulseSpin 8s ease-in-out infinite;
+    }
+
+    .viz-waves,
+    .viz-waves::before,
+    .viz-waves::after {
+      position: absolute;
+      content: "";
+      width: 74%;
+      height: 34%;
+      border: 3px solid rgba(70, 90, 103, 0.46);
+      border-color: rgba(70, 90, 103, 0.46) transparent transparent transparent;
+      border-radius: 50%;
+      left: 13%;
+      top: 33%;
+    }
+
+    .viz-waves {
+      transform: rotate(-8deg);
+      animation: waveDrift 5.8s ease-in-out infinite;
+    }
+
+    .viz-waves::before {
+      top: 18px;
+      left: -2px;
+      transform: scale(0.88);
+      opacity: 0.8;
+      animation: waveDrift 6.6s ease-in-out infinite reverse;
+    }
+
+    .viz-waves::after {
+      top: 36px;
+      left: 2px;
+      transform: scale(0.74);
+      opacity: 0.65;
+      animation: waveDrift 7.2s ease-in-out infinite;
+    }
+
+    .viz-center {
+      position: relative;
+      width: 44%;
+      height: 44%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.78), rgba(233,240,242,0.38));
+      box-shadow: 0 10px 28px rgba(48,72,86,0.16);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 18px;
+      color: var(--deep);
+      font-weight: 700;
+      line-height: 1.4;
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+    }
+
     .now-playing {
       position: sticky;
       bottom: 14px;
@@ -380,10 +517,37 @@
       font-weight: 700;
     }
 
+    @keyframes marqueeMove {
+      from { transform: translate(28%, -50%); }
+      to   { transform: translate(-68%, -50%); }
+    }
+
+    @keyframes spinSlow {
+      from { transform: rotate(0deg) scale(1); }
+      to   { transform: rotate(360deg) scale(1.02); }
+    }
+
+    @keyframes spinReverse {
+      from { transform: rotate(360deg) scale(1.02); }
+      to   { transform: rotate(0deg) scale(0.98); }
+    }
+
+    @keyframes pulseSpin {
+      0%   { transform: rotate(0deg) scale(0.96); opacity: 0.72; }
+      50%  { transform: rotate(180deg) scale(1.04); opacity: 1; }
+      100% { transform: rotate(360deg) scale(0.96); opacity: 0.72; }
+    }
+
+    @keyframes waveDrift {
+      0%   { transform: rotate(-8deg) translateY(0px); }
+      50%  { transform: rotate(6deg) translateY(-6px); }
+      100% { transform: rotate(-8deg) translateY(0px); }
+    }
+
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; }
       .hero-art { min-height: 210px; }
-      .scene-card { width: min(100%, 520px); }
+      .scene-card { width: min(100%, 312px); }
       .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
@@ -400,6 +564,12 @@
       .play-row { justify-content: space-between; }
       .play { min-width: 122px; }
       .now-playing { bottom: 9px; border-radius: 22px; }
+      .viz-core {
+        width: min(70vw, 300px);
+        height: min(70vw, 300px);
+        min-width: 200px;
+        min-height: 200px;
+      }
     }
   </style>
 </head>
@@ -409,6 +579,18 @@
     <path d="M-70 610 C 170 470, 334 548, 520 670 S 924 820, 1130 620 S 1442 476, 1510 650" fill="none" stroke="var(--line)" stroke-width="6" stroke-linecap="round" />
     <path d="M70 1030 C 278 860, 430 922, 620 1048 S 940 1210, 1210 984" fill="none" stroke="var(--line)" stroke-width="6" stroke-linecap="round" />
   </svg>
+
+  <div class="visualizer" id="visualizer" aria-hidden="true">
+    <div class="viz-backdrop"></div>
+    <div class="viz-marquee">
+      <div class="viz-marquee-track" id="vizMarquee">לא מתנגן כעת • לא מתנגן כעת • לא מתנגן כעת •</div>
+    </div>
+    <div class="viz-core">
+      <div class="viz-ring"></div>
+      <div class="viz-waves"></div>
+      <div class="viz-center" id="vizCenter">לא מתנגן כעת</div>
+    </div>
+  </div>
 
   <main class="shell">
     <header class="hero">
@@ -533,12 +715,27 @@
     const npTitle = document.getElementById('np-title');
     const npSub = document.getElementById('np-sub');
     const stopAll = document.getElementById('stopAll');
+    const visualizer = document.getElementById('visualizer');
+    const vizCenter = document.getElementById('vizCenter');
+    const vizMarquee = document.getElementById('vizMarquee');
 
     function setIdle(audio) {
       const btn = document.querySelector(`[data-audio="${audio.id}"]`);
       const status = document.getElementById(`status-${audio.id}`);
       if (btn) btn.textContent = '▶︎ נגן';
       if (status) status.textContent = 'מוכן';
+    }
+
+    function showVisualizer(title, stateText = 'מתנגן כעת') {
+      visualizer.classList.add('active');
+      vizCenter.textContent = title;
+      vizMarquee.textContent = `${title} • ${stateText} • ${title} • ${stateText} • ${title} •`;
+    }
+
+    function hideVisualizer() {
+      visualizer.classList.remove('active');
+      vizCenter.textContent = 'לא מתנגן כעת';
+      vizMarquee.textContent = 'לא מתנגן כעת • לא מתנגן כעת • לא מתנגן כעת •';
     }
 
     function stopOtherAudios(currentId) {
@@ -559,6 +756,7 @@
       });
       npTitle.textContent = 'לא מתנגן כעת';
       npSub.textContent = 'בחר/י תרגיל כדי להתחיל';
+      hideVisualizer();
     }
 
     buttons.forEach(button => {
@@ -576,10 +774,12 @@
             status.textContent = 'מנגן';
             npTitle.textContent = title;
             npSub.textContent = 'מתנגן כעת';
+            showVisualizer(title, 'מתנגן כעת');
           } catch (e) {
             status.textContent = 'לא ניתן לנגן';
             npTitle.textContent = 'שגיאה בניגון';
             npSub.textContent = 'ודא/י שקובץ ה־MP3 קיים בתיקיית audio';
+            hideVisualizer();
           }
         } else {
           audio.pause();
@@ -587,6 +787,7 @@
           status.textContent = 'הושהה';
           npTitle.textContent = title;
           npSub.textContent = 'הושהה';
+          hideVisualizer();
         }
       });
 
@@ -595,6 +796,16 @@
         status.textContent = 'הסתיים';
         npTitle.textContent = title;
         npSub.textContent = 'התרגיל הסתיים';
+        hideVisualizer();
+      });
+
+      audio.addEventListener('pause', () => {
+        if (audio.currentTime > 0 && !audio.ended) {
+          const anyPlaying = Array.from(audios).some(a => !a.paused);
+          if (!anyPlaying) {
+            hideVisualizer();
+          }
+        }
       });
     });
 
