@@ -533,6 +533,10 @@
       transform: translateY(0);
     }
 
+    .viz-btn.hidden {
+      display: none;
+    }
+
     .now-playing {
       position: sticky;
       bottom: 14px;
@@ -687,7 +691,7 @@
         <div class="viz-title" id="vizCenter">לא מתנגן כעת</div>
         <div class="viz-pause-message" id="vizPauseMessage"></div>
         <div class="viz-controls">
-          <button class="viz-btn" id="vizPlay" aria-label="נגן">▶</button>
+          <button class="viz-btn hidden" id="vizPlay" aria-label="נגן">▶</button>
           <button class="viz-btn" id="vizPause" aria-label="השהה">⏸</button>
           <button class="viz-btn" id="vizStop" aria-label="עצור">⏹</button>
         </div>
@@ -850,14 +854,16 @@
       vizCenter.textContent = title;
       vizPauseMessage.textContent = '';
       vizPauseMessage.classList.remove('active');
+      setVisualizerControls('playing');
     }
 
     function showPausedVisualizer(title) {
       bodyEl.classList.add('playing');
       visualizer.classList.add('active');
       vizCenter.textContent = title;
-      vizPauseMessage.textContent = 'השהייה — האם להמשיך או לסגור?';
+      vizPauseMessage.textContent = 'השהייה — האם להמשיך?';
       vizPauseMessage.classList.add('active');
+      setVisualizerControls('paused');
     }
 
     function hideVisualizer() {
@@ -866,6 +872,18 @@
       vizCenter.textContent = 'לא מתנגן כעת';
       vizPauseMessage.textContent = '';
       vizPauseMessage.classList.remove('active');
+      setVisualizerControls('playing');
+    }
+
+    function setVisualizerControls(mode) {
+      if (mode === 'paused') {
+        vizPlay.classList.remove('hidden');
+        vizPause.classList.add('hidden');
+      } else {
+        vizPlay.classList.add('hidden');
+        vizPause.classList.remove('hidden');
+      }
+      vizStop.classList.remove('hidden');
     }
 
     function stopOtherAudios(currentId) {
@@ -907,7 +925,7 @@
       if (btn) btn.textContent = '▶︎ נגן';
       if (status) status.textContent = 'הושהה';
       npTitle.textContent = currentTitle || 'לא מתנגן כעת';
-      npSub.textContent = 'השהייה — האם להמשיך או לסגור?';
+      npSub.textContent = 'השהייה — האם להמשיך?';
       showPausedVisualizer(currentTitle || 'השהייה');
     }
 
@@ -952,7 +970,7 @@
           button.textContent = '▶︎ נגן';
           status.textContent = 'הושהה';
           npTitle.textContent = title;
-          npSub.textContent = 'השהייה — האם להמשיך או לסגור?';
+          npSub.textContent = 'השהייה — האם להמשיך?';
           showPausedVisualizer(title);
         }
       });
