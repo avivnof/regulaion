@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מרחב של רוגע</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f1ed;
+      color: #222;
+      direction: rtl;
+    }
+
+    .hero {
+      padding: 45px 22px 35px;
+      text-align: center;
+      background: linear-gradient(135deg, #d9e7e3, #f2dfcf);
+      border-bottom-left-radius: 35px;
+      border-bottom-right-radius: 35px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    .hero p {
+      margin-top: 10px;
+      font-size: 17px;
+      color: #555;
+    }
+
+    .container {
+      padding: 22px;
+      max-width: 520px;
+      margin: auto;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+
+    .track {
+      background: white;
+      border-radius: 22px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    .track-title {
+      font-size: 21px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .track-info {
+      font-size: 15px;
+      color: #777;
+      margin-bottom: 14px;
+    }
+
+    audio {
+      width: 100%;
+    }
+
+    .notice {
+      margin-top: 25px;
+      padding: 16px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #555;
+      background: #ffffffaa;
+      border-radius: 18px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="hero">
+    <h1>מרחב של רוגע</h1>
+    <p>הרפיות מוקלטות להקשבה מיטיבה</p>
+  </section>
+
+  <main class="container">
+    <h2>בחר/י הרפיה</h2>
+
+    <div class="track">
+      <div class="track-title">הרפיית נשימה</div>
+      <div class="track-info">תרגול נשימה קצר להרגעה</div>
+      <audio controls>
+        <source src="audio/breathing.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="track">
+      <div class="track-title">סריקת גוף</div>
+      <div class="track-info">הרפיה מודרכת דרך הגוף</div>
+      <audio controls>
+        <source src="audio/body-scan.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="track">
+      <div class="track-title">הרפיה לפני שינה</div>
+      <div class="track-info">תרגול רגוע לסיום היום</div>
+      <audio controls>
+        <source src="audio/sleep.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="notice">
+      ההקלטות מיועדות לתרגול אישי ולהרגעה כללית. הן אינן מהוות תחליף לייעוץ, אבחון או טיפול רפואי או נפשי.
+    </div>
+  </main>
+
+</body>
+</html>
