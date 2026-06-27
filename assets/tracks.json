@@ -1,47 +1,56 @@
 [
-  {
-    "id": "progressive-muscle-relaxation",
-    "title": "הרפיית שרירים פרוגרסיבית",
-    "description": "הרפייה על שם ג'ייקובסון",
-    "icon": "〰️",
-    "audio": "audio/progressive-muscle-relaxation.mp3",
-    "updated": "27.06.2026, 08:52",
-    "status": "ready"
-  },
-  {
-    "id": "mindfulness",
-    "title": "תרגול מיינדפולנס",
-    "description": "תרגיל מיידפולנס בהתסס על המודולה של בארלו בפרוטוקול המאוחר",
-    "icon": "◌",
-    "audio": "audio/mindfulness.mp3",
-    "updated": "27.06.2026, 08:52",
-    "status": "ready"
-  },
-  {
-    "id": "diaphragmatic-breathing",
-    "title": "הרפיית נשימה סרעפתית",
-    "description": "נשימה שמעודדת קוהרנטיות של קצב הלב",
-    "icon": "🌬️",
-    "audio": "audio/diaphragmatic-breathing.mp3",
-    "updated": "טרם עודכן",
-    "status": "preparing"
-  },
-  {
-    "id": "short-relaxation",
-    "title": "הרפיה מקוצרת",
-    "description": "תרגול קצר ועוצמתי.",
-    "icon": "⚡",
-    "audio": "audio/short-relaxation.mp3",
-    "updated": "טרם הועלה קובץ",
-    "status": "preparing"
-  },
-  {
-    "id": "thin-smoke",
-    "title": "עשן דק",
-    "description": "רצף פעולות להרפייה יעילה מבית מדרשו של פרופ' דני חמיאל",
-    "icon": "🌫️",
-    "audio": "audio/thin-smoke.mp3",
-    "updated": "טרם הועלה קובץ",
-    "status": "preparing"
-  }
+{
+"id": "progressive-muscle-relaxation",
+"title": "הרפיית שרירים פרוגרסיבית",
+"description": "הרפיה על שם ג'ייקובסון",
+"icon": "〰️",
+"audio": "audio/progressive-muscle-relaxation.mp3",
+"updated": "27.06.2026, 08:52",
+"status": "ready"
+},
+{
+"id": "mindfulness",
+"title": "תרגול מיינדפולנס",
+"description": "תרגיל מיינדפולנס בהתבסס על המודולה של בארלו בפרוטוקול המאוחד",
+"icon": "◌",
+"audio": "audio/mindfulness.mp3",
+"updated": "27.06.2026, 08:52",
+"status": "ready"
+},
+{
+"id": "diaphragmatic-breathing",
+"title": "הרפיית נשימה סרעפתית",
+"description": "נשימה שמעודדת קוהרנטיות של קצב הלב",
+"icon": "🌬️",
+"audio": "audio/diaphragmatic-breathing.mp3",
+"updated": "טרם עודכן",
+"status": "preparing"
+},
+{
+"id": "diaphragmatic-breathing-holds",
+"title": "נשימה סרעפתית עם עצירות",
+"description": "הגברת זמינות הפחמן הדו-חמצני וקוהרנטיות קצב הלב",
+"icon": "🫧",
+"audio": "audio/diaphragmatic-breathing-holds.mp3",
+"updated": "טרם הועלה קובץ",
+"status": "preparing"
+},
+{
+"id": "short-relaxation",
+"title": "הרפיה מקוצרת",
+"description": "תרגול קצר ועוצמתי.",
+"icon": "⚡",
+"audio": "audio/short-relaxation.mp3",
+"updated": "טרם הועלה קובץ",
+"status": "preparing"
+},
+{
+"id": "thin-smoke",
+"title": "עשן דק",
+"description": "רצף פעולות להרפיה יעילה מבית מדרשו של פרופ' דני חמיאל",
+"icon": "🌫️",
+"audio": "audio/thin-smoke.mp3",
+"updated": "טרם הועלה קובץ",
+"status": "preparing"
+}
 ]
