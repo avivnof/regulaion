@@ -508,16 +508,16 @@
     }
 
     .cue-display {
-      width: 90%;
-      min-height: 5.8em;
+      width: 92%;
+      min-height: 6.2em;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 8px 10px;
+      padding: 6px 10px;
       color: #163746;
-      font-size: clamp(1.34rem, 5vw, 1.86rem);
+      font-size: clamp(1.62rem, 6.4vw, 2.35rem);
       font-weight: 900;
-      line-height: 1.42;
+      line-height: 1.32;
       text-align: center;
       text-wrap: balance;
       opacity: 0;
@@ -766,10 +766,10 @@
       }
 
       .cue-display {
-        width: 94%;
-        min-height: 6em;
-        font-size: clamp(1.36rem, 6vw, 1.78rem);
-        line-height: 1.42;
+        width: 96%;
+        min-height: 6.4em;
+        font-size: clamp(1.72rem, 7.8vw, 2.35rem);
+        line-height: 1.28;
       }
 
       .viz-btn {
@@ -791,7 +791,7 @@
 
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 105 <span>(27.06.2026, 11:52)</span></div>
+        <div class="version-line">גרסה מס׳ 106 <span>(27.06.2026, 12:05)</span></div>
       </div>
 
       <div class="hero-art">
@@ -994,7 +994,7 @@
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=105', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=106', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
@@ -1005,7 +1005,7 @@
 
     async function loadCues() {
       try {
-        const response = await fetch('assets/cues.json?v=105', { cache: 'no-store' });
+        const response = await fetch('assets/cues.json?v=106', { cache: 'no-store' });
         if (!response.ok) throw new Error('cues.json not found');
         const data = await response.json();
         return data && typeof data === 'object' ? data : {};
@@ -1053,12 +1053,6 @@
 
       clearTimeout(cueTransitionTimer);
 
-      /*
-        תיקון חשוב:
-        מעדכנים את activeCueKey מיד, ולא רק אחרי הדיזולב.
-        אחרת timeupdate של האודיו מפעיל שוב ושוב את אותו מעבר,
-        והטקסט לא מספיק להופיע.
-      */
       activeCueKey = key || '';
 
       cueDisplay.classList.add('leaving');
