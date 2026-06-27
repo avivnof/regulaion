@@ -209,7 +209,8 @@
       box-shadow: 0 9px 20px rgba(48,72,86,0.11);
       display: grid;
       place-items: center;
-      font-size: 1.9rem;
+      font-size: 2.75rem;
+      line-height: 1;
       flex: 0 0 auto;
     }
 
@@ -791,7 +792,7 @@
 
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 106 <span>(27.06.2026, 12:05)</span></div>
+        <div class="version-line">גרסה מס׳ 109 <span>(27.06.2026, 12:20)</span></div>
       </div>
 
       <div class="hero-art">
@@ -899,20 +900,20 @@
 
     const fallbackTracks = [
       {
+        id: "mindfulness",
+        title: "תרגול מיינדפולנס",
+        description: "תרגיל מיינדפולנס בהתבסס על המודולה של בארלו בפרוטוקול המאוחד",
+        icon: "念",
+        audio: "audio/mindfulness.mp3",
+        updated: "27.06.2026, 08:52",
+        status: "ready"
+      },
+      {
         id: "progressive-muscle-relaxation",
         title: "הרפיית שרירים פרוגרסיבית",
         description: "הרפיה על שם ג'ייקובסון",
         icon: "〰️",
         audio: "audio/progressive-muscle-relaxation.mp3",
-        updated: "27.06.2026, 08:52",
-        status: "ready"
-      },
-      {
-        id: "mindfulness",
-        title: "תרגול מיינדפולנס",
-        description: "תרגיל מיינדפולנס בהתבסס על המודולה של בארלו בפרוטוקול המאוחד",
-        icon: "◌",
-        audio: "audio/mindfulness.mp3",
         updated: "27.06.2026, 08:52",
         status: "ready"
       },
@@ -994,7 +995,7 @@
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=106', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=109', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
@@ -1005,7 +1006,7 @@
 
     async function loadCues() {
       try {
-        const response = await fetch('assets/cues.json?v=106', { cache: 'no-store' });
+        const response = await fetch('assets/cues.json?v=109', { cache: 'no-store' });
         if (!response.ok) throw new Error('cues.json not found');
         const data = await response.json();
         return data && typeof data === 'object' ? data : {};
