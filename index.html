@@ -346,7 +346,7 @@
       align-items: center;
       justify-content: center;
       pointer-events: none;
-      padding: 10px;
+      padding: 6px;
     }
 
     .visualizer.active {
@@ -390,14 +390,100 @@
     .viz-layout {
       position: relative;
       z-index: 5;
-      width: min(98vw, 1040px);
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      align-items: center;
+      justify-items: center;
+      gap: 4px;
+      pointer-events: auto;
+    }
+
+    .viz-progress-panel {
+      width: min(92vw, 920px);
+      margin-top: 8px;
+      padding: 9px 16px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(255,255,255,0.76);
+      box-shadow: 0 10px 24px rgba(31,92,120,0.14);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      direction: ltr;
+    }
+
+    .progress-time {
+      min-width: 47px;
+      color: #173846;
+      font-size: 0.82rem;
+      font-weight: 900;
+      direction: ltr;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .progress-range {
+      width: 100%;
+      accent-color: #4e9fb0;
+      cursor: pointer;
+    }
+
+    .progress-range::-webkit-slider-runnable-track {
+      height: 9px;
+      border-radius: 999px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.10)),
+        rgba(77, 129, 145, 0.28);
+      box-shadow: inset 0 1px 2px rgba(30,70,85,0.20);
+    }
+
+    .progress-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 23px;
+      height: 23px;
+      margin-top: -7px;
+      border-radius: 50%;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.25)),
+        #4e9fb0;
+      border: 2px solid rgba(255,255,255,0.95);
+      box-shadow:
+        0 5px 12px rgba(31,92,120,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.72);
+    }
+
+    .progress-range::-moz-range-track {
+      height: 9px;
+      border-radius: 999px;
+      background: rgba(77, 129, 145, 0.28);
+      box-shadow: inset 0 1px 2px rgba(30,70,85,0.20);
+    }
+
+    .progress-range::-moz-range-thumb {
+      width: 21px;
+      height: 21px;
+      border-radius: 50%;
+      background: #4e9fb0;
+      border: 2px solid rgba(255,255,255,0.95);
+      box-shadow: 0 5px 12px rgba(31,92,120,0.35);
+    }
+
+    .viz-main-row {
+      width: min(100vw, 1180px);
+      height: 100%;
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      gap: 18px;
+      gap: 14px;
       direction: ltr;
       pointer-events: auto;
+      min-height: 0;
     }
 
     .viz-side {
@@ -489,8 +575,8 @@
 
     .viz-core {
       position: relative;
-      width: min(calc(98vw - 240px), 82vh, 820px);
-      height: min(calc(98vw - 240px), 82vh, 820px);
+      width: min(calc(100vw - 225px), calc(100vh - 76px), 980px);
+      height: min(calc(100vw - 225px), calc(100vh - 76px), 980px);
       min-width: 360px;
       min-height: 360px;
       display: flex;
@@ -860,12 +946,31 @@
 
     @media (max-width: 720px) {
       .visualizer {
-        padding: 6px 4px;
+        padding: 4px;
       }
 
       .viz-layout {
         width: 100vw;
-        gap: 10px;
+        height: 100vh;
+        grid-template-rows: auto 1fr;
+        gap: 2px;
+      }
+
+      .viz-progress-panel {
+        width: 96vw;
+        margin-top: 5px;
+        padding: 7px 10px 8px;
+        gap: 8px;
+      }
+
+      .progress-time {
+        min-width: 42px;
+        font-size: 0.74rem;
+      }
+
+      .viz-main-row {
+        width: 100vw;
+        gap: 8px;
       }
 
       .viz-side {
@@ -903,8 +1008,8 @@
       }
 
       .viz-core {
-        width: min(calc(100vw - 132px), 76vh, 560px);
-        height: min(calc(100vw - 132px), 76vh, 560px);
+        width: min(calc(100vw - 126px), calc(100vh - 58px), 680px);
+        height: min(calc(100vw - 126px), calc(100vh - 58px), 680px);
         min-width: 260px;
         min-height: 260px;
       }
@@ -1027,7 +1132,7 @@
 
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 122 <span>(27.06.2026, כפתורי נגן גדולים ותלת־ממדיים)</span></div>
+        <div class="version-line">גרסה מס׳ 123 <span>(27.06.2026, הגדלת עיגול ותמונה והוספת פס התקדמות)</span></div>
       </div>
 
       <div class="hero-art">
@@ -1063,38 +1168,46 @@
     </div>
 
     <div class="viz-layout">
-      <div class="viz-side">
-        <div class="viz-info">
-          <div class="viz-title" id="vizCenter">לא מתנגן כעת</div>
-          <div class="viz-timer" id="vizTimer">00:00 / 00:00</div>
-        </div>
-
-        <div class="viz-pause-message" id="vizPauseMessage"></div>
-
-        <div class="viz-controls">
-          <button class="viz-btn hidden" id="vizPlay" type="button" aria-label="המשך">▶</button>
-          <button class="viz-btn" id="vizPause" type="button" aria-label="השהה">❚❚</button>
-          <button class="viz-btn" id="vizStop" type="button" aria-label="עצור">■</button>
-        </div>
+      <div class="viz-progress-panel">
+        <span class="progress-time" id="progressCurrent">00:00</span>
+        <input class="progress-range" id="progressRange" type="range" min="0" max="1000" value="0" step="1" aria-label="פס התקדמות" />
+        <span class="progress-time" id="progressDuration">00:00</span>
       </div>
 
-      <div class="viz-core">
-        <button class="viz-close" id="vizClose" type="button" aria-label="סגור ועצור">×</button>
+      <div class="viz-main-row">
+        <div class="viz-side">
+          <div class="viz-info">
+            <div class="viz-title" id="vizCenter">לא מתנגן כעת</div>
+            <div class="viz-timer" id="vizTimer">00:00 / 00:00</div>
+          </div>
 
-        <div class="viz-ring r1"></div>
-        <div class="viz-ring r2"></div>
-        <div class="viz-ring r3"></div>
-        <div class="viz-ring r4"></div>
-        <div class="viz-wave"></div>
+          <div class="viz-pause-message" id="vizPauseMessage"></div>
 
-        <div class="viz-center">
-          <div class="cue-stage" id="cueStage" aria-live="polite"></div>
+          <div class="viz-controls">
+            <button class="viz-btn hidden" id="vizPlay" type="button" aria-label="המשך">▶</button>
+            <button class="viz-btn" id="vizPause" type="button" aria-label="השהה">❚❚</button>
+            <button class="viz-btn" id="vizStop" type="button" aria-label="עצור">■</button>
+          </div>
+        </div>
 
-          <div class="breath-coach" id="breathCoach">
-            <div class="breath-phase" id="breathPhase">שאיפה דרך האף</div>
-            <div class="breath-instruction" id="breathInstruction">הבטן עולה קלות</div>
-            <div class="breath-circle" id="breathCircle">
-              <div class="breath-count" id="breathCount">3</div>
+        <div class="viz-core">
+          <button class="viz-close" id="vizClose" type="button" aria-label="סגור ועצור">×</button>
+
+          <div class="viz-ring r1"></div>
+          <div class="viz-ring r2"></div>
+          <div class="viz-ring r3"></div>
+          <div class="viz-ring r4"></div>
+          <div class="viz-wave"></div>
+
+          <div class="viz-center">
+            <div class="cue-stage" id="cueStage" aria-live="polite"></div>
+
+            <div class="breath-coach" id="breathCoach">
+              <div class="breath-phase" id="breathPhase">שאיפה דרך האף</div>
+              <div class="breath-instruction" id="breathInstruction">הבטן עולה קלות</div>
+              <div class="breath-circle" id="breathCircle">
+                <div class="breath-count" id="breathCount">3</div>
+              </div>
             </div>
           </div>
         </div>
@@ -1111,6 +1224,10 @@
     const vizPauseMessage = document.getElementById('vizPauseMessage');
     const vizTimer = document.getElementById('vizTimer');
     const cueStage = document.getElementById('cueStage');
+
+    const progressRange = document.getElementById('progressRange');
+    const progressCurrent = document.getElementById('progressCurrent');
+    const progressDuration = document.getElementById('progressDuration');
 
     const breathCoach = document.getElementById('breathCoach');
     const breathPhase = document.getElementById('breathPhase');
@@ -1134,6 +1251,7 @@
     let cueTransitionTimer = null;
     let cueCheckInterval = null;
     let timerInterval = null;
+    let isSeeking = false;
 
     let breathTimer = null;
     let breathPhaseMode = 'inhale';
@@ -1249,7 +1367,7 @@
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=122', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=123', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
@@ -1260,7 +1378,7 @@
 
     async function loadCues() {
       try {
-        const response = await fetch('assets/cues.json?v=122', { cache: 'no-store' });
+        const response = await fetch('assets/cues.json?v=123', { cache: 'no-store' });
         if (!response.ok) throw new Error('cues.json not found');
         const data = await response.json();
 
@@ -1402,6 +1520,32 @@
       cueStage.classList.remove('active', 'leaving');
     }
 
+    function updateProgressDisplay() {
+      if (!currentAudio || !progressRange || !progressCurrent || !progressDuration) {
+        return;
+      }
+
+      const elapsed = currentAudio.currentTime || 0;
+      const duration = currentAudio.duration || 0;
+
+      progressCurrent.textContent = formatTime(elapsed);
+      progressDuration.textContent = formatTime(duration);
+
+      if (!isSeeking && Number.isFinite(duration) && duration > 0) {
+        progressRange.value = String(Math.round((elapsed / duration) * 1000));
+      }
+
+      if (!Number.isFinite(duration) || duration <= 0) {
+        progressRange.value = '0';
+      }
+    }
+
+    function resetProgressDisplay() {
+      if (progressRange) progressRange.value = '0';
+      if (progressCurrent) progressCurrent.textContent = '00:00';
+      if (progressDuration) progressDuration.textContent = '00:00';
+    }
+
     function updateTimerDisplay() {
       if (!vizTimer || !currentAudio) return;
 
@@ -1409,6 +1553,8 @@
       const duration = currentAudio.duration || 0;
 
       vizTimer.textContent = `${formatTime(elapsed)} / ${formatTime(duration)}`;
+
+      updateProgressDisplay();
       updateCueDisplay();
     }
 
@@ -1437,6 +1583,10 @@
 
       if (clear && vizTimer) {
         vizTimer.textContent = '00:00 / 00:00';
+      }
+
+      if (clear) {
+        resetProgressDisplay();
       }
     }
 
@@ -1627,6 +1777,7 @@
       stopBreathCoach();
       stopTimerDisplay(true);
       clearCueDisplay();
+      resetProgressDisplay();
     }
 
     function stopOtherAudios(currentId) {
@@ -1694,6 +1845,64 @@
       hideVisualizer();
     }
 
+    function bindProgressEvents() {
+      if (!progressRange) return;
+
+      progressRange.addEventListener('input', () => {
+        if (!currentAudio) return;
+
+        isSeeking = true;
+
+        const duration = currentAudio.duration || 0;
+        const value = Number(progressRange.value || 0);
+
+        if (Number.isFinite(duration) && duration > 0) {
+          const nextTime = (value / 1000) * duration;
+          if (progressCurrent) progressCurrent.textContent = formatTime(nextTime);
+        }
+      });
+
+      progressRange.addEventListener('change', () => {
+        if (!currentAudio) {
+          isSeeking = false;
+          return;
+        }
+
+        const duration = currentAudio.duration || 0;
+        const value = Number(progressRange.value || 0);
+
+        if (Number.isFinite(duration) && duration > 0) {
+          currentAudio.currentTime = (value / 1000) * duration;
+          updateTimerDisplay();
+          updateCueDisplay();
+        }
+
+        isSeeking = false;
+      });
+
+      progressRange.addEventListener('pointerdown', () => {
+        isSeeking = true;
+      });
+
+      progressRange.addEventListener('pointerup', () => {
+        if (!currentAudio) {
+          isSeeking = false;
+          return;
+        }
+
+        const duration = currentAudio.duration || 0;
+        const value = Number(progressRange.value || 0);
+
+        if (Number.isFinite(duration) && duration > 0) {
+          currentAudio.currentTime = (value / 1000) * duration;
+          updateTimerDisplay();
+          updateCueDisplay();
+        }
+
+        isSeeking = false;
+      });
+    }
+
     function bindAudioEvents() {
       buttons = Array.from(document.querySelectorAll('.play'));
       audios = Array.from(document.querySelectorAll('audio'));
@@ -1716,7 +1925,16 @@
         });
 
         audio.addEventListener('timeupdate', () => {
-          if (currentAudio === audio) updateCueDisplay();
+          if (currentAudio === audio) {
+            updateTimerDisplay();
+            updateCueDisplay();
+          }
+        });
+
+        audio.addEventListener('loadedmetadata', () => {
+          if (currentAudio === audio) {
+            updateProgressDisplay();
+          }
         });
 
         audio.load();
@@ -1785,6 +2003,8 @@
     if (vizClose) {
       vizClose.addEventListener('click', stopCurrent);
     }
+
+    bindProgressEvents();
 
     Promise.all([loadTracks(), loadCues()]).then(([tracks, cues]) => {
       cuesByTrack = cues || {};
