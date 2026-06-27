@@ -409,10 +409,10 @@
 
     .viz-core {
       position: relative;
-      width: min(58vw, 420px);
-      height: min(58vw, 420px);
-      min-width: 240px;
-      min-height: 240px;
+      width: min(86vw, 620px);
+      height: min(86vw, 620px);
+      min-width: 310px;
+      min-height: 310px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -498,15 +498,15 @@
 
     .viz-center {
       position: relative;
-      width: 48%;
-      height: 48%;
+      width: 70%;
+      height: 70%;
       border-radius: 50%;
       background:
-        radial-gradient(circle at 50% 42%, rgba(255,255,255,0.84), rgba(169, 228, 228, 0.62) 42%, rgba(56, 125, 154, 0.42) 100%),
-        linear-gradient(135deg, #aee8e5, #3b7993, #1f5c78, #9be1dc);
-      background-size: 260% 260%;
-      animation: slowTurquoiseGradient 36s ease-in-out infinite;
-      box-shadow: 0 14px 40px rgba(31,92,120,0.24);
+        radial-gradient(circle at 50% 40%, rgba(238,255,255,0.92), rgba(151, 229, 226, 0.74) 44%, rgba(74, 166, 184, 0.62) 100%),
+        linear-gradient(135deg, #b9f0ed, #65c5cf, #2b7898, #b0ebe7);
+      background-size: 280% 280%;
+      animation: slowTurquoiseGradient 42s ease-in-out infinite;
+      box-shadow: 0 16px 44px rgba(31,92,120,0.30);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -516,7 +516,7 @@
       color: var(--deep);
       font-weight: 700;
       line-height: 1.4;
-      font-size: clamp(0.9rem, 2vw, 1.04rem);
+      font-size: clamp(1rem, 2.4vw, 1.25rem);
       gap: 9px;
     }
 
@@ -531,6 +531,25 @@
       letter-spacing: 0.02em;
       direction: ltr;
       opacity: 0.92;
+    }
+
+    .cue-display {
+      width: 88%;
+      min-height: 4.8em;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 10px;
+      color: #163746;
+      font-size: clamp(1.05rem, 3.2vw, 1.42rem);
+      font-weight: 900;
+      line-height: 1.45;
+      text-align: center;
+      text-wrap: balance;
+    }
+
+    .cue-display.active {
+      display: flex;
     }
 
     .viz-pause-message {
@@ -733,10 +752,21 @@
       .play { min-width: 122px; }
       .disclaimer { white-space: normal; overflow: visible; text-overflow: clip; }
       .viz-core {
-        width: min(74vw, 320px);
-        height: min(74vw, 320px);
-        min-width: 220px;
-        min-height: 220px;
+        width: min(94vw, 470px);
+        height: min(94vw, 470px);
+        min-width: 330px;
+        min-height: 330px;
+      }
+      .viz-center {
+        width: 78%;
+        height: 78%;
+        padding: 12px 10px;
+      }
+      .cue-display {
+        width: 92%;
+        min-height: 5.2em;
+        font-size: clamp(1.08rem, 4.6vw, 1.38rem);
+        line-height: 1.42;
       }
       .viz-btn {
         width: 54px;
@@ -771,6 +801,7 @@
       <div class="viz-center">
         <div class="viz-title" id="vizCenter">לא מתנגן כעת</div>
         <div class="viz-timer" id="vizTimer">00:00 / 00:00</div>
+        <div class="cue-display" id="cueDisplay" aria-live="polite"></div>
         <div class="viz-pause-message" id="vizPauseMessage"></div>
         <div class="breath-coach" id="breathCoach">
           <div class="breath-phase" id="breathPhase">שאיפה דרך האף</div>
@@ -796,7 +827,7 @@
         </div>
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 100 <span>(27.06.2026, 08:52)</span></div>
+        <div class="version-line">גרסה מס׳ 101 <span>(27.06.2026, 10:47)</span></div>
       </div>
 
       <div class="hero-art" aria-hidden="true">
@@ -833,6 +864,7 @@
     const vizCenter = document.getElementById('vizCenter');
     const vizPauseMessage = document.getElementById('vizPauseMessage');
     const vizTimer = document.getElementById('vizTimer');
+    const cueDisplay = document.getElementById('cueDisplay');
     const breathCoach = document.getElementById('breathCoach');
     const breathPhase = document.getElementById('breathPhase');
     const breathInstruction = document.getElementById('breathInstruction');
@@ -846,6 +878,8 @@
     let audios = [];
     let currentAudio = null;
     let currentTitle = '';
+    let currentTrackId = '';
+    let cuesByTrack = {};
     let breathTimer = null;
     let breathPhaseMode = 'inhale';
     let breathSecondsLeft = 3;
@@ -925,22 +959,33 @@
           </div>
           <p>${description}</p>
           <div class="play-row">
-            <button class="play" data-audio="${audioId}" data-title="${title}">▶︎ נגן</button>
+            <button class="play" data-audio="${audioId}" data-title="${title}" data-track-id="${escapeHtml(track.id)}">▶︎ נגן</button>
             <span class="status" id="${statusId}">בהכנה <small>${updated}</small></span>
           </div>
-          <audio id="${audioId}" src="${audio}" data-updated="${updated}"></audio>
+          <audio id="${audioId}" src="${audio}" data-updated="${updated}" data-track-id="${escapeHtml(track.id)}"></audio>
         </article>
       `;
     }
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=100', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=101', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
       } catch (error) {
         return fallbackTracks;
+      }
+    }
+
+    async function loadCues() {
+      try {
+        const response = await fetch('assets/cues.json?v=101', { cache: 'no-store' });
+        if (!response.ok) throw new Error('cues.json not found');
+        const data = await response.json();
+        return data && typeof data === 'object' ? data : {};
+      } catch (error) {
+        return {};
       }
     }
 
@@ -953,11 +998,46 @@
       return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     }
 
+    function parseCueTime(value) {
+      if (!value || typeof value !== 'string') return 0;
+      const parts = value.split(':').map(Number);
+      if (parts.length !== 2 || parts.some(Number.isNaN)) return 0;
+      return (parts[0] * 60) + parts[1];
+    }
+
+    function getActiveCue(trackId, seconds) {
+      const list = cuesByTrack[trackId] || [];
+      return list.find(cue => {
+        const start = parseCueTime(cue.start);
+        const end = parseCueTime(cue.end);
+        return seconds >= start && seconds < end;
+      });
+    }
+
+    function updateCueDisplay() {
+      if (!cueDisplay || !currentAudio || !currentTrackId) return;
+      const cue = getActiveCue(currentTrackId, currentAudio.currentTime || 0);
+      if (cue && cue.text) {
+        cueDisplay.textContent = cue.text;
+        cueDisplay.classList.add('active');
+      } else {
+        cueDisplay.textContent = '';
+        cueDisplay.classList.remove('active');
+      }
+    }
+
+    function clearCueDisplay() {
+      if (!cueDisplay) return;
+      cueDisplay.textContent = '';
+      cueDisplay.classList.remove('active');
+    }
+
     function updateTimerDisplay() {
       if (!vizTimer || !currentAudio) return;
       const elapsed = currentAudio.currentTime || 0;
       const duration = currentAudio.duration || 0;
       vizTimer.textContent = `${formatTime(elapsed)} / ${formatTime(duration)}`;
+      updateCueDisplay();
     }
 
     function startTimerDisplay() {
@@ -1106,6 +1186,7 @@
       setVisualizerControls('playing');
       updateBreathCoachForTitle(title);
       startTimerDisplay();
+      updateCueDisplay();
     }
 
     function showPausedVisualizer(title) {
@@ -1122,6 +1203,7 @@
       breathTimer = null;
       stopTimerDisplay(false);
       updateTimerDisplay();
+      updateCueDisplay();
     }
 
     function hideVisualizer() {
@@ -1135,6 +1217,7 @@
       setVisualizerControls('playing');
       stopBreathCoach();
       stopTimerDisplay(true);
+      clearCueDisplay();
     }
 
     function stopOtherAudios(currentId) {
@@ -1147,7 +1230,7 @@
       });
     }
 
-    function playAudio(audio, title) {
+    function playAudio(audio, title, trackId = '') {
       const btn = getButtonForAudio(audio);
       const status = getStatusForAudio(audio);
 
@@ -1159,6 +1242,7 @@
       stopOtherAudios(audio.id);
       currentAudio = audio;
       currentTitle = title;
+      currentTrackId = trackId || audio.dataset.trackId || '';
 
       audio.play().then(() => {
         if (btn) btn.textContent = '❚❚ עצור';
@@ -1187,6 +1271,7 @@
       setIdle(currentAudio);
       currentAudio = null;
       currentTitle = '';
+      currentTrackId = '';
       hideVisualizer();
     }
 
@@ -1198,6 +1283,7 @@
       });
       currentAudio = null;
       currentTitle = '';
+      currentTrackId = '';
       hideVisualizer();
     }
 
@@ -1221,6 +1307,10 @@
           markAudioPreparing(audio);
         });
 
+        audio.addEventListener('timeupdate', () => {
+          if (currentAudio === audio) updateCueDisplay();
+        });
+
         audio.load();
       });
 
@@ -1228,6 +1318,7 @@
         const audioId = button.dataset.audio;
         const audio = document.getElementById(audioId);
         const title = button.dataset.title;
+        const trackId = button.dataset.trackId || audio.dataset.trackId || '';
         const status = document.getElementById(`status-${audioId}`);
 
         button.addEventListener('click', () => {
@@ -1237,10 +1328,11 @@
           }
 
           if (audio.paused) {
-            playAudio(audio, title);
+            playAudio(audio, title, trackId);
           } else {
             currentAudio = audio;
             currentTitle = title;
+            currentTrackId = trackId;
             audio.pause();
             button.textContent = '▶︎ נגן';
             status.textContent = 'הושהה';
@@ -1254,6 +1346,7 @@
           if (currentAudio === audio) {
             currentAudio = null;
             currentTitle = '';
+            currentTrackId = '';
           }
           hideVisualizer();
         });
@@ -1263,7 +1356,7 @@
     if (vizPlay) {
       vizPlay.addEventListener('click', () => {
         if (currentAudio && currentAudio.paused) {
-          playAudio(currentAudio, currentTitle);
+          playAudio(currentAudio, currentTitle, currentTrackId);
         }
       });
     }
@@ -1271,7 +1364,8 @@
     if (vizPause) vizPause.addEventListener('click', pauseCurrent);
     if (vizStop) vizStop.addEventListener('click', stopCurrent);
 
-    loadTracks().then(tracks => {
+    Promise.all([loadTracks(), loadCues()]).then(([tracks, cues]) => {
+      cuesByTrack = cues || {};
       grid.innerHTML = tracks.map(trackToCard).join('');
       bindAudioEvents();
     });
