@@ -147,6 +147,19 @@
       font-weight: 600;
     }
 
+    .version-line {
+      margin-top: 7px;
+      color: #7a8a95;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .version-line span {
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
     .hero-art {
       position: relative;
       z-index: 2;
@@ -563,11 +576,15 @@
       background: rgba(255,255,255,0.62);
       border: 1px solid rgba(255,255,255,0.70);
       box-shadow: var(--soft-shadow);
-      padding: 16px 18px;
+      padding: 14px 18px;
       color: var(--muted);
-      line-height: 1.75;
-      font-size: 0.94rem;
+      line-height: 1.45;
+      font-size: 0.90rem;
       backdrop-filter: blur(16px);
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .breath-coach {
@@ -695,6 +712,7 @@
       .card { min-height: 190px; }
       .play-row { justify-content: space-between; }
       .play { min-width: 122px; }
+      .disclaimer { white-space: normal; overflow: visible; text-overflow: clip; }
       .viz-core {
         width: min(74vw, 320px);
         height: min(74vw, 320px);
@@ -758,6 +776,7 @@
         </div>
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
+        <div class="version-line">גרסה מס׳ 100 <span>(27.06.2026, 08:52)</span></div>
       </div>
 
       <div class="hero-art" aria-hidden="true">
@@ -815,7 +834,7 @@
           <button class="play" data-audio="audio3" data-title="הרפיית שרירים פרוגרסיבית">▶︎ נגן</button>
           <span class="status" id="status-audio3">בהכנה</span>
         </div>
-        <audio id="audio3" src="audio/progressive-muscle-relaxation.mp3" data-updated="27.06.2026, 00:00"></audio>
+        <audio id="audio3" src="audio/progressive-muscle-relaxation.mp3" data-updated="27.06.2026, 08:52"></audio>
       </article>
 
       <article class="card">
@@ -841,7 +860,7 @@
           <button class="play" data-audio="audio5" data-title="תרגול מיינדפולנס">▶︎ נגן</button>
           <span class="status" id="status-audio5">בהכנה</span>
         </div>
-        <audio id="audio5" src="audio/mindfulness.mp3" data-updated="27.06.2026, 00:00"></audio>
+        <audio id="audio5" src="audio/mindfulness.mp3" data-updated="27.06.2026, 08:52"></audio>
       </article>
 
       <article class="card">
@@ -859,7 +878,7 @@
     </section>
 
     <section class="disclaimer">
-      התכנים באתר מיועדים לתרגול הרגעה וויסות עצמי. הם אינם מהווים תחליף לייעוץ, אבחון או טיפול רפואי או נפשי. במקרה של מצוקה חריפה, יש לפנות לגורם מקצועי מתאים או לשירותי חירום.
+      תרגילי האתר מיועדים לוויסות והרגעה, ואינם תחליף לייעוץ, אבחון או טיפול מקצועי.
     </section>
 
     <footer>ד״ר אביב נוף, פסיכולוג קליני</footer>
