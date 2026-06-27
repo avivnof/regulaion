@@ -1,0 +1,47 @@
+[
+  {
+    "id": "progressive-muscle-relaxation",
+    "title": "הרפיית שרירים פרוגרסיבית",
+    "description": "כיווץ ושחרור הדרגתי של קבוצות שרירים להפחתת מתח.",
+    "icon": "〰️",
+    "audio": "audio/progressive-muscle-relaxation.mp3",
+    "updated": "27.06.2026, 08:52",
+    "status": "ready"
+  },
+  {
+    "id": "mindfulness",
+    "title": "תרגול מיינדפולנס",
+    "description": "הפניית קשב עדינה לרגע הנוכחי, לנשימה ולתחושות הגוף.",
+    "icon": "◌",
+    "audio": "audio/mindfulness.mp3",
+    "updated": "27.06.2026, 08:52",
+    "status": "ready"
+  },
+  {
+    "id": "diaphragmatic-breathing",
+    "title": "הרפיית נשימה סרעפתית",
+    "description": "תרגול נשימה איטית, עמוקה ומווסתת דרך הסרעפת.",
+    "icon": "🌬️",
+    "audio": "audio/diaphragmatic-breathing.mp3",
+    "updated": "טרם עודכן",
+    "status": "preparing"
+  },
+  {
+    "id": "short-relaxation",
+    "title": "הרפיה מקוצרת",
+    "description": "תרגול קצר, פשוט ונגיש לרגעי עומס במהלך היום.",
+    "icon": "⚡",
+    "audio": "audio/short-relaxation.mp3",
+    "updated": "טרם הועלה קובץ",
+    "status": "preparing"
+  },
+  {
+    "id": "thin-smoke",
+    "title": "עשן דק",
+    "description": "דימוי מרגיע של עשן דק, תנועה איטית והתבוננות שקטה.",
+    "icon": "🌫️",
+    "audio": "audio/thin-smoke.mp3",
+    "updated": "טרם הועלה קובץ",
+    "status": "preparing"
+  }
+]
