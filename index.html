@@ -323,8 +323,18 @@
 
     .status {
       color: var(--muted);
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       white-space: nowrap;
+      line-height: 1.35;
+      display: inline-flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .status small {
+      font-size: 0.72rem;
+      color: #7a8a95;
+      font-weight: 600;
     }
 
     audio { display: none; }
@@ -560,6 +570,63 @@
       backdrop-filter: blur(16px);
     }
 
+    .breath-coach {
+      display: none;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .breath-coach.active {
+      display: flex;
+    }
+
+    .breath-phase {
+      color: var(--deep);
+      font-size: 0.86rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .breath-instruction {
+      color: #5e717d;
+      font-size: 0.74rem;
+      font-weight: 700;
+      line-height: 1.25;
+      max-width: 92%;
+    }
+
+    .breath-circle {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.96), rgba(198,221,221,0.72));
+      border: 2px solid rgba(72, 97, 110, 0.44);
+      box-shadow: inset 0 0 14px rgba(255,255,255,0.75), 0 8px 16px rgba(48,72,86,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 300ms ease;
+    }
+
+    .breath-circle.inhale {
+      animation: inhaleExpand 3s linear forwards;
+    }
+
+    .breath-circle.exhale {
+      animation: exhaleContract 4s linear forwards;
+    }
+
+    .breath-count {
+      font-size: 1.28rem;
+      font-weight: 800;
+      color: var(--deep);
+    }
+
+
     footer {
       position: relative;
       z-index: 2;
@@ -597,6 +664,17 @@
       88%  { opacity: 0.7; }
       100% { transform: translateY(120vh) scale(1.05); opacity: 0; }
     }
+
+    @keyframes inhaleExpand {
+      0%   { transform: scale(0.84); }
+      100% { transform: scale(1.16); }
+    }
+
+    @keyframes exhaleContract {
+      0%   { transform: scale(1.16); }
+      100% { transform: scale(0.84); }
+    }
+
 
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; }
@@ -656,6 +734,13 @@
       <div class="viz-center">
         <div class="viz-title" id="vizCenter">לא מתנגן כעת</div>
         <div class="viz-pause-message" id="vizPauseMessage"></div>
+        <div class="breath-coach" id="breathCoach">
+          <div class="breath-phase" id="breathPhase">שאיפה דרך האף</div>
+          <div class="breath-instruction" id="breathInstruction">הבטן עולה קלות</div>
+          <div class="breath-circle" id="breathCircle">
+            <div class="breath-count" id="breathCount">3</div>
+          </div>
+        </div>
         <div class="viz-controls">
           <button class="viz-btn hidden" id="vizPlay" aria-label="נגן">▶</button>
           <button class="viz-btn" id="vizPause" aria-label="השהה">⏸</button>
@@ -687,6 +772,12 @@
       <span>שישה תרגילים מוקלטים להאזנה מודרכת</span>
     </div>
 
+    <!--
+      עדכון ידני של גרסאות קובצי האודיו:
+      בכל תגית audio אפשר לעדכן את data-updated, למשל:
+      data-updated="27.06.2026, 14:35"
+      אם הקובץ חסר או שם הקובץ לא תואם, יוצג "בהכנה".
+    -->
     <section class="grid" aria-label="תרגילי ויסות והרפיה">
       <article class="card">
         <div class="card-top">
@@ -698,7 +789,7 @@
           <button class="play" data-audio="audio1" data-title="הרפיית נשימה סרעפתית">▶︎ נגן</button>
           <span class="status" id="status-audio1">בהכנה</span>
         </div>
-        <audio id="audio1" src="audio/diaphragmatic-breathing.mp3"></audio>
+        <audio id="audio1" src="audio/diaphragmatic-breathing.mp3" data-updated="טרם עודכן"></audio>
       </article>
 
       <article class="card">
@@ -711,7 +802,7 @@
           <button class="play" data-audio="audio2" data-title="הרפיית נשימה עם עצירות">▶︎ נגן</button>
           <span class="status" id="status-audio2">בהכנה</span>
         </div>
-        <audio id="audio2" src="audio/breath-holds.mp3"></audio>
+        <audio id="audio2" src="audio/breath-holds.mp3" data-updated="טרם הועלה קובץ"></audio>
       </article>
 
       <article class="card">
@@ -724,7 +815,7 @@
           <button class="play" data-audio="audio3" data-title="הרפיית שרירים פרוגרסיבית">▶︎ נגן</button>
           <span class="status" id="status-audio3">בהכנה</span>
         </div>
-        <audio id="audio3" src="audio/progressive-muscle-relaxation.mp3"></audio>
+        <audio id="audio3" src="audio/progressive-muscle-relaxation.mp3" data-updated="27.06.2026, 00:00"></audio>
       </article>
 
       <article class="card">
@@ -737,7 +828,7 @@
           <button class="play" data-audio="audio4" data-title="הרפיה מקוצרת">▶︎ נגן</button>
           <span class="status" id="status-audio4">בהכנה</span>
         </div>
-        <audio id="audio4" src="audio/short-relaxation.mp3"></audio>
+        <audio id="audio4" src="audio/short-relaxation.mp3" data-updated="טרם הועלה קובץ"></audio>
       </article>
 
       <article class="card">
@@ -750,7 +841,7 @@
           <button class="play" data-audio="audio5" data-title="תרגול מיינדפולנס">▶︎ נגן</button>
           <span class="status" id="status-audio5">בהכנה</span>
         </div>
-        <audio id="audio5" src="audio/mindfulness.mp3"></audio>
+        <audio id="audio5" src="audio/mindfulness.mp3" data-updated="27.06.2026, 00:00"></audio>
       </article>
 
       <article class="card">
@@ -758,12 +849,12 @@
           <div class="icon-box">🌫️</div>
           <h3>עשן דק</h3>
         </div>
-        <p>רצף הפעולות שמקדם ויסות והרפייה</p>
+        <p>דימוי מרגיע של עשן דק, תנועה איטית והתבוננות שקטה.</p>
         <div class="play-row">
           <button class="play" data-audio="audio6" data-title="עשן דק">▶︎ נגן</button>
           <span class="status" id="status-audio6">בהכנה</span>
         </div>
-        <audio id="audio6" src="audio/thin-smoke.mp3"></audio>
+        <audio id="audio6" src="audio/thin-smoke.mp3" data-updated="טרם הועלה קובץ"></audio>
       </article>
     </section>
 
@@ -781,23 +872,40 @@
     const visualizer = document.getElementById('visualizer');
     const vizCenter = document.getElementById('vizCenter');
     const vizPauseMessage = document.getElementById('vizPauseMessage');
+    const breathCoach = document.getElementById('breathCoach');
+    const breathPhase = document.getElementById('breathPhase');
+    const breathInstruction = document.getElementById('breathInstruction');
+    const breathCircle = document.getElementById('breathCircle');
+    const breathCount = document.getElementById('breathCount');
     const vizPlay = document.getElementById('vizPlay');
     const vizPause = document.getElementById('vizPause');
     const vizStop = document.getElementById('vizStop');
 
     let currentAudio = null;
     let currentTitle = '';
+    let breathTimer = null;
+    let breathPhaseMode = 'inhale';
+    let breathSecondsLeft = 3;
 
     function setIdle(audio) {
       const btn = document.querySelector(`[data-audio="${audio.id}"]`);
       const status = document.getElementById(`status-${audio.id}`);
       const available = audio.dataset.available === 'true';
+      const updated = audio.dataset.updated || 'טרם עודכן';
+
       if (btn) {
         btn.textContent = '▶︎ נגן';
         btn.disabled = !available;
         btn.classList.toggle('disabled', !available);
       }
-      if (status) status.textContent = available ? 'מוכן' : 'בהכנה';
+
+      if (status) {
+        if (available) {
+          status.innerHTML = `מוכן <small>עודכן: ${updated}</small>`;
+        } else {
+          status.innerHTML = `בהכנה <small>${updated}</small>`;
+        }
+      }
     }
 
     function getButtonForAudio(audio) {
@@ -808,6 +916,66 @@
       return document.getElementById(`status-${audio.id}`);
     }
 
+    function resetBreathCircleAnimation(mode) {
+      breathCircle.classList.remove('inhale', 'exhale');
+      // force reflow to restart animation
+      void breathCircle.offsetWidth;
+      breathCircle.classList.add(mode);
+    }
+
+    function renderBreathCoach() {
+      if (breathPhaseMode === 'inhale') {
+        breathPhase.textContent = 'שאיפה דרך האף';
+        breathInstruction.textContent = 'הבטן עולה קלות';
+      } else {
+        breathPhase.textContent = 'נשיפה דרך הפה';
+        breathInstruction.textContent = 'הבטן יורדת';
+      }
+      breathCount.textContent = String(breathSecondsLeft);
+      resetBreathCircleAnimation(breathPhaseMode);
+    }
+
+    function stopBreathCoach() {
+      clearInterval(breathTimer);
+      breathTimer = null;
+      breathCoach.classList.remove('active');
+      breathCircle.classList.remove('inhale', 'exhale');
+    }
+
+    function startBreathCoach() {
+      stopBreathCoach();
+      breathCoach.classList.add('active');
+      breathPhaseMode = 'inhale';
+      breathSecondsLeft = 3;
+      renderBreathCoach();
+
+      breathTimer = setInterval(() => {
+        breathSecondsLeft -= 1;
+
+        if (breathSecondsLeft <= 0) {
+          if (breathPhaseMode === 'inhale') {
+            breathPhaseMode = 'exhale';
+            breathSecondsLeft = 4;
+          } else {
+            breathPhaseMode = 'inhale';
+            breathSecondsLeft = 3;
+          }
+          renderBreathCoach();
+        } else {
+          breathCount.textContent = String(breathSecondsLeft);
+        }
+      }, 1000);
+    }
+
+    function updateBreathCoachForTitle(title) {
+      if (title === 'הרפיית נשימה סרעפתית') {
+        startBreathCoach();
+      } else {
+        stopBreathCoach();
+      }
+    }
+
+
     function showVisualizer(title) {
       bodyEl.classList.add('playing');
       visualizer.classList.add('active');
@@ -815,6 +983,7 @@
       vizPauseMessage.textContent = '';
       vizPauseMessage.classList.remove('active');
       setVisualizerControls('playing');
+      updateBreathCoachForTitle(title);
     }
 
     function showPausedVisualizer(title) {
@@ -824,6 +993,9 @@
       vizPauseMessage.textContent = 'השהייה — האם להמשיך?';
       vizPauseMessage.classList.add('active');
       setVisualizerControls('paused');
+      updateBreathCoachForTitle(title);
+      clearInterval(breathTimer);
+      breathTimer = null;
     }
 
     function hideVisualizer() {
@@ -833,6 +1005,7 @@
       vizPauseMessage.textContent = '';
       vizPauseMessage.classList.remove('active');
       setVisualizerControls('playing');
+      stopBreathCoach();
     }
 
     function setVisualizerControls(mode) {
