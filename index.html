@@ -950,18 +950,18 @@
     .outside-caption {
       position: absolute;
       left: 50%;
-      bottom: 7%;
+      bottom: calc(7% - 3cm);
       transform: translate(-50%, 12px);
-      width: min(78%, 760px);
+      width: min(80%, 780px);
       min-height: 0;
-      padding: 10px 18px 12px;
+      padding: 12px 20px 14px;
       border-radius: 24px;
       background: rgba(255,255,255,0.88);
       border: 1px solid rgba(255,255,255,0.82);
       box-shadow: 0 12px 28px rgba(31,92,120,0.18);
       backdrop-filter: blur(12px);
       color: #163746;
-      font-size: clamp(1.2rem, 3vw, 1.9rem);
+      font-size: clamp(1.34rem, 3.2vw, 2.08rem);
       font-weight: 900;
       line-height: 1.18;
       text-align: center;
@@ -1407,7 +1407,7 @@
 
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 128 <span>(27.06.2026, במחשב כרטיס תוכן מלבני־מעוגל למניעת חיתוך טקסט בתמונה)</span></div>
+        <div class="version-line">גרסה מס׳ 129 <span>(27.06.2026, במחשב בלבד הורדת טקסט תמונה+טקסט והגדלתו)</span></div>
       </div>
 
       <div class="hero-art">
@@ -1653,7 +1653,7 @@
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=128', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=129', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
@@ -1664,7 +1664,7 @@
 
     async function loadCues() {
       try {
-        const response = await fetch('assets/cues.json?v=128', { cache: 'no-store' });
+        const response = await fetch('assets/cues.json?v=129', { cache: 'no-store' });
         if (!response.ok) throw new Error('cues.json not found');
         const data = await response.json();
 
