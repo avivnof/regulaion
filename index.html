@@ -792,90 +792,11 @@
     </div>
 
     <!--
-      עדכון ידני של גרסאות קובצי האודיו:
-      בכל תגית audio אפשר לעדכן את data-updated, למשל:
-      data-updated="27.06.2026, 14:35"
-      אם הקובץ חסר או שם הקובץ לא תואם, יוצג "בהכנה".
+      רשימת התרגילים נטענת מתוך assets/tracks.json.
+      כדי לשנות סדר, כותרות, תיאור, קובץ שמע או תאריך עדכון —
+      עורכים את הקובץ assets/tracks.json בלבד.
     -->
-    <section class="grid" aria-label="תרגילי ויסות והרפיה">
-      <article class="card">
-        <div class="card-top">
-          <div class="icon-box">🌬️</div>
-          <h3>הרפיית נשימה סרעפתית</h3>
-        </div>
-        <p>תרגול נשימה איטית, עמוקה ומווסתת דרך הסרעפת.</p>
-        <div class="play-row">
-          <button class="play" data-audio="audio1" data-title="הרפיית נשימה סרעפתית">▶︎ נגן</button>
-          <span class="status" id="status-audio1">בהכנה</span>
-        </div>
-        <audio id="audio1" src="audio/diaphragmatic-breathing.mp3" data-updated="טרם עודכן"></audio>
-      </article>
-
-      <article class="card">
-        <div class="card-top">
-          <div class="icon-box">⏱️</div>
-          <h3>הרפיית נשימה עם עצירות</h3>
-        </div>
-        <p>נשימה בקצב מובנה עם עצירות קצרות ליצירת ויסות.</p>
-        <div class="play-row">
-          <button class="play" data-audio="audio2" data-title="הרפיית נשימה עם עצירות">▶︎ נגן</button>
-          <span class="status" id="status-audio2">בהכנה</span>
-        </div>
-        <audio id="audio2" src="audio/breath-holds.mp3" data-updated="טרם הועלה קובץ"></audio>
-      </article>
-
-      <article class="card">
-        <div class="card-top">
-          <div class="icon-box">〰️</div>
-          <h3>הרפיית שרירים פרוגרסיבית</h3>
-        </div>
-        <p>כיווץ ושחרור הדרגתי של קבוצות שרירים להפחתת מתח.</p>
-        <div class="play-row">
-          <button class="play" data-audio="audio3" data-title="הרפיית שרירים פרוגרסיבית">▶︎ נגן</button>
-          <span class="status" id="status-audio3">בהכנה</span>
-        </div>
-        <audio id="audio3" src="audio/progressive-muscle-relaxation.mp3" data-updated="27.06.2026, 08:52"></audio>
-      </article>
-
-      <article class="card">
-        <div class="card-top">
-          <div class="icon-box">⚡</div>
-          <h3>הרפיה מקוצרת</h3>
-        </div>
-        <p>תרגול קצר, פשוט ונגיש לרגעי עומס במהלך היום.</p>
-        <div class="play-row">
-          <button class="play" data-audio="audio4" data-title="הרפיה מקוצרת">▶︎ נגן</button>
-          <span class="status" id="status-audio4">בהכנה</span>
-        </div>
-        <audio id="audio4" src="audio/short-relaxation.mp3" data-updated="טרם הועלה קובץ"></audio>
-      </article>
-
-      <article class="card">
-        <div class="card-top">
-          <div class="icon-box">◌</div>
-          <h3>תרגול מיינדפולנס</h3>
-        </div>
-        <p>הפניית קשב עדינה לרגע הנוכחי, לנשימה ולתחושות הגוף.</p>
-        <div class="play-row">
-          <button class="play" data-audio="audio5" data-title="תרגול מיינדפולנס">▶︎ נגן</button>
-          <span class="status" id="status-audio5">בהכנה</span>
-        </div>
-        <audio id="audio5" src="audio/mindfulness.mp3" data-updated="27.06.2026, 08:52"></audio>
-      </article>
-
-      <article class="card">
-        <div class="card-top">
-          <div class="icon-box">🌫️</div>
-          <h3>עשן דק</h3>
-        </div>
-        <p>דימוי מרגיע של עשן דק, תנועה איטית והתבוננות שקטה.</p>
-        <div class="play-row">
-          <button class="play" data-audio="audio6" data-title="עשן דק">▶︎ נגן</button>
-          <span class="status" id="status-audio6">בהכנה</span>
-        </div>
-        <audio id="audio6" src="audio/thin-smoke.mp3" data-updated="טרם הועלה קובץ"></audio>
-      </article>
-    </section>
+    <section class="grid" id="tracksGrid" aria-label="תרגילי ויסות והרפיה"></section>
 
     <section class="disclaimer">
       תרגילי האתר מיועדים לוויסות והרגעה, ואינם תחליף לייעוץ, אבחון או טיפול מקצועי.
@@ -886,8 +807,8 @@
 
   <script>
     const bodyEl = document.body;
-    const buttons = document.querySelectorAll('.play');
-    const audios = document.querySelectorAll('audio');
+    const grid = document.getElementById('tracksGrid');
+
     const visualizer = document.getElementById('visualizer');
     const vizCenter = document.getElementById('vizCenter');
     const vizPauseMessage = document.getElementById('vizPauseMessage');
@@ -900,11 +821,106 @@
     const vizPause = document.getElementById('vizPause');
     const vizStop = document.getElementById('vizStop');
 
+    let buttons = [];
+    let audios = [];
     let currentAudio = null;
     let currentTitle = '';
     let breathTimer = null;
     let breathPhaseMode = 'inhale';
     let breathSecondsLeft = 3;
+
+    const fallbackTracks = [
+      {
+        id: "progressive-muscle-relaxation",
+        title: "הרפיית שרירים פרוגרסיבית",
+        description: "כיווץ ושחרור הדרגתי של קבוצות שרירים להפחתת מתח.",
+        icon: "〰️",
+        audio: "audio/progressive-muscle-relaxation.mp3",
+        updated: "27.06.2026, 08:52",
+        status: "ready"
+      },
+      {
+        id: "mindfulness",
+        title: "תרגול מיינדפולנס",
+        description: "הפניית קשב עדינה לרגע הנוכחי, לנשימה ולתחושות הגוף.",
+        icon: "◌",
+        audio: "audio/mindfulness.mp3",
+        updated: "27.06.2026, 08:52",
+        status: "ready"
+      },
+      {
+        id: "diaphragmatic-breathing",
+        title: "הרפיית נשימה סרעפתית",
+        description: "תרגול נשימה איטית, עמוקה ומווסתת דרך הסרעפת.",
+        icon: "🌬️",
+        audio: "audio/diaphragmatic-breathing.mp3",
+        updated: "טרם עודכן",
+        status: "preparing"
+      },
+      {
+        id: "short-relaxation",
+        title: "הרפיה מקוצרת",
+        description: "תרגול קצר, פשוט ונגיש לרגעי עומס במהלך היום.",
+        icon: "⚡",
+        audio: "audio/short-relaxation.mp3",
+        updated: "טרם הועלה קובץ",
+        status: "preparing"
+      },
+      {
+        id: "thin-smoke",
+        title: "עשן דק",
+        description: "דימוי מרגיע של עשן דק, תנועה איטית והתבוננות שקטה.",
+        icon: "🌫️",
+        audio: "audio/thin-smoke.mp3",
+        updated: "טרם הועלה קובץ",
+        status: "preparing"
+      }
+    ];
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function trackToCard(track, index) {
+      const audioId = `audio-${index + 1}`;
+      const statusId = `status-${audioId}`;
+      const title = escapeHtml(track.title);
+      const description = escapeHtml(track.description);
+      const icon = escapeHtml(track.icon || '◌');
+      const audio = escapeHtml(track.audio);
+      const updated = escapeHtml(track.updated || 'טרם עודכן');
+
+      return `
+        <article class="card">
+          <div class="card-top">
+            <div class="icon-box">${icon}</div>
+            <h3>${title}</h3>
+          </div>
+          <p>${description}</p>
+          <div class="play-row">
+            <button class="play" data-audio="${audioId}" data-title="${title}">▶︎ נגן</button>
+            <span class="status" id="${statusId}">בהכנה <small>${updated}</small></span>
+          </div>
+          <audio id="${audioId}" src="${audio}" data-updated="${updated}"></audio>
+        </article>
+      `;
+    }
+
+    async function loadTracks() {
+      try {
+        const response = await fetch('assets/tracks.json?v=100', { cache: 'no-store' });
+        if (!response.ok) throw new Error('tracks.json not found');
+        const tracks = await response.json();
+        return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
+      } catch (error) {
+        return fallbackTracks;
+      }
+    }
 
     function setIdle(audio) {
       const btn = document.querySelector(`[data-audio="${audio.id}"]`);
@@ -935,14 +951,36 @@
       return document.getElementById(`status-${audio.id}`);
     }
 
+    function markAudioReady(audio) {
+      audio.dataset.available = 'true';
+      setIdle(audio);
+    }
+
+    function markAudioPreparing(audio) {
+      audio.dataset.available = 'false';
+      const btn = getButtonForAudio(audio);
+      const status = getStatusForAudio(audio);
+      const updated = audio.dataset.updated || 'טרם עודכן';
+
+      if (btn) {
+        btn.disabled = true;
+        btn.classList.add('disabled');
+      }
+
+      if (status) {
+        status.innerHTML = `בהכנה <small>${updated}</small>`;
+      }
+    }
+
     function resetBreathCircleAnimation(mode) {
+      if (!breathCircle) return;
       breathCircle.classList.remove('inhale', 'exhale');
-      // force reflow to restart animation
       void breathCircle.offsetWidth;
       breathCircle.classList.add(mode);
     }
 
     function renderBreathCoach() {
+      if (!breathPhase || !breathInstruction || !breathCount) return;
       if (breathPhaseMode === 'inhale') {
         breathPhase.textContent = 'שאיפה דרך האף';
         breathInstruction.textContent = 'הבטן עולה קלות';
@@ -957,12 +995,13 @@
     function stopBreathCoach() {
       clearInterval(breathTimer);
       breathTimer = null;
-      breathCoach.classList.remove('active');
-      breathCircle.classList.remove('inhale', 'exhale');
+      if (breathCoach) breathCoach.classList.remove('active');
+      if (breathCircle) breathCircle.classList.remove('inhale', 'exhale');
     }
 
     function startBreathCoach() {
       stopBreathCoach();
+      if (!breathCoach) return;
       breathCoach.classList.add('active');
       breathPhaseMode = 'inhale';
       breathSecondsLeft = 3;
@@ -980,7 +1019,7 @@
             breathSecondsLeft = 3;
           }
           renderBreathCoach();
-        } else {
+        } else if (breathCount) {
           breathCount.textContent = String(breathSecondsLeft);
         }
       }, 1000);
@@ -994,40 +1033,8 @@
       }
     }
 
-
-    function showVisualizer(title) {
-      bodyEl.classList.add('playing');
-      visualizer.classList.add('active');
-      vizCenter.textContent = title;
-      vizPauseMessage.textContent = '';
-      vizPauseMessage.classList.remove('active');
-      setVisualizerControls('playing');
-      updateBreathCoachForTitle(title);
-    }
-
-    function showPausedVisualizer(title) {
-      bodyEl.classList.add('playing');
-      visualizer.classList.add('active');
-      vizCenter.textContent = title;
-      vizPauseMessage.textContent = 'השהייה — האם להמשיך?';
-      vizPauseMessage.classList.add('active');
-      setVisualizerControls('paused');
-      updateBreathCoachForTitle(title);
-      clearInterval(breathTimer);
-      breathTimer = null;
-    }
-
-    function hideVisualizer() {
-      bodyEl.classList.remove('playing');
-      visualizer.classList.remove('active');
-      vizCenter.textContent = 'לא מתנגן כעת';
-      vizPauseMessage.textContent = '';
-      vizPauseMessage.classList.remove('active');
-      setVisualizerControls('playing');
-      stopBreathCoach();
-    }
-
     function setVisualizerControls(mode) {
+      if (!vizPlay || !vizPause || !vizStop) return;
       if (mode === 'paused') {
         vizPlay.classList.remove('hidden');
         vizPause.classList.add('hidden');
@@ -1036,6 +1043,44 @@
         vizPause.classList.remove('hidden');
       }
       vizStop.classList.remove('hidden');
+    }
+
+    function showVisualizer(title) {
+      bodyEl.classList.add('playing');
+      if (visualizer) visualizer.classList.add('active');
+      if (vizCenter) vizCenter.textContent = title;
+      if (vizPauseMessage) {
+        vizPauseMessage.textContent = '';
+        vizPauseMessage.classList.remove('active');
+      }
+      setVisualizerControls('playing');
+      updateBreathCoachForTitle(title);
+    }
+
+    function showPausedVisualizer(title) {
+      bodyEl.classList.add('playing');
+      if (visualizer) visualizer.classList.add('active');
+      if (vizCenter) vizCenter.textContent = title;
+      if (vizPauseMessage) {
+        vizPauseMessage.textContent = 'השהייה — האם להמשיך?';
+        vizPauseMessage.classList.add('active');
+      }
+      setVisualizerControls('paused');
+      updateBreathCoachForTitle(title);
+      clearInterval(breathTimer);
+      breathTimer = null;
+    }
+
+    function hideVisualizer() {
+      bodyEl.classList.remove('playing');
+      if (visualizer) visualizer.classList.remove('active');
+      if (vizCenter) vizCenter.textContent = 'לא מתנגן כעת';
+      if (vizPauseMessage) {
+        vizPauseMessage.textContent = '';
+        vizPauseMessage.classList.remove('active');
+      }
+      setVisualizerControls('playing');
+      stopBreathCoach();
     }
 
     function stopOtherAudios(currentId) {
@@ -1051,10 +1096,12 @@
     function playAudio(audio, title) {
       const btn = getButtonForAudio(audio);
       const status = getStatusForAudio(audio);
+
       if (audio.dataset.available !== 'true') {
-        if (status) status.textContent = 'בהכנה';
+        if (status) status.innerHTML = `בהכנה <small>${audio.dataset.updated || 'טרם עודכן'}</small>`;
         return;
       }
+
       stopOtherAudios(audio.id);
       currentAudio = audio;
       currentTitle = title;
@@ -1100,84 +1147,79 @@
       hideVisualizer();
     }
 
+    function bindAudioEvents() {
+      buttons = Array.from(document.querySelectorAll('.play'));
+      audios = Array.from(document.querySelectorAll('audio'));
 
-    function markAudioReady(audio) {
-      audio.dataset.available = 'true';
-      setIdle(audio);
-    }
-
-    function markAudioPreparing(audio) {
-      audio.dataset.available = 'false';
-      const btn = getButtonForAudio(audio);
-      const status = getStatusForAudio(audio);
-      if (btn) {
-        btn.disabled = true;
-        btn.classList.add('disabled');
-      }
-      if (status) status.textContent = 'בהכנה';
-    }
-
-    audios.forEach(audio => {
-      markAudioPreparing(audio);
-
-      audio.addEventListener('canplaythrough', () => {
-        markAudioReady(audio);
-      }, { once: true });
-
-      audio.addEventListener('loadedmetadata', () => {
-        markAudioReady(audio);
-      }, { once: true });
-
-      audio.addEventListener('error', () => {
+      audios.forEach(audio => {
         markAudioPreparing(audio);
+
+        audio.addEventListener('canplaythrough', () => {
+          markAudioReady(audio);
+        }, { once: true });
+
+        audio.addEventListener('loadedmetadata', () => {
+          markAudioReady(audio);
+        }, { once: true });
+
+        audio.addEventListener('error', () => {
+          markAudioPreparing(audio);
+        });
+
+        audio.load();
       });
 
-      audio.load();
-    });
+      buttons.forEach(button => {
+        const audioId = button.dataset.audio;
+        const audio = document.getElementById(audioId);
+        const title = button.dataset.title;
+        const status = document.getElementById(`status-${audioId}`);
 
-    buttons.forEach(button => {
-      const audioId = button.dataset.audio;
-      const audio = document.getElementById(audioId);
-      const title = button.dataset.title;
-      const status = document.getElementById(`status-${audioId}`);
+        button.addEventListener('click', () => {
+          if (audio.dataset.available !== 'true') {
+            status.innerHTML = `בהכנה <small>${audio.dataset.updated || 'טרם עודכן'}</small>`;
+            return;
+          }
 
-      button.addEventListener('click', () => {
-        if (audio.dataset.available !== 'true') {
-          status.textContent = 'בהכנה';
-          return;
-        }
-        if (audio.paused) {
-          playAudio(audio, title);
-        } else {
-          currentAudio = audio;
-          currentTitle = title;
-          audio.pause();
+          if (audio.paused) {
+            playAudio(audio, title);
+          } else {
+            currentAudio = audio;
+            currentTitle = title;
+            audio.pause();
+            button.textContent = '▶︎ נגן';
+            status.textContent = 'הושהה';
+            showPausedVisualizer(title);
+          }
+        });
+
+        audio.addEventListener('ended', () => {
           button.textContent = '▶︎ נגן';
-          status.textContent = 'הושהה';
-          showPausedVisualizer(title);
+          status.textContent = 'הסתיים';
+          if (currentAudio === audio) {
+            currentAudio = null;
+            currentTitle = '';
+          }
+          hideVisualizer();
+        });
+      });
+    }
+
+    if (vizPlay) {
+      vizPlay.addEventListener('click', () => {
+        if (currentAudio && currentAudio.paused) {
+          playAudio(currentAudio, currentTitle);
         }
       });
+    }
 
-      audio.addEventListener('ended', () => {
-        button.textContent = '▶︎ נגן';
-        status.textContent = 'הסתיים';
-        if (currentAudio === audio) {
-          currentAudio = null;
-          currentTitle = '';
-        }
-        hideVisualizer();
-      });
+    if (vizPause) vizPause.addEventListener('click', pauseCurrent);
+    if (vizStop) vizStop.addEventListener('click', stopCurrent);
+
+    loadTracks().then(tracks => {
+      grid.innerHTML = tracks.map(trackToCard).join('');
+      bindAudioEvents();
     });
-
-    vizPlay.addEventListener('click', () => {
-      if (!currentAudio && audios.length > 0) return;
-      if (currentAudio && currentAudio.paused) {
-        playAudio(currentAudio, currentTitle);
-      }
-    });
-
-    vizPause.addEventListener('click', pauseCurrent);
-    vizStop.addEventListener('click', stopCurrent);
   </script>
 </body>
 </html>
