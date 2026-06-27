@@ -1194,7 +1194,7 @@
         width: 100%;
         min-width: 0;
         height: auto;
-        flex: 0 0 126px;
+        flex: 0 0 138px;
         display: flex;
         align-items: stretch;
         justify-content: center;
@@ -1204,16 +1204,16 @@
 
       .remote-box {
         width: 100%;
-        min-height: 118px;
-        border-radius: 26px;
-        padding: 10px 12px 9px;
-        gap: 7px;
+        min-height: 130px;
+        border-radius: 28px;
+        padding: 11px 13px 10px;
+        gap: 8px;
         display: grid;
         grid-template-columns: 1fr auto;
         grid-template-rows: auto auto auto;
         align-items: center;
-        column-gap: 12px;
-        row-gap: 6px;
+        column-gap: 13px;
+        row-gap: 7px;
         position: relative;
         z-index: 230;
       }
@@ -1230,16 +1230,16 @@
       }
 
       .viz-title {
-        font-size: 0.94rem;
-        line-height: 1.2;
+        font-size: 1.04rem;
+        line-height: 1.23;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
 
       .viz-timer {
-        margin-top: 3px;
-        font-size: 0.76rem;
+        margin-top: 4px;
+        font-size: 0.84rem;
         text-align: right;
       }
 
@@ -1247,48 +1247,48 @@
         grid-column: 2 / 3;
         grid-row: 1 / 3;
         width: auto;
-        gap: 7px;
+        gap: 8px;
         align-self: center;
         justify-self: end;
       }
 
       .viz-btn {
-        width: 42px;
-        height: 42px;
-        font-size: 0.98rem;
+        width: 46px;
+        height: 46px;
+        font-size: 1.08rem;
       }
 
       .remote-progress {
         grid-column: 1 / 3;
         grid-row: 3 / 4;
         width: 100%;
-        gap: 4px;
+        gap: 5px;
         padding: 0;
       }
 
       .remote-progress-times {
-        height: 14px;
+        height: 16px;
       }
 
       .progress-time {
-        font-size: 0.68rem;
+        font-size: 0.75rem;
       }
 
       .progress-range::-webkit-slider-runnable-track {
-        height: 6px;
+        height: 7px;
       }
 
       .progress-range::-webkit-slider-thumb {
-        width: 16px;
-        height: 16px;
-        margin-top: -5px;
+        width: 18px;
+        height: 18px;
+        margin-top: -5.5px;
       }
 
       .viz-pause-message {
         grid-column: 1 / 3;
         grid-row: 2 / 3;
         min-height: 1em;
-        font-size: 0.72rem;
+        font-size: 0.80rem;
         text-align: right;
       }
 
@@ -1325,9 +1325,9 @@
         top: 12px;
         left: 12px;
         transform: none;
-        width: 34px;
-        height: 34px;
-        font-size: 1.05rem;
+        width: 37px;
+        height: 37px;
+        font-size: 1.16rem;
         z-index: 260;
       }
 
@@ -1338,8 +1338,8 @@
       .viz-center {
         width: 100%;
         height: 100%;
-        border-radius: 30px;
-        padding: 16px;
+        border-radius: 32px;
+        padding: 14px;
         background:
           radial-gradient(circle at 50% 28%, rgba(238,255,255,0.96), rgba(151,229,226,0.76) 46%, rgba(74,166,184,0.62) 100%),
           linear-gradient(135deg, #b9f0ed, #65c5cf, #2b7898, #b0ebe7);
@@ -1358,26 +1358,26 @@
       .cue-stage {
         width: 100%;
         height: 100%;
-        padding: 8px;
+        padding: 7px;
         align-items: center;
         justify-content: center;
       }
 
       .cue-content.text-only-content {
-        width: 96%;
-        height: 96%;
+        width: 98%;
+        height: 98%;
       }
 
       .cue-content.image-only-content {
-        width: 96%;
-        height: 96%;
+        width: 98%;
+        height: 98%;
       }
 
       .cue-content.text-image-content {
-        width: 96%;
-        height: 78%;
+        width: 98%;
+        height: 82%;
         align-self: flex-start;
-        margin-top: 4px;
+        margin-top: 3px;
       }
 
       .cue-image-wrap {
@@ -1386,13 +1386,13 @@
       }
 
       .cue-image {
-        border-radius: 20px;
+        border-radius: 21px;
         box-shadow: 0 12px 28px rgba(31,92,120,0.16);
       }
 
       .cue-text-only {
-        font-size: clamp(1.65rem, 8vw, 2.45rem);
-        line-height: 1.23;
+        font-size: clamp(1.82rem, 8.8vw, 2.7rem);
+        line-height: 1.22;
       }
 
       .outside-caption {
@@ -1400,12 +1400,12 @@
         left: 50%;
         top: auto;
         bottom: 16px;
-        width: calc(100% - 34px);
+        width: calc(100% - 30px);
         max-width: none;
-        padding: 10px 14px 11px;
-        border-radius: 20px;
-        font-size: clamp(1.05rem, 5vw, 1.55rem);
-        line-height: 1.16;
+        padding: 11px 15px 12px;
+        border-radius: 21px;
+        font-size: clamp(1.16rem, 5.5vw, 1.70rem);
+        line-height: 1.15;
         transform: translate(-50%, 10px);
       }
 
@@ -1414,20 +1414,20 @@
       }
 
       .breath-phase {
-        font-size: 1.1rem;
+        font-size: 1.21rem;
       }
 
       .breath-instruction {
-        font-size: 0.86rem;
+        font-size: 0.95rem;
       }
 
       .breath-circle {
-        width: 86px;
-        height: 86px;
+        width: 95px;
+        height: 95px;
       }
 
       .breath-count {
-        font-size: 1.6rem;
+        font-size: 1.76rem;
       }
     }
 
@@ -1496,7 +1496,7 @@
 
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 132 <span>(27.06.2026, הגברת נראות הספירלות והטיפות ב־10%)</span></div>
+        <div class="version-line">גרסה מס׳ 133 <span>(27.06.2026, הגדלה עדינה של רכיבי הנייד בכ־10%)</span></div>
       </div>
 
       <div class="hero-art">
@@ -1742,7 +1742,7 @@
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=132', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=133', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
@@ -1753,7 +1753,7 @@
 
     async function loadCues() {
       try {
-        const response = await fetch('assets/cues.json?v=132', { cache: 'no-store' });
+        const response = await fetch('assets/cues.json?v=133', { cache: 'no-store' });
         if (!response.ok) throw new Error('cues.json not found');
         const data = await response.json();
 
