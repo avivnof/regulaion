@@ -172,7 +172,7 @@
 
     .card {
       position: relative;
-      min-height: 214px;
+      min-height: 230px;
       border-radius: var(--radius-lg);
       padding: 18px;
       overflow: hidden;
@@ -219,7 +219,7 @@
     }
 
     .card p {
-      margin: 0 0 16px;
+      margin: 0 0 18px;
       min-height: 44px;
       color: var(--muted);
       line-height: 1.55;
@@ -229,27 +229,64 @@
     .play-row {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       margin-top: auto;
+      flex-wrap: wrap;
     }
 
     .play {
-      border: 0;
+      position: relative;
+      border: 2px solid rgba(255, 255, 255, 0.95);
       cursor: pointer;
       color: white;
-      min-width: 132px;
+      min-width: 158px;
       border-radius: 999px;
-      padding: 12px 17px;
-      font-size: 0.96rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #4e9fb0, #6f7f8f);
-      box-shadow: 0 12px 24px rgba(79,159,176,0.23);
-      transition: transform 160ms ease, filter 160ms ease;
+      padding: 15px 24px 16px;
+      font-size: 1.08rem;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.02) 38%),
+        linear-gradient(135deg, #57b3c5 0%, #4e9fb0 42%, #5f7687 100%);
+      box-shadow:
+        0 4px 0 rgba(34, 82, 99, 0.86),
+        0 13px 24px rgba(31, 92, 120, 0.34),
+        inset 0 1px 0 rgba(255,255,255,0.58),
+        inset 0 -2px 0 rgba(31, 74, 90, 0.22);
+      text-shadow: 0 1px 2px rgba(22, 55, 70, 0.35);
+      transition:
+        transform 140ms ease,
+        box-shadow 140ms ease,
+        filter 160ms ease,
+        background 160ms ease;
+    }
+
+    .play::before {
+      content: "";
+      position: absolute;
+      inset: 3px 5px auto 5px;
+      height: 38%;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.36), rgba(255,255,255,0.03));
+      pointer-events: none;
     }
 
     .play:hover {
-      transform: translateY(-1px);
-      filter: saturate(1.08);
+      transform: translateY(-3px);
+      filter: saturate(1.12) brightness(1.03);
+      box-shadow:
+        0 7px 0 rgba(34, 82, 99, 0.82),
+        0 18px 32px rgba(31, 92, 120, 0.38),
+        inset 0 1px 0 rgba(255,255,255,0.66),
+        inset 0 -2px 0 rgba(31, 74, 90, 0.25);
+    }
+
+    .play:active {
+      transform: translateY(3px);
+      box-shadow:
+        0 1px 0 rgba(34, 82, 99, 0.9),
+        0 7px 15px rgba(31, 92, 120, 0.25),
+        inset 0 2px 5px rgba(24, 60, 72, 0.22);
     }
 
     .play.disabled,
@@ -258,16 +295,22 @@
       cursor: not-allowed;
       filter: grayscale(0.35);
       transform: none;
+      border-color: rgba(255,255,255,0.70);
+      box-shadow:
+        0 3px 0 rgba(88, 105, 114, 0.55),
+        0 8px 16px rgba(48,72,86,0.12),
+        inset 0 1px 0 rgba(255,255,255,0.38);
     }
 
     .status {
       color: var(--muted);
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       white-space: nowrap;
       line-height: 1.35;
       display: inline-flex;
       flex-direction: column;
       gap: 2px;
+      font-weight: 700;
     }
 
     .status small {
@@ -950,7 +993,7 @@
       }
 
       .card {
-        min-height: 196px;
+        min-height: 210px;
         padding: 16px;
         border-radius: 24px;
       }
@@ -960,7 +1003,9 @@
       }
 
       .play {
-        min-width: 122px;
+        min-width: 152px;
+        padding: 15px 22px 16px;
+        font-size: 1.05rem;
       }
 
       .disclaimer {
@@ -982,7 +1027,7 @@
 
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 121 <span>(27.06.2026, כותרת ולחצנים משמאל והתאמת התמונה לעיגול)</span></div>
+        <div class="version-line">גרסה מס׳ 122 <span>(27.06.2026, כפתורי נגן גדולים ותלת־ממדיים)</span></div>
       </div>
 
       <div class="hero-art">
@@ -1204,7 +1249,7 @@
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=121', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=122', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
@@ -1215,7 +1260,7 @@
 
     async function loadCues() {
       try {
-        const response = await fetch('assets/cues.json?v=121', { cache: 'no-store' });
+        const response = await fetch('assets/cues.json?v=122', { cache: 'no-store' });
         if (!response.ok) throw new Error('cues.json not found');
         const data = await response.json();
 
