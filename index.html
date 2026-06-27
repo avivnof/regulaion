@@ -346,10 +346,10 @@
 
     .viz-core {
       position: relative;
-      width: min(86vw, 620px);
-      height: min(86vw, 620px);
-      min-width: 310px;
-      min-height: 310px;
+      width: min(96vmin, 868px);
+      height: min(96vmin, 868px);
+      min-width: 360px;
+      min-height: 360px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -481,7 +481,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 14px 12px 16px;
+      padding: 16px 14px 18px;
       color: var(--deep);
       font-weight: 700;
       line-height: 1.4;
@@ -508,7 +508,7 @@
     }
 
     .cue-stage {
-      width: 94%;
+      width: 95%;
       min-height: 0;
       flex: 1 1 auto;
       display: flex;
@@ -546,7 +546,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 9px;
+      gap: 10px;
       overflow: hidden;
     }
 
@@ -565,11 +565,12 @@
       display: block;
       width: auto;
       max-width: 98%;
-      max-height: 88%;
+      max-height: 68%;
       object-fit: contain;
       border-radius: 18px;
       box-shadow: 0 12px 28px rgba(31,92,120,0.18);
       background: rgba(255,255,255,0.45);
+      flex: 0 1 auto;
     }
 
     .cue-image.only-image {
@@ -577,12 +578,17 @@
       max-width: 99%;
     }
 
+    .cue-image.with-caption {
+      max-height: 68%;
+      max-width: 97%;
+    }
+
     .cue-caption {
-      width: 94%;
+      width: 96%;
       color: #163746;
-      font-size: clamp(1.34rem, 4.8vw, 1.95rem);
+      font-size: clamp(1.36rem, 4.8vw, 2rem);
       font-weight: 900;
-      line-height: 1.24;
+      line-height: 1.22;
       text-align: center;
       text-wrap: balance;
       white-space: pre-wrap;
@@ -770,10 +776,10 @@
       }
 
       .viz-core {
-        width: min(94vw, 470px);
-        height: min(94vw, 470px);
-        min-width: 330px;
-        min-height: 330px;
+        width: min(98vmin, 658px);
+        height: min(98vmin, 658px);
+        min-width: 360px;
+        min-height: 360px;
       }
 
       .viz-center {
@@ -802,12 +808,17 @@
 
       .cue-image {
         max-width: 99%;
-        max-height: 86%;
+        max-height: 62%;
         border-radius: 14px;
       }
 
       .cue-image.only-image {
         max-height: 98%;
+      }
+
+      .cue-image.with-caption {
+        max-height: 62%;
+        max-width: 97%;
       }
 
       .cue-caption {
@@ -835,7 +846,7 @@
 
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 116 <span>(27.06.2026, הגדלת תמונות)</span></div>
+        <div class="version-line">גרסה מס׳ 117 <span>(27.06.2026, הגדלת ספירלה ותמיכה בתמונה עם טקסט)</span></div>
       </div>
 
       <div class="hero-art">
@@ -1052,7 +1063,7 @@
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=116', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=117', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
@@ -1063,7 +1074,7 @@
 
     async function loadCues() {
       try {
-        const response = await fetch('assets/cues.json?v=116', { cache: 'no-store' });
+        const response = await fetch('assets/cues.json?v=117', { cache: 'no-store' });
         if (!response.ok) throw new Error('cues.json not found');
         const data = await response.json();
 
@@ -1145,7 +1156,7 @@
       if (type === 'text-image') {
         return `
           <div class="cue-content">
-            <img class="cue-image" src="${src}" alt="${alt}" />
+            <img class="cue-image with-caption" src="${src}" alt="${alt}" />
             <div class="cue-caption">${text}</div>
           </div>
         `;
