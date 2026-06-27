@@ -468,118 +468,64 @@
       z-index: 5;
       width: 100vw;
       height: 100vh;
-      display: grid;
-      grid-template-rows: auto 1fr;
-      align-items: center;
-      justify-items: center;
-      gap: 4px;
-      pointer-events: auto;
-    }
-
-    .viz-progress-panel {
-      width: min(92vw, 920px);
-      margin-top: 8px;
-      padding: 9px 16px 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.82);
-      border: 1px solid rgba(255,255,255,0.76);
-      box-shadow: 0 10px 24px rgba(31,92,120,0.14);
-      backdrop-filter: blur(12px);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      direction: ltr;
-    }
-
-    .progress-time {
-      min-width: 47px;
-      color: #173846;
-      font-size: 0.82rem;
-      font-weight: 900;
-      direction: ltr;
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    .progress-range {
-      width: 100%;
-      accent-color: #4e9fb0;
-      cursor: pointer;
-    }
-
-    .progress-range::-webkit-slider-runnable-track {
-      height: 9px;
-      border-radius: 999px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.10)),
-        rgba(77, 129, 145, 0.28);
-      box-shadow: inset 0 1px 2px rgba(30,70,85,0.20);
-    }
-
-    .progress-range::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 23px;
-      height: 23px;
-      margin-top: -7px;
-      border-radius: 50%;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.25)),
-        #4e9fb0;
-      border: 2px solid rgba(255,255,255,0.95);
-      box-shadow:
-        0 5px 12px rgba(31,92,120,0.35),
-        inset 0 1px 0 rgba(255,255,255,0.72);
-    }
-
-    .progress-range::-moz-range-track {
-      height: 9px;
-      border-radius: 999px;
-      background: rgba(77, 129, 145, 0.28);
-      box-shadow: inset 0 1px 2px rgba(30,70,85,0.20);
-    }
-
-    .progress-range::-moz-range-thumb {
-      width: 21px;
-      height: 21px;
-      border-radius: 50%;
-      background: #4e9fb0;
-      border: 2px solid rgba(255,255,255,0.95);
-      box-shadow: 0 5px 12px rgba(31,92,120,0.35);
+      pointer-events: auto;
     }
 
     .viz-main-row {
-      width: min(100vw, 1180px);
+      width: min(100vw, 1220px);
       height: 100%;
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      gap: 14px;
+      gap: 16px;
       direction: ltr;
       pointer-events: auto;
       min-height: 0;
     }
 
     .viz-side {
-      width: 190px;
-      min-width: 190px;
+      width: 222px;
+      min-width: 222px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .remote-box {
+      width: 100%;
+      border-radius: 34px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.92), rgba(231,246,249,0.78)),
+        rgba(255,255,255,0.80);
+      border: 1px solid rgba(255,255,255,0.82);
+      box-shadow:
+        0 20px 44px rgba(31,92,120,0.22),
+        inset 0 1px 0 rgba(255,255,255,0.78),
+        inset 0 -2px 0 rgba(48,72,86,0.08);
+      backdrop-filter: blur(16px);
+      padding: 18px 15px 17px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 14px;
+      gap: 13px;
+      direction: rtl;
+      color: #173846;
+    }
+
+    .remote-label {
+      font-size: 0.76rem;
+      font-weight: 900;
+      color: #5a7380;
+      opacity: 0.9;
+      letter-spacing: 0.02em;
     }
 
     .viz-info {
       width: 100%;
-      padding: 12px 14px;
-      border-radius: 26px;
-      background: rgba(255, 255, 255, 0.82);
-      border: 1px solid rgba(255,255,255,0.76);
-      box-shadow: 0 10px 24px rgba(31,92,120,0.14);
-      backdrop-filter: blur(12px);
       text-align: center;
       color: #173846;
       direction: rtl;
@@ -592,7 +538,7 @@
     }
 
     .viz-timer {
-      margin-top: 4px;
+      margin-top: 5px;
       color: #3f5968;
       font-size: clamp(0.8rem, 1.4vw, 0.92rem);
       font-weight: 800;
@@ -603,8 +549,8 @@
 
     .viz-pause-message {
       min-height: 1.2em;
-      color: #ecf3f5;
-      font-size: 0.92rem;
+      color: #4f6876;
+      font-size: 0.86rem;
       font-weight: 800;
       text-align: center;
       opacity: 0;
@@ -621,38 +567,140 @@
 
     .viz-controls {
       display: flex;
-      flex-direction: column;
-      gap: 10px;
+      flex-direction: row;
+      gap: 9px;
       align-items: center;
       justify-content: center;
       width: 100%;
+      direction: ltr;
     }
 
     .viz-btn {
-      width: 62px;
-      height: 62px;
-      border: 0;
+      width: 52px;
+      height: 52px;
+      border: 1px solid rgba(255,255,255,0.92);
       border-radius: 50%;
-      background: rgba(255,255,255,0.9);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.96), rgba(221,241,245,0.86));
       color: var(--deep);
-      box-shadow: 0 8px 20px rgba(48,72,86,0.14);
+      box-shadow:
+        0 4px 0 rgba(88,126,138,0.42),
+        0 10px 18px rgba(48,72,86,0.17),
+        inset 0 1px 0 rgba(255,255,255,0.86);
       cursor: pointer;
-      font-size: 1.3rem;
+      font-size: 1.14rem;
       font-weight: 900;
-      transition: transform 160ms ease, background 160ms ease;
+      transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
     }
 
     .viz-btn:hover {
-      transform: translateY(-1px);
-      background: rgba(255,255,255,0.98);
+      transform: translateY(-2px);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,1), rgba(203,235,240,0.92));
+      box-shadow:
+        0 6px 0 rgba(88,126,138,0.40),
+        0 14px 22px rgba(48,72,86,0.19),
+        inset 0 1px 0 rgba(255,255,255,0.90);
+    }
+
+    .viz-btn:active {
+      transform: translateY(2px);
+      box-shadow:
+        0 1px 0 rgba(88,126,138,0.44),
+        0 6px 12px rgba(48,72,86,0.13),
+        inset 0 2px 4px rgba(48,72,86,0.12);
     }
 
     .hidden { display: none !important; }
 
+    .remote-progress {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      align-items: stretch;
+      direction: ltr;
+      padding: 4px 2px 0;
+    }
+
+    .remote-progress-times {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .progress-time {
+      color: #355465;
+      font-size: 0.74rem;
+      font-weight: 900;
+      direction: ltr;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .progress-range {
+      width: 100%;
+      accent-color: #4e9fb0;
+      cursor: pointer;
+    }
+
+    .progress-range::-webkit-slider-runnable-track {
+      height: 7px;
+      border-radius: 999px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.12)),
+        rgba(77, 129, 145, 0.28);
+      box-shadow: inset 0 1px 2px rgba(30,70,85,0.20);
+    }
+
+    .progress-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      margin-top: -5.5px;
+      border-radius: 50%;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.25)),
+        #4e9fb0;
+      border: 2px solid rgba(255,255,255,0.95);
+      box-shadow:
+        0 5px 12px rgba(31,92,120,0.32),
+        inset 0 1px 0 rgba(255,255,255,0.72);
+    }
+
+    .progress-range::-moz-range-track {
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(77, 129, 145, 0.28);
+      box-shadow: inset 0 1px 2px rgba(30,70,85,0.20);
+    }
+
+    .progress-range::-moz-range-thumb {
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      background: #4e9fb0;
+      border: 2px solid rgba(255,255,255,0.95);
+      box-shadow: 0 5px 12px rgba(31,92,120,0.32);
+    }
+
+    .viz-visual-area {
+      height: 100%;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      pointer-events: auto;
+    }
+
     .viz-core {
       position: relative;
-      width: min(calc(100vw - 225px), calc(100vh - 76px), 980px);
-      height: min(calc(100vw - 225px), calc(100vh - 76px), 980px);
+      width: min(calc(100vw - 260px), calc(100vh - 34px), 980px);
+      height: min(calc(100vw - 260px), calc(100vh - 34px), 980px);
       min-width: 360px;
       min-height: 360px;
       display: flex;
@@ -850,12 +898,10 @@
       width: 84%;
       height: 84%;
       margin: auto;
-      display: grid;
-      grid-template-rows: minmax(0, 1fr) auto;
+      display: flex;
       align-items: center;
-      justify-items: center;
-      gap: 12px;
-      padding: 2px 0 0;
+      justify-content: center;
+      padding: 0;
     }
 
     .cue-image-wrap {
@@ -900,18 +946,34 @@
       aspect-ratio: 1 / 1;
     }
 
-    .cue-caption {
-      width: 98%;
+    .outside-caption {
+      max-width: min(88vw, 720px);
+      min-height: 0;
+      padding: 10px 18px 12px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.86);
+      border: 1px solid rgba(255,255,255,0.80);
+      box-shadow: 0 12px 28px rgba(31,92,120,0.18);
+      backdrop-filter: blur(12px);
       color: #163746;
-      font-size: clamp(1.22rem, 3.6vw, 1.9rem);
+      font-size: clamp(1.18rem, 3.1vw, 1.85rem);
       font-weight: 900;
-      line-height: 1.16;
+      line-height: 1.18;
       text-align: center;
       text-wrap: balance;
       white-space: pre-wrap;
-      padding: 0 4px;
-      max-height: 7.2em;
-      overflow: hidden;
+      direction: rtl;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 420ms ease, transform 420ms ease;
+      pointer-events: none;
+      display: none;
+    }
+
+    .outside-caption.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .breath-coach {
@@ -1025,69 +1087,68 @@
         padding: 4px;
       }
 
-      .viz-layout {
-        width: 100vw;
-        height: 100vh;
-        grid-template-rows: auto 1fr;
-        gap: 2px;
-      }
-
-      .viz-progress-panel {
-        width: 96vw;
-        margin-top: 5px;
-        padding: 7px 10px 8px;
-        gap: 8px;
-      }
-
-      .progress-time {
-        min-width: 42px;
-        font-size: 0.74rem;
-      }
-
       .viz-main-row {
         width: 100vw;
         gap: 8px;
       }
 
       .viz-side {
-        width: 108px;
-        min-width: 108px;
-        gap: 10px;
+        width: 118px;
+        min-width: 118px;
       }
 
-      .viz-info {
-        padding: 10px 8px;
-        border-radius: 20px;
+      .remote-box {
+        border-radius: 24px;
+        padding: 11px 8px 12px;
+        gap: 9px;
+      }
+
+      .remote-label {
+        font-size: 0.66rem;
       }
 
       .viz-title {
-        font-size: 0.82rem;
-        line-height: 1.25;
+        font-size: 0.78rem;
+        line-height: 1.24;
       }
 
       .viz-timer {
-        font-size: 0.74rem;
+        font-size: 0.72rem;
       }
 
       .viz-pause-message {
-        font-size: 0.76rem;
+        font-size: 0.72rem;
       }
 
       .viz-controls {
-        gap: 8px;
+        gap: 5px;
       }
 
       .viz-btn {
-        width: 48px;
-        height: 48px;
-        font-size: 1.04rem;
+        width: 34px;
+        height: 34px;
+        font-size: 0.84rem;
+      }
+
+      .progress-time {
+        font-size: 0.66rem;
+      }
+
+      .progress-range::-webkit-slider-runnable-track {
+        height: 6px;
+      }
+
+      .progress-range::-webkit-slider-thumb {
+        width: 16px;
+        height: 16px;
+        margin-top: -5px;
       }
 
       .viz-core {
-        width: min(calc(100vw - 126px), calc(100vh - 58px), 680px);
-        height: min(calc(100vw - 126px), calc(100vh - 58px), 680px);
-        min-width: 260px;
-        min-height: 260px;
+        width: min(calc(100vw - 136px), calc(100vh - 18px), 680px);
+        height: min(calc(100vw - 136px), calc(100vh - 18px), 680px);
+        min-width: 245px;
+        min-height: 245px;
       }
 
       .viz-close {
@@ -1116,7 +1177,6 @@
       .cue-content.text-image-content {
         width: 86%;
         height: 86%;
-        gap: 8px;
       }
 
       .cue-text-only {
@@ -1128,10 +1188,12 @@
         border-radius: 14px;
       }
 
-      .cue-caption {
-        font-size: clamp(1.02rem, 4.4vw, 1.34rem);
+      .outside-caption {
+        max-width: calc(100vw - 136px);
+        padding: 8px 12px 9px;
+        border-radius: 18px;
+        font-size: clamp(0.96rem, 4.2vw, 1.32rem);
         line-height: 1.13;
-        max-height: 6.7em;
       }
 
       .breath-phase {
@@ -1215,7 +1277,7 @@
 
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 124 <span>(27.06.2026, הדגשת כרטיס בעת מעבר עכבר)</span></div>
+        <div class="version-line">גרסה מס׳ 125 <span>(27.06.2026, שלט רחוק וטקסט מחוץ למעגל)</span></div>
       </div>
 
       <div class="hero-art">
@@ -1251,48 +1313,58 @@
     </div>
 
     <div class="viz-layout">
-      <div class="viz-progress-panel">
-        <span class="progress-time" id="progressCurrent">00:00</span>
-        <input class="progress-range" id="progressRange" type="range" min="0" max="1000" value="0" step="1" aria-label="פס התקדמות" />
-        <span class="progress-time" id="progressDuration">00:00</span>
-      </div>
-
       <div class="viz-main-row">
         <div class="viz-side">
-          <div class="viz-info">
-            <div class="viz-title" id="vizCenter">לא מתנגן כעת</div>
-            <div class="viz-timer" id="vizTimer">00:00 / 00:00</div>
-          </div>
+          <div class="remote-box">
+            <div class="remote-label">שלט נגן</div>
 
-          <div class="viz-pause-message" id="vizPauseMessage"></div>
+            <div class="viz-info">
+              <div class="viz-title" id="vizCenter">לא מתנגן כעת</div>
+              <div class="viz-timer" id="vizTimer">00:00 / 00:00</div>
+            </div>
 
-          <div class="viz-controls">
-            <button class="viz-btn hidden" id="vizPlay" type="button" aria-label="המשך">▶</button>
-            <button class="viz-btn" id="vizPause" type="button" aria-label="השהה">❚❚</button>
-            <button class="viz-btn" id="vizStop" type="button" aria-label="עצור">■</button>
+            <div class="viz-controls">
+              <button class="viz-btn hidden" id="vizPlay" type="button" aria-label="המשך">▶</button>
+              <button class="viz-btn" id="vizPause" type="button" aria-label="השהה">❚❚</button>
+              <button class="viz-btn" id="vizStop" type="button" aria-label="עצור">■</button>
+            </div>
+
+            <div class="remote-progress">
+              <input class="progress-range" id="progressRange" type="range" min="0" max="1000" value="0" step="1" aria-label="פס התקדמות" />
+              <div class="remote-progress-times">
+                <span class="progress-time" id="progressCurrent">00:00</span>
+                <span class="progress-time" id="progressDuration">00:00</span>
+              </div>
+            </div>
+
+            <div class="viz-pause-message" id="vizPauseMessage"></div>
           </div>
         </div>
 
-        <div class="viz-core">
-          <button class="viz-close" id="vizClose" type="button" aria-label="סגור ועצור">×</button>
+        <div class="viz-visual-area">
+          <div class="viz-core">
+            <button class="viz-close" id="vizClose" type="button" aria-label="סגור ועצור">×</button>
 
-          <div class="viz-ring r1"></div>
-          <div class="viz-ring r2"></div>
-          <div class="viz-ring r3"></div>
-          <div class="viz-ring r4"></div>
-          <div class="viz-wave"></div>
+            <div class="viz-ring r1"></div>
+            <div class="viz-ring r2"></div>
+            <div class="viz-ring r3"></div>
+            <div class="viz-ring r4"></div>
+            <div class="viz-wave"></div>
 
-          <div class="viz-center">
-            <div class="cue-stage" id="cueStage" aria-live="polite"></div>
+            <div class="viz-center">
+              <div class="cue-stage" id="cueStage" aria-live="polite"></div>
 
-            <div class="breath-coach" id="breathCoach">
-              <div class="breath-phase" id="breathPhase">שאיפה דרך האף</div>
-              <div class="breath-instruction" id="breathInstruction">הבטן עולה קלות</div>
-              <div class="breath-circle" id="breathCircle">
-                <div class="breath-count" id="breathCount">3</div>
+              <div class="breath-coach" id="breathCoach">
+                <div class="breath-phase" id="breathPhase">שאיפה דרך האף</div>
+                <div class="breath-instruction" id="breathInstruction">הבטן עולה קלות</div>
+                <div class="breath-circle" id="breathCircle">
+                  <div class="breath-count" id="breathCount">3</div>
+                </div>
               </div>
             </div>
           </div>
+
+          <div class="outside-caption" id="outsideCaption"></div>
         </div>
       </div>
     </div>
@@ -1307,6 +1379,7 @@
     const vizPauseMessage = document.getElementById('vizPauseMessage');
     const vizTimer = document.getElementById('vizTimer');
     const cueStage = document.getElementById('cueStage');
+    const outsideCaption = document.getElementById('outsideCaption');
 
     const progressRange = document.getElementById('progressRange');
     const progressCurrent = document.getElementById('progressCurrent');
@@ -1450,7 +1523,7 @@
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=124', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=125', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
@@ -1461,7 +1534,7 @@
 
     async function loadCues() {
       try {
-        const response = await fetch('assets/cues.json?v=124', { cache: 'no-store' });
+        const response = await fetch('assets/cues.json?v=125', { cache: 'no-store' });
         if (!response.ok) throw new Error('cues.json not found');
         const data = await response.json();
 
@@ -1546,7 +1619,6 @@
             <div class="cue-image-wrap">
               <img class="cue-image with-caption" src="${src}" alt="${alt}" />
             </div>
-            <div class="cue-caption">${text}</div>
           </div>
         `;
       }
@@ -1558,6 +1630,18 @@
       `;
     }
 
+    function updateOutsideCaption(cue) {
+      if (!outsideCaption) return;
+
+      if (cue && cue.type === 'text-image' && cue.text) {
+        outsideCaption.textContent = cue.text;
+        outsideCaption.classList.add('active');
+      } else {
+        outsideCaption.textContent = '';
+        outsideCaption.classList.remove('active');
+      }
+    }
+
     function setCueWithDissolve(cue, key) {
       if (!cueStage) return;
 
@@ -1566,9 +1650,11 @@
 
       cueStage.classList.add('leaving');
       cueStage.classList.remove('active');
+      updateOutsideCaption(null);
 
       cueTransitionTimer = setTimeout(() => {
         cueStage.innerHTML = buildCueMarkup(cue);
+        updateOutsideCaption(cue);
 
         if (cue) {
           cueStage.classList.remove('leaving');
@@ -1601,6 +1687,7 @@
       activeCueKey = '';
       cueStage.innerHTML = '';
       cueStage.classList.remove('active', 'leaving');
+      updateOutsideCaption(null);
     }
 
     function updateProgressDisplay() {
