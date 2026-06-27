@@ -19,9 +19,9 @@
       --soft-shadow: 0 10px 28px rgba(48, 72, 86, 0.12);
       --radius-xl: 34px;
       --radius-lg: 26px;
-      --viz1: rgba(28, 90, 112, 0.98);
-      --viz2: rgba(54, 135, 154, 0.92);
-      --viz3: rgba(150, 218, 218, 0.82);
+      --viz1: rgba(28, 90, 112, 0.78);
+      --viz2: rgba(54, 135, 154, 0.62);
+      --viz3: rgba(150, 218, 218, 0.54);
     }
 
     * { box-sizing: border-box; }
@@ -304,6 +304,7 @@
       align-items: center;
       justify-content: center;
       pointer-events: none;
+      padding: 12px;
     }
 
     .visualizer.active {
@@ -344,10 +345,51 @@
     .d4 { left: 41%; animation-duration: 6.4s; animation-delay: -3.1s; height: 18px; width: 7px; }
     .d5 { left: 57%; animation-duration: 6.2s; animation-delay: -2.5s; height: 16px; width: 7px; }
 
+    .viz-layout {
+      position: relative;
+      z-index: 5;
+      width: min(98vw, 920px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      pointer-events: auto;
+    }
+
+    .viz-header {
+      min-width: 260px;
+      max-width: min(92vw, 720px);
+      padding: 7px 16px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(255,255,255,0.76);
+      box-shadow: 0 10px 24px rgba(31,92,120,0.14);
+      backdrop-filter: blur(12px);
+      text-align: center;
+      color: #173846;
+    }
+
+    .viz-title {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      font-weight: 900;
+      line-height: 1.25;
+    }
+
+    .viz-timer {
+      margin-top: 2px;
+      color: #3f5968;
+      font-size: clamp(0.78rem, 1.7vw, 0.92rem);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      direction: ltr;
+      opacity: 0.92;
+    }
+
     .viz-core {
       position: relative;
-      width: min(96vmin, 868px);
-      height: min(96vmin, 868px);
+      width: min(96vmin, 820px);
+      height: min(96vmin, 820px);
       min-width: 360px;
       min-height: 360px;
       display: flex;
@@ -398,33 +440,33 @@
 
     .viz-ring.r1 {
       inset: 0;
-      border-width: 6px;
+      border-width: 4px;
       border-color: var(--viz1) transparent var(--viz2) transparent;
       animation-name: spinSlow;
       animation-duration: 12s;
-      box-shadow: 0 0 0 2px rgba(255,255,255,0.08) inset;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset;
     }
 
     .viz-ring.r2 {
-      inset: 20px;
-      border-width: 5px;
+      inset: 16px;
+      border-width: 3px;
       border-color: transparent var(--viz2) transparent var(--viz3);
       animation-name: spinReverse;
       animation-duration: 10s;
     }
 
     .viz-ring.r3 {
-      inset: 44px;
-      border-width: 4px;
+      inset: 36px;
+      border-width: 3px;
       border-color: var(--viz3) transparent var(--viz1) transparent;
       animation-name: pulseSpin;
       animation-duration: 8.5s;
     }
 
     .viz-ring.r4 {
-      inset: 70px;
-      border-width: 3px;
-      border-color: transparent rgba(59, 84, 98, 0.88) transparent rgba(110,129,140,0.7);
+      inset: 58px;
+      border-width: 2px;
+      border-color: transparent rgba(59, 84, 98, 0.52) transparent rgba(110,129,140,0.42);
       animation-name: spinReverse;
       animation-duration: 7.5s;
     }
@@ -436,8 +478,8 @@
       content: "";
       width: 78%;
       height: 36%;
-      border: 4px solid rgba(53, 74, 87, 0.56);
-      border-color: rgba(53, 74, 87, 0.56) transparent transparent transparent;
+      border: 3px solid rgba(53, 74, 87, 0.35);
+      border-color: rgba(53, 74, 87, 0.35) transparent transparent transparent;
       border-radius: 50%;
       left: 11%;
       top: 31%;
@@ -453,7 +495,7 @@
       top: 24px;
       left: -2px;
       transform: scale(0.9);
-      opacity: 0.9;
+      opacity: 0.72;
       animation: waveDrift 5.6s ease-in-out infinite reverse;
     }
 
@@ -461,14 +503,14 @@
       top: 48px;
       left: 2px;
       transform: scale(0.76);
-      opacity: 0.82;
+      opacity: 0.62;
       animation: waveDrift 6.2s ease-in-out infinite;
     }
 
     .viz-center {
       position: relative;
-      width: 70%;
-      height: 70%;
+      width: 84%;
+      height: 84%;
       border-radius: 50%;
       background:
         radial-gradient(circle at 50% 40%, rgba(238,255,255,0.92), rgba(151, 229, 226, 0.74) 44%, rgba(74, 166, 184, 0.62) 100%),
@@ -481,7 +523,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 16px 14px 18px;
+      padding: 24px 24px 20px;
       color: var(--deep);
       font-weight: 700;
       line-height: 1.4;
@@ -491,24 +533,8 @@
       overflow: hidden;
     }
 
-    .viz-title {
-      max-width: 90%;
-      font-weight: 900;
-      flex: 0 0 auto;
-    }
-
-    .viz-timer {
-      color: #3f5968;
-      font-size: clamp(0.78rem, 1.7vw, 0.95rem);
-      font-weight: 800;
-      letter-spacing: 0.02em;
-      direction: ltr;
-      opacity: 0.92;
-      flex: 0 0 auto;
-    }
-
     .cue-stage {
-      width: 95%;
+      width: 96%;
       min-height: 0;
       flex: 1 1 auto;
       display: flex;
@@ -542,11 +568,37 @@
       width: 100%;
       height: 100%;
       min-height: 0;
+      overflow: hidden;
+    }
+
+    .cue-content.text-only-content {
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+    }
+
+    .cue-content.image-only-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cue-content.text-image-content {
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      align-items: center;
+      justify-items: center;
+      gap: 12px;
+      padding: 2px 4px 0;
+    }
+
+    .cue-image-wrap {
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
     }
 
@@ -564,36 +616,36 @@
     .cue-image {
       display: block;
       width: auto;
-      max-width: 98%;
-      max-height: 68%;
+      max-width: 100%;
+      max-height: 100%;
       object-fit: contain;
       border-radius: 18px;
       box-shadow: 0 12px 28px rgba(31,92,120,0.18);
       background: rgba(255,255,255,0.45);
-      flex: 0 1 auto;
     }
 
     .cue-image.only-image {
-      max-height: 98%;
       max-width: 99%;
+      max-height: 99%;
     }
 
     .cue-image.with-caption {
-      max-height: 68%;
-      max-width: 97%;
+      max-width: 100%;
+      max-height: 100%;
     }
 
     .cue-caption {
-      width: 96%;
+      width: 98%;
       color: #163746;
-      font-size: clamp(1.36rem, 4.8vw, 2rem);
+      font-size: clamp(1.24rem, 3.8vw, 1.92rem);
       font-weight: 900;
-      line-height: 1.22;
+      line-height: 1.18;
       text-align: center;
       text-wrap: balance;
       white-space: pre-wrap;
-      flex: 0 0 auto;
       padding: 0 4px;
+      max-height: 7.2em;
+      overflow: hidden;
     }
 
     .viz-pause-message {
@@ -690,9 +742,9 @@
     @keyframes spinReverse { to { transform: rotate(-360deg); } }
 
     @keyframes pulseSpin {
-      0% { transform: rotate(0deg) scale(0.98); opacity: 0.72; }
-      50% { transform: rotate(180deg) scale(1.03); opacity: 1; }
-      100% { transform: rotate(360deg) scale(0.98); opacity: 0.72; }
+      0% { transform: rotate(0deg) scale(0.98); opacity: 0.62; }
+      50% { transform: rotate(180deg) scale(1.03); opacity: 0.88; }
+      100% { transform: rotate(360deg) scale(0.98); opacity: 0.62; }
     }
 
     @keyframes waveDrift {
@@ -775,29 +827,55 @@
         text-overflow: clip;
       }
 
+      .visualizer {
+        padding: 8px 4px;
+      }
+
+      .viz-layout {
+        width: 100vw;
+        gap: 6px;
+      }
+
+      .viz-header {
+        max-width: 92vw;
+        padding: 6px 13px 7px;
+      }
+
+      .viz-title {
+        font-size: 0.9rem;
+      }
+
+      .viz-timer {
+        font-size: 0.78rem;
+      }
+
       .viz-core {
-        width: min(98vmin, 658px);
-        height: min(98vmin, 658px);
+        width: min(99vmin, 620px);
+        height: min(99vmin, 620px);
         min-width: 360px;
         min-height: 360px;
       }
 
       .viz-center {
-        width: 78%;
-        height: 78%;
-        padding: 12px 10px;
+        width: 86%;
+        height: 86%;
+        padding: 20px 16px 16px;
         gap: 6px;
       }
 
       .viz-close {
-        left: 4px;
+        left: 6px;
         width: 32px;
         height: 32px;
         font-size: 1.05rem;
       }
 
       .cue-stage {
-        width: 97%;
+        width: 98%;
+      }
+
+      .cue-content.text-image-content {
+        gap: 8px;
       }
 
       .cue-text-only {
@@ -807,30 +885,20 @@
       }
 
       .cue-image {
-        max-width: 99%;
-        max-height: 62%;
         border-radius: 14px;
       }
 
-      .cue-image.only-image {
-        max-height: 98%;
-      }
-
-      .cue-image.with-caption {
-        max-height: 62%;
-        max-width: 97%;
-      }
-
       .cue-caption {
-        width: 96%;
-        font-size: clamp(1.18rem, 5.3vw, 1.65rem);
-        line-height: 1.18;
+        width: 98%;
+        font-size: clamp(1.06rem, 4.8vw, 1.46rem);
+        line-height: 1.14;
+        max-height: 6.9em;
       }
 
       .viz-btn {
-        width: 54px;
-        height: 54px;
-        font-size: 1.18rem;
+        width: 52px;
+        height: 52px;
+        font-size: 1.14rem;
       }
     }
   </style>
@@ -846,7 +914,7 @@
 
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 117 <span>(27.06.2026, הגדלת ספירלה ותמיכה בתמונה עם טקסט)</span></div>
+        <div class="version-line">גרסה מס׳ 118 <span>(27.06.2026, מעגל מוגדל ותיקון תמונה עם טקסט)</span></div>
       </div>
 
       <div class="hero-art">
@@ -881,35 +949,39 @@
       <span class="drop d5"></span>
     </div>
 
-    <div class="viz-core">
-      <button class="viz-close" id="vizClose" type="button" aria-label="סגור ועצור">×</button>
-
-      <div class="viz-ring r1"></div>
-      <div class="viz-ring r2"></div>
-      <div class="viz-ring r3"></div>
-      <div class="viz-ring r4"></div>
-      <div class="viz-wave"></div>
-
-      <div class="viz-center">
+    <div class="viz-layout">
+      <div class="viz-header">
         <div class="viz-title" id="vizCenter">לא מתנגן כעת</div>
         <div class="viz-timer" id="vizTimer">00:00 / 00:00</div>
+      </div>
 
-        <div class="cue-stage" id="cueStage" aria-live="polite"></div>
+      <div class="viz-core">
+        <button class="viz-close" id="vizClose" type="button" aria-label="סגור ועצור">×</button>
 
-        <div class="viz-pause-message" id="vizPauseMessage"></div>
+        <div class="viz-ring r1"></div>
+        <div class="viz-ring r2"></div>
+        <div class="viz-ring r3"></div>
+        <div class="viz-ring r4"></div>
+        <div class="viz-wave"></div>
 
-        <div class="breath-coach" id="breathCoach">
-          <div class="breath-phase" id="breathPhase">שאיפה דרך האף</div>
-          <div class="breath-instruction" id="breathInstruction">הבטן עולה קלות</div>
-          <div class="breath-circle" id="breathCircle">
-            <div class="breath-count" id="breathCount">3</div>
+        <div class="viz-center">
+          <div class="cue-stage" id="cueStage" aria-live="polite"></div>
+
+          <div class="viz-pause-message" id="vizPauseMessage"></div>
+
+          <div class="breath-coach" id="breathCoach">
+            <div class="breath-phase" id="breathPhase">שאיפה דרך האף</div>
+            <div class="breath-instruction" id="breathInstruction">הבטן עולה קלות</div>
+            <div class="breath-circle" id="breathCircle">
+              <div class="breath-count" id="breathCount">3</div>
+            </div>
           </div>
-        </div>
 
-        <div class="viz-controls">
-          <button class="viz-btn hidden" id="vizPlay" type="button" aria-label="המשך">▶</button>
-          <button class="viz-btn" id="vizPause" type="button" aria-label="השהה">❚❚</button>
-          <button class="viz-btn" id="vizStop" type="button" aria-label="עצור">■</button>
+          <div class="viz-controls">
+            <button class="viz-btn hidden" id="vizPlay" type="button" aria-label="המשך">▶</button>
+            <button class="viz-btn" id="vizPause" type="button" aria-label="השהה">❚❚</button>
+            <button class="viz-btn" id="vizStop" type="button" aria-label="עצור">■</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1063,7 +1135,7 @@
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=117', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=118', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
@@ -1074,7 +1146,7 @@
 
     async function loadCues() {
       try {
-        const response = await fetch('assets/cues.json?v=117', { cache: 'no-store' });
+        const response = await fetch('assets/cues.json?v=118', { cache: 'no-store' });
         if (!response.ok) throw new Error('cues.json not found');
         const data = await response.json();
 
@@ -1147,7 +1219,7 @@
 
       if (type === 'image') {
         return `
-          <div class="cue-content">
+          <div class="cue-content image-only-content">
             <img class="cue-image only-image" src="${src}" alt="${alt}" />
           </div>
         `;
@@ -1155,15 +1227,17 @@
 
       if (type === 'text-image') {
         return `
-          <div class="cue-content">
-            <img class="cue-image with-caption" src="${src}" alt="${alt}" />
+          <div class="cue-content text-image-content">
+            <div class="cue-image-wrap">
+              <img class="cue-image with-caption" src="${src}" alt="${alt}" />
+            </div>
             <div class="cue-caption">${text}</div>
           </div>
         `;
       }
 
       return `
-        <div class="cue-content">
+        <div class="cue-content text-only-content">
           <div class="cue-text-only">${text}</div>
         </div>
       `;
