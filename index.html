@@ -206,16 +206,17 @@
     }
 
     .card::after {
-      content: "בחר";
+      content: "👍";
       position: absolute;
       top: 13px;
       left: 13px;
-      padding: 5px 10px 6px;
-      border-radius: 999px;
+      width: 33px;
+      height: 33px;
+      border-radius: 12px;
       background: rgba(255,255,255,0.88);
       border: 1px solid rgba(78,159,176,0.42);
       color: #245466;
-      font-size: 0.76rem;
+      font-size: 1.02rem;
       font-weight: 900;
       box-shadow: 0 8px 18px rgba(31,92,120,0.14);
       opacity: 0;
@@ -223,6 +224,10 @@
       transition: opacity 180ms ease, transform 180ms ease;
       pointer-events: none;
       z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
     }
 
     .card > * {
@@ -1000,7 +1005,7 @@
     .outside-caption {
       position: absolute;
       left: 50%;
-      bottom: calc(7% - 3cm);
+      top: calc(50% + 36% + 0.5cm);
       transform: translate(-50%, 12px);
       width: min(80%, 780px);
       min-height: 0;
@@ -1393,6 +1398,7 @@
       .outside-caption {
         position: absolute;
         left: 50%;
+        top: auto;
         bottom: 16px;
         width: calc(100% - 34px);
         max-width: none;
@@ -1455,8 +1461,10 @@
       .card::after {
         top: 10px;
         left: 10px;
-        font-size: 0.72rem;
-        padding: 4px 9px 5px;
+        width: 31px;
+        height: 31px;
+        border-radius: 11px;
+        font-size: 0.96rem;
       }
 
       .play-row {
@@ -1488,7 +1496,7 @@
 
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 130 <span>(27.06.2026, שלט נייד קבוע ותנועת ספירלה/טיפות עדינה בתוך אזור התוכן)</span></div>
+        <div class="version-line">גרסה מס׳ 131 <span>(27.06.2026, מרווח חצי ס״מ בטקסט תמונה+טקסט ואייקון אגודל בכרטיסים)</span></div>
       </div>
 
       <div class="hero-art">
@@ -1734,7 +1742,7 @@
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=130', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=131', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
@@ -1745,7 +1753,7 @@
 
     async function loadCues() {
       try {
-        const response = await fetch('assets/cues.json?v=130', { cache: 'no-store' });
+        const response = await fetch('assets/cues.json?v=131', { cache: 'no-store' });
         if (!response.ok) throw new Error('cues.json not found');
         const data = await response.json();
 
