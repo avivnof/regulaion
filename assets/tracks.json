@@ -2,7 +2,7 @@
   {
     "id": "progressive-muscle-relaxation",
     "title": "הרפיית שרירים פרוגרסיבית",
-    "description": "כיווץ ושחרור הדרגתי של קבוצות שרירים להפחתת מתח.",
+    "description": "הרפייה על שם ג'ייקובסון",
     "icon": "〰️",
     "audio": "audio/progressive-muscle-relaxation.mp3",
     "updated": "27.06.2026, 08:52",
@@ -11,7 +11,7 @@
   {
     "id": "mindfulness",
     "title": "תרגול מיינדפולנס",
-    "description": "הפניית קשב עדינה לרגע הנוכחי, לנשימה ולתחושות הגוף.",
+    "description": "תרגיל מיידפולנס בהתסס על המודולה של בארלו בפרוטוקול המאוחר",
     "icon": "◌",
     "audio": "audio/mindfulness.mp3",
     "updated": "27.06.2026, 08:52",
@@ -20,7 +20,7 @@
   {
     "id": "diaphragmatic-breathing",
     "title": "הרפיית נשימה סרעפתית",
-    "description": "תרגול נשימה איטית, עמוקה ומווסתת דרך הסרעפת.",
+    "description": "נשימה שמעודדת קוהרנטיות של קצב הלב",
     "icon": "🌬️",
     "audio": "audio/diaphragmatic-breathing.mp3",
     "updated": "טרם עודכן",
@@ -29,7 +29,7 @@
   {
     "id": "short-relaxation",
     "title": "הרפיה מקוצרת",
-    "description": "תרגול קצר, פשוט ונגיש לרגעי עומס במהלך היום.",
+    "description": "תרגול קצר ועוצמתי.",
     "icon": "⚡",
     "audio": "audio/short-relaxation.mp3",
     "updated": "טרם הועלה קובץ",
@@ -38,7 +38,7 @@
   {
     "id": "thin-smoke",
     "title": "עשן דק",
-    "description": "דימוי מרגיע של עשן דק, תנועה איטית והתבוננות שקטה.",
+    "description": "רצף פעולות להרפייה יעילה מבית מדרשו של פרופ' דני חמיאל",
     "icon": "🌫️",
     "audio": "audio/thin-smoke.mp3",
     "updated": "טרם הועלה קובץ",
