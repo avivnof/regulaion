@@ -1556,7 +1556,7 @@
 
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 134 <span>(27.06.2026, מניעת כיבוי מסך, ספירת פתיחה והחלשת גונג בהרפיית שרירים)</span></div>
+        <div class="version-line">גרסה מס׳ 135 <span>(27.06.2026, החלשת פתיחת הרפיית שרירים פרוגרסיבית ל־55%)</span></div>
       </div>
 
       <div class="hero-art">
@@ -1855,7 +1855,7 @@
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=134', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=135', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
@@ -1866,7 +1866,7 @@
 
     async function loadCues() {
       try {
-        const response = await fetch('assets/cues.json?v=134', { cache: 'no-store' });
+        const response = await fetch('assets/cues.json?v=135', { cache: 'no-store' });
         if (!response.ok) throw new Error('cues.json not found');
         const data = await response.json();
 
@@ -2052,7 +2052,7 @@
       }
 
       if (isProgressiveMuscleTrack() && currentAudio.currentTime < 2) {
-        currentAudio.volume = 0.7;
+        currentAudio.volume = 0.55;
       } else {
         currentAudio.volume = 1;
       }
