@@ -458,7 +458,7 @@
       background: linear-gradient(180deg, rgba(214,233,236,0.15), rgba(181,213,220,0.72));
       border-radius: 50% 50% 60% 60%;
       box-shadow: 0 0 12px rgba(181,213,220,0.22);
-      opacity: 0.7;
+      opacity: 0.77;
       animation: rainFall linear infinite;
     }
 
@@ -857,20 +857,20 @@
           ellipse at center,
           rgba(255,255,255,0.00) 0,
           rgba(255,255,255,0.00) 28px,
-          rgba(255,255,255,0.13) 30px,
-          rgba(78,159,176,0.12) 34px,
+          rgba(255,255,255,0.143) 30px,
+          rgba(78,159,176,0.132) 34px,
           rgba(255,255,255,0.00) 39px
         ),
         conic-gradient(
           from 0deg,
           rgba(255,255,255,0.00),
-          rgba(255,255,255,0.14),
-          rgba(78,159,176,0.10),
+          rgba(255,255,255,0.154),
+          rgba(78,159,176,0.11),
           rgba(255,255,255,0.00),
-          rgba(255,255,255,0.12),
+          rgba(255,255,255,0.132),
           rgba(255,255,255,0.00)
         );
-      opacity: 0.38;
+      opacity: 0.42;
       filter: blur(0.4px);
       animation: innerSpiralDrift 22s linear infinite;
       z-index: 0;
@@ -883,12 +883,12 @@
       inset: 0;
       border-radius: inherit;
       background:
-        radial-gradient(ellipse 4px 10px at 18% -8%, rgba(255,255,255,0.42), transparent 70%),
-        radial-gradient(ellipse 3px 9px at 36% -16%, rgba(222,245,249,0.40), transparent 70%),
-        radial-gradient(ellipse 4px 11px at 58% -10%, rgba(255,255,255,0.38), transparent 70%),
-        radial-gradient(ellipse 3px 8px at 78% -18%, rgba(222,245,249,0.36), transparent 70%),
-        radial-gradient(ellipse 4px 10px at 91% -12%, rgba(255,255,255,0.34), transparent 70%);
-      opacity: 0.42;
+        radial-gradient(ellipse 4px 10px at 18% -8%, rgba(255,255,255,0.46), transparent 70%),
+        radial-gradient(ellipse 3px 9px at 36% -16%, rgba(222,245,249,0.44), transparent 70%),
+        radial-gradient(ellipse 4px 11px at 58% -10%, rgba(255,255,255,0.42), transparent 70%),
+        radial-gradient(ellipse 3px 8px at 78% -18%, rgba(222,245,249,0.40), transparent 70%),
+        radial-gradient(ellipse 4px 10px at 91% -12%, rgba(255,255,255,0.37), transparent 70%);
+      opacity: 0.46;
       animation: innerDrops 6.8s linear infinite;
       z-index: 1;
       pointer-events: none;
@@ -1105,7 +1105,7 @@
 
     @keyframes rainFall {
       0% { transform: translateY(-10vh); opacity: 0; }
-      18% { opacity: 0.72; }
+      18% { opacity: 0.79; }
       100% { transform: translateY(118vh); opacity: 0; }
     }
 
@@ -1126,15 +1126,15 @@
     }
 
     @keyframes innerSpiralDrift {
-      0% { transform: rotate(0deg) scale(1); opacity: 0.28; }
-      50% { transform: rotate(180deg) scale(1.03); opacity: 0.42; }
-      100% { transform: rotate(360deg) scale(1); opacity: 0.28; }
+      0% { transform: rotate(0deg) scale(1); opacity: 0.31; }
+      50% { transform: rotate(180deg) scale(1.03); opacity: 0.46; }
+      100% { transform: rotate(360deg) scale(1); opacity: 0.31; }
     }
 
     @keyframes innerDrops {
-      0% { transform: translateY(-14%); opacity: 0.10; }
-      18% { opacity: 0.36; }
-      100% { transform: translateY(112%); opacity: 0.04; }
+      0% { transform: translateY(-14%); opacity: 0.11; }
+      18% { opacity: 0.40; }
+      100% { transform: translateY(112%); opacity: 0.044; }
     }
 
     @media (max-width: 900px) {
@@ -1348,11 +1348,11 @@
 
       .viz-center::before {
         inset: -22%;
-        opacity: 0.30;
+        opacity: 0.33;
       }
 
       .viz-center::after {
-        opacity: 0.34;
+        opacity: 0.37;
       }
 
       .cue-stage {
@@ -1496,7 +1496,7 @@
 
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 131 <span>(27.06.2026, מרווח חצי ס״מ בטקסט תמונה+טקסט ואייקון אגודל בכרטיסים)</span></div>
+        <div class="version-line">גרסה מס׳ 132 <span>(27.06.2026, הגברת נראות הספירלות והטיפות ב־10%)</span></div>
       </div>
 
       <div class="hero-art">
@@ -1742,7 +1742,7 @@
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=131', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=132', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
@@ -1753,7 +1753,7 @@
 
     async function loadCues() {
       try {
-        const response = await fetch('assets/cues.json?v=131', { cache: 'no-store' });
+        const response = await fetch('assets/cues.json?v=132', { cache: 'no-store' });
         if (!response.ok) throw new Error('cues.json not found');
         const data = await response.json();
 
