@@ -821,9 +821,9 @@
 
     .viz-center {
       position: relative;
-      width: 92%;
-      height: 92%;
-      border-radius: 50%;
+      width: 96%;
+      height: 72%;
+      border-radius: 58px;
       background:
         radial-gradient(circle at 50% 40%, rgba(238,255,255,0.92), rgba(151,229,226,0.74) 44%, rgba(74,166,184,0.62) 100%),
         linear-gradient(135deg, #b9f0ed, #65c5cf, #2b7898, #b0ebe7);
@@ -835,7 +835,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 22px;
+      padding: 24px;
       color: var(--deep);
       z-index: 5;
       overflow: hidden;
@@ -878,8 +878,8 @@
     }
 
     .cue-content.text-only-content {
-      width: 90%;
-      height: 90%;
+      width: 94%;
+      height: 94%;
       margin: auto;
       display: flex;
       align-items: center;
@@ -887,8 +887,8 @@
     }
 
     .cue-content.image-only-content {
-      width: 90%;
-      height: 90%;
+      width: 96%;
+      height: 96%;
       margin: auto;
       display: flex;
       align-items: center;
@@ -896,8 +896,8 @@
     }
 
     .cue-content.text-image-content {
-      width: 92%;
-      height: 92%;
+      width: 96%;
+      height: 96%;
       margin: auto;
       display: flex;
       align-items: center;
@@ -934,7 +934,7 @@
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
-      border-radius: 18px;
+      border-radius: 22px;
       box-shadow: 0 12px 28px rgba(31,92,120,0.18);
       background: rgba(255,255,255,0.45);
     }
@@ -950,9 +950,9 @@
     .outside-caption {
       position: absolute;
       left: 50%;
-      bottom: -8px;
+      bottom: 7%;
       transform: translate(-50%, 12px);
-      width: min(74%, 720px);
+      width: min(78%, 760px);
       min-height: 0;
       padding: 10px 18px 12px;
       border-radius: 24px;
@@ -1407,7 +1407,7 @@
 
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 127 <span>(27.06.2026, פריסת טלפון ייעודית עם מלבן תוכן ושלט תחתון)</span></div>
+        <div class="version-line">גרסה מס׳ 128 <span>(27.06.2026, במחשב כרטיס תוכן מלבני־מעוגל למניעת חיתוך טקסט בתמונה)</span></div>
       </div>
 
       <div class="hero-art">
@@ -1653,7 +1653,7 @@
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=127', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=128', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
@@ -1664,7 +1664,7 @@
 
     async function loadCues() {
       try {
-        const response = await fetch('assets/cues.json?v=127', { cache: 'no-store' });
+        const response = await fetch('assets/cues.json?v=128', { cache: 'no-store' });
         if (!response.ok) throw new Error('cues.json not found');
         const data = await response.json();
 
