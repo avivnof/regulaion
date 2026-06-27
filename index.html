@@ -839,9 +839,59 @@
       color: var(--deep);
       z-index: 5;
       overflow: hidden;
+      isolation: isolate;
+    }
+
+    .viz-center::before {
+      content: "";
+      position: absolute;
+      inset: -18%;
+      border-radius: inherit;
+      background:
+        repeating-radial-gradient(
+          ellipse at center,
+          rgba(255,255,255,0.00) 0,
+          rgba(255,255,255,0.00) 28px,
+          rgba(255,255,255,0.13) 30px,
+          rgba(78,159,176,0.12) 34px,
+          rgba(255,255,255,0.00) 39px
+        ),
+        conic-gradient(
+          from 0deg,
+          rgba(255,255,255,0.00),
+          rgba(255,255,255,0.14),
+          rgba(78,159,176,0.10),
+          rgba(255,255,255,0.00),
+          rgba(255,255,255,0.12),
+          rgba(255,255,255,0.00)
+        );
+      opacity: 0.38;
+      filter: blur(0.4px);
+      animation: innerSpiralDrift 22s linear infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .viz-center::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background:
+        radial-gradient(ellipse 4px 10px at 18% -8%, rgba(255,255,255,0.42), transparent 70%),
+        radial-gradient(ellipse 3px 9px at 36% -16%, rgba(222,245,249,0.40), transparent 70%),
+        radial-gradient(ellipse 4px 11px at 58% -10%, rgba(255,255,255,0.38), transparent 70%),
+        radial-gradient(ellipse 3px 8px at 78% -18%, rgba(222,245,249,0.36), transparent 70%),
+        radial-gradient(ellipse 4px 10px at 91% -12%, rgba(255,255,255,0.34), transparent 70%);
+      opacity: 0.42;
+      animation: innerDrops 6.8s linear infinite;
+      z-index: 1;
+      pointer-events: none;
     }
 
     .cue-stage {
+      position: relative;
+      z-index: 4;
       width: 100%;
       height: 100%;
       min-height: 0;
@@ -982,6 +1032,8 @@
     }
 
     .breath-coach {
+      position: relative;
+      z-index: 5;
       display: none;
       width: 90%;
       align-items: center;
@@ -1068,6 +1120,18 @@
       100% { background-position: 0% 50%; }
     }
 
+    @keyframes innerSpiralDrift {
+      0% { transform: rotate(0deg) scale(1); opacity: 0.28; }
+      50% { transform: rotate(180deg) scale(1.03); opacity: 0.42; }
+      100% { transform: rotate(360deg) scale(1); opacity: 0.28; }
+    }
+
+    @keyframes innerDrops {
+      0% { transform: translateY(-14%); opacity: 0.10; }
+      18% { opacity: 0.36; }
+      100% { transform: translateY(112%); opacity: 0.04; }
+    }
+
     @media (max-width: 900px) {
       .hero {
         grid-template-columns: 1fr;
@@ -1100,11 +1164,13 @@
 
       .viz-layout {
         width: 100vw;
-        height: 100dvh;
-        min-height: 100vh;
+        height: 100svh;
+        min-height: 100svh;
+        max-height: 100svh;
         align-items: stretch;
         justify-content: stretch;
         padding: 8px;
+        overflow: hidden;
       }
 
       .viz-main-row {
@@ -1116,16 +1182,19 @@
         justify-content: space-between;
         gap: 8px;
         direction: ltr;
+        overflow: hidden;
       }
 
       .viz-side {
         width: 100%;
         min-width: 0;
         height: auto;
-        flex: 0 0 auto;
+        flex: 0 0 126px;
         display: flex;
         align-items: stretch;
         justify-content: center;
+        position: relative;
+        z-index: 220;
       }
 
       .remote-box {
@@ -1140,6 +1209,8 @@
         align-items: center;
         column-gap: 12px;
         row-gap: 6px;
+        position: relative;
+        z-index: 230;
       }
 
       .remote-label {
@@ -1224,6 +1295,7 @@
         display: flex;
         align-items: stretch;
         justify-content: center;
+        overflow: hidden;
       }
 
       .viz-core {
@@ -1251,7 +1323,7 @@
         width: 34px;
         height: 34px;
         font-size: 1.05rem;
-        z-index: 160;
+        z-index: 260;
       }
 
       .viz-close:hover {
@@ -1267,6 +1339,15 @@
           radial-gradient(circle at 50% 28%, rgba(238,255,255,0.96), rgba(151,229,226,0.76) 46%, rgba(74,166,184,0.62) 100%),
           linear-gradient(135deg, #b9f0ed, #65c5cf, #2b7898, #b0ebe7);
         overflow: hidden;
+      }
+
+      .viz-center::before {
+        inset: -22%;
+        opacity: 0.30;
+      }
+
+      .viz-center::after {
+        opacity: 0.34;
       }
 
       .cue-stage {
@@ -1407,7 +1488,7 @@
 
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 129 <span>(27.06.2026, במחשב בלבד הורדת טקסט תמונה+טקסט והגדלתו)</span></div>
+        <div class="version-line">גרסה מס׳ 130 <span>(27.06.2026, שלט נייד קבוע ותנועת ספירלה/טיפות עדינה בתוך אזור התוכן)</span></div>
       </div>
 
       <div class="hero-art">
@@ -1653,7 +1734,7 @@
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=129', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=130', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
@@ -1664,7 +1745,7 @@
 
     async function loadCues() {
       try {
-        const response = await fetch('assets/cues.json?v=129', { cache: 'no-store' });
+        const response = await fetch('assets/cues.json?v=130', { cache: 'no-store' });
         if (!response.ok) throw new Error('cues.json not found');
         const data = await response.json();
 
