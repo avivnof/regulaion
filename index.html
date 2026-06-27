@@ -19,9 +19,9 @@
       --soft-shadow: 0 10px 28px rgba(48, 72, 86, 0.12);
       --radius-xl: 34px;
       --radius-lg: 26px;
-      --viz1: rgba(28, 90, 112, 0.78);
-      --viz2: rgba(54, 135, 154, 0.62);
-      --viz3: rgba(150, 218, 218, 0.54);
+      --viz1: rgba(28, 90, 112, 0.72);
+      --viz2: rgba(54, 135, 154, 0.58);
+      --viz3: rgba(150, 218, 218, 0.48);
     }
 
     * { box-sizing: border-box; }
@@ -304,7 +304,7 @@
       align-items: center;
       justify-content: center;
       pointer-events: none;
-      padding: 12px;
+      padding: 10px;
     }
 
     .visualizer.active {
@@ -348,19 +348,19 @@
     .viz-layout {
       position: relative;
       z-index: 5;
-      width: min(98vw, 920px);
+      width: min(98vw, 940px);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 7px;
       pointer-events: auto;
     }
 
     .viz-header {
       min-width: 260px;
       max-width: min(92vw, 720px);
-      padding: 7px 16px 8px;
+      padding: 6px 16px 7px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.82);
       border: 1px solid rgba(255,255,255,0.76);
@@ -371,15 +371,15 @@
     }
 
     .viz-title {
-      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      font-size: clamp(0.92rem, 1.8vw, 1.05rem);
       font-weight: 900;
-      line-height: 1.25;
+      line-height: 1.22;
     }
 
     .viz-timer {
-      margin-top: 2px;
+      margin-top: 1px;
       color: #3f5968;
-      font-size: clamp(0.78rem, 1.7vw, 0.92rem);
+      font-size: clamp(0.76rem, 1.55vw, 0.88rem);
       font-weight: 800;
       letter-spacing: 0.02em;
       direction: ltr;
@@ -388,8 +388,8 @@
 
     .viz-core {
       position: relative;
-      width: min(96vmin, 820px);
-      height: min(96vmin, 820px);
+      width: min(98vw, 86vh, 880px);
+      height: min(98vw, 86vh, 880px);
       min-width: 360px;
       min-height: 360px;
       display: flex;
@@ -440,15 +440,15 @@
 
     .viz-ring.r1 {
       inset: 0;
-      border-width: 4px;
+      border-width: 3px;
       border-color: var(--viz1) transparent var(--viz2) transparent;
       animation-name: spinSlow;
       animation-duration: 12s;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.05) inset;
     }
 
     .viz-ring.r2 {
-      inset: 16px;
+      inset: 14px;
       border-width: 3px;
       border-color: transparent var(--viz2) transparent var(--viz3);
       animation-name: spinReverse;
@@ -456,17 +456,17 @@
     }
 
     .viz-ring.r3 {
-      inset: 36px;
-      border-width: 3px;
+      inset: 30px;
+      border-width: 2px;
       border-color: var(--viz3) transparent var(--viz1) transparent;
       animation-name: pulseSpin;
       animation-duration: 8.5s;
     }
 
     .viz-ring.r4 {
-      inset: 58px;
+      inset: 48px;
       border-width: 2px;
-      border-color: transparent rgba(59, 84, 98, 0.52) transparent rgba(110,129,140,0.42);
+      border-color: transparent rgba(59, 84, 98, 0.42) transparent rgba(110,129,140,0.34);
       animation-name: spinReverse;
       animation-duration: 7.5s;
     }
@@ -478,8 +478,8 @@
       content: "";
       width: 78%;
       height: 36%;
-      border: 3px solid rgba(53, 74, 87, 0.35);
-      border-color: rgba(53, 74, 87, 0.35) transparent transparent transparent;
+      border: 2px solid rgba(53, 74, 87, 0.26);
+      border-color: rgba(53, 74, 87, 0.26) transparent transparent transparent;
       border-radius: 50%;
       left: 11%;
       top: 31%;
@@ -495,7 +495,7 @@
       top: 24px;
       left: -2px;
       transform: scale(0.9);
-      opacity: 0.72;
+      opacity: 0.62;
       animation: waveDrift 5.6s ease-in-out infinite reverse;
     }
 
@@ -503,14 +503,14 @@
       top: 48px;
       left: 2px;
       transform: scale(0.76);
-      opacity: 0.62;
+      opacity: 0.52;
       animation: waveDrift 6.2s ease-in-out infinite;
     }
 
     .viz-center {
       position: relative;
-      width: 84%;
-      height: 84%;
+      width: 90%;
+      height: 90%;
       border-radius: 50%;
       background:
         radial-gradient(circle at 50% 40%, rgba(238,255,255,0.92), rgba(151, 229, 226, 0.74) 44%, rgba(74, 166, 184, 0.62) 100%),
@@ -523,7 +523,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 24px 24px 20px;
+      padding: 24px 24px 22px;
       color: var(--deep);
       font-weight: 700;
       line-height: 1.4;
@@ -534,7 +534,8 @@
     }
 
     .cue-stage {
-      width: 96%;
+      width: 98%;
+      height: 100%;
       min-height: 0;
       flex: 1 1 auto;
       display: flex;
@@ -625,8 +626,8 @@
     }
 
     .cue-image.only-image {
-      max-width: 99%;
-      max-height: 99%;
+      max-width: 100%;
+      max-height: 100%;
     }
 
     .cue-image.with-caption {
@@ -637,9 +638,9 @@
     .cue-caption {
       width: 98%;
       color: #163746;
-      font-size: clamp(1.24rem, 3.8vw, 1.92rem);
+      font-size: clamp(1.28rem, 3.8vw, 1.95rem);
       font-weight: 900;
-      line-height: 1.18;
+      line-height: 1.16;
       text-align: center;
       text-wrap: balance;
       white-space: pre-wrap;
@@ -648,10 +649,26 @@
       overflow: hidden;
     }
 
+    .viz-footer {
+      min-width: 260px;
+      max-width: min(92vw, 720px);
+      padding: 6px 12px 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(255,255,255,0.72);
+      box-shadow: 0 10px 24px rgba(31,92,120,0.14);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
     .viz-pause-message {
       min-height: 1.2em;
       color: #5d7280;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 800;
       opacity: 0;
       transform: translateY(4px);
@@ -673,15 +690,15 @@
     }
 
     .viz-btn {
-      width: 61px;
-      height: 61px;
+      width: 58px;
+      height: 58px;
       border: 0;
       border-radius: 50%;
-      background: rgba(255,255,255,0.82);
+      background: rgba(255,255,255,0.9);
       color: var(--deep);
       box-shadow: 0 8px 20px rgba(48,72,86,0.14);
       cursor: pointer;
-      font-size: 1.34rem;
+      font-size: 1.28rem;
       font-weight: 900;
       transition: transform 160ms ease, background 160ms ease;
     }
@@ -742,9 +759,9 @@
     @keyframes spinReverse { to { transform: rotate(-360deg); } }
 
     @keyframes pulseSpin {
-      0% { transform: rotate(0deg) scale(0.98); opacity: 0.62; }
-      50% { transform: rotate(180deg) scale(1.03); opacity: 0.88; }
-      100% { transform: rotate(360deg) scale(0.98); opacity: 0.62; }
+      0% { transform: rotate(0deg) scale(0.98); opacity: 0.58; }
+      50% { transform: rotate(180deg) scale(1.03); opacity: 0.78; }
+      100% { transform: rotate(360deg) scale(0.98); opacity: 0.58; }
     }
 
     @keyframes waveDrift {
@@ -828,38 +845,38 @@
       }
 
       .visualizer {
-        padding: 8px 4px;
+        padding: 7px 4px;
       }
 
       .viz-layout {
         width: 100vw;
-        gap: 6px;
+        gap: 5px;
       }
 
       .viz-header {
         max-width: 92vw;
-        padding: 6px 13px 7px;
+        padding: 5px 13px 6px;
       }
 
       .viz-title {
-        font-size: 0.9rem;
+        font-size: 0.88rem;
       }
 
       .viz-timer {
-        font-size: 0.78rem;
+        font-size: 0.76rem;
       }
 
       .viz-core {
-        width: min(99vmin, 620px);
-        height: min(99vmin, 620px);
+        width: min(99vmin, 78vh, 620px);
+        height: min(99vmin, 78vh, 620px);
         min-width: 360px;
         min-height: 360px;
       }
 
       .viz-center {
-        width: 86%;
-        height: 86%;
-        padding: 20px 16px 16px;
+        width: 91%;
+        height: 91%;
+        padding: 18px 14px 15px;
         gap: 6px;
       }
 
@@ -871,7 +888,7 @@
       }
 
       .cue-stage {
-        width: 98%;
+        width: 99%;
       }
 
       .cue-content.text-image-content {
@@ -890,15 +907,25 @@
 
       .cue-caption {
         width: 98%;
-        font-size: clamp(1.06rem, 4.8vw, 1.46rem);
-        line-height: 1.14;
-        max-height: 6.9em;
+        font-size: clamp(1.04rem, 4.5vw, 1.42rem);
+        line-height: 1.13;
+        max-height: 6.8em;
+      }
+
+      .viz-footer {
+        max-width: 92vw;
+        padding: 5px 10px 6px;
+        gap: 8px;
+      }
+
+      .viz-pause-message {
+        font-size: 0.82rem;
       }
 
       .viz-btn {
-        width: 52px;
-        height: 52px;
-        font-size: 1.14rem;
+        width: 48px;
+        height: 48px;
+        font-size: 1.05rem;
       }
     }
   </style>
@@ -914,7 +941,7 @@
 
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 118 <span>(27.06.2026, מעגל מוגדל ותיקון תמונה עם טקסט)</span></div>
+        <div class="version-line">גרסה מס׳ 119 <span>(27.06.2026, כפתורים מחוץ למעגל והגדלת תמונה)</span></div>
       </div>
 
       <div class="hero-art">
@@ -967,8 +994,6 @@
         <div class="viz-center">
           <div class="cue-stage" id="cueStage" aria-live="polite"></div>
 
-          <div class="viz-pause-message" id="vizPauseMessage"></div>
-
           <div class="breath-coach" id="breathCoach">
             <div class="breath-phase" id="breathPhase">שאיפה דרך האף</div>
             <div class="breath-instruction" id="breathInstruction">הבטן עולה קלות</div>
@@ -976,12 +1001,16 @@
               <div class="breath-count" id="breathCount">3</div>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div class="viz-controls">
-            <button class="viz-btn hidden" id="vizPlay" type="button" aria-label="המשך">▶</button>
-            <button class="viz-btn" id="vizPause" type="button" aria-label="השהה">❚❚</button>
-            <button class="viz-btn" id="vizStop" type="button" aria-label="עצור">■</button>
-          </div>
+      <div class="viz-footer">
+        <div class="viz-pause-message" id="vizPauseMessage"></div>
+
+        <div class="viz-controls">
+          <button class="viz-btn hidden" id="vizPlay" type="button" aria-label="המשך">▶</button>
+          <button class="viz-btn" id="vizPause" type="button" aria-label="השהה">❚❚</button>
+          <button class="viz-btn" id="vizStop" type="button" aria-label="עצור">■</button>
         </div>
       </div>
     </div>
@@ -1135,7 +1164,7 @@
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=118', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=119', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
@@ -1146,7 +1175,7 @@
 
     async function loadCues() {
       try {
-        const response = await fetch('assets/cues.json?v=118', { cache: 'no-store' });
+        const response = await fetch('assets/cues.json?v=119', { cache: 'no-store' });
         if (!response.ok) throw new Error('cues.json not found');
         const data = await response.json();
 
