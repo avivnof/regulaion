@@ -19,9 +19,9 @@
       --soft-shadow: 0 10px 28px rgba(48, 72, 86, 0.12);
       --radius-xl: 34px;
       --radius-lg: 26px;
-      --viz1: rgba(41, 61, 72, 0.98);
-      --viz2: rgba(70, 92, 105, 0.92);
-      --viz3: rgba(110, 129, 140, 0.78);
+      --viz1: rgba(28, 90, 112, 0.98);
+      --viz2: rgba(54, 135, 154, 0.92);
+      --viz3: rgba(150, 218, 218, 0.82);
       --drop: rgba(181, 213, 220, 0.72);
     }
 
@@ -501,8 +501,12 @@
       width: 48%;
       height: 48%;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.94), rgba(232,238,240,0.66));
-      box-shadow: 0 14px 40px rgba(48,72,86,0.20);
+      background:
+        radial-gradient(circle at 50% 42%, rgba(255,255,255,0.84), rgba(169, 228, 228, 0.62) 42%, rgba(56, 125, 154, 0.42) 100%),
+        linear-gradient(135deg, #aee8e5, #3b7993, #1f5c78, #9be1dc);
+      background-size: 260% 260%;
+      animation: slowTurquoiseGradient 36s ease-in-out infinite;
+      box-shadow: 0 14px 40px rgba(31,92,120,0.24);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -513,11 +517,20 @@
       font-weight: 700;
       line-height: 1.4;
       font-size: clamp(0.9rem, 2vw, 1.04rem);
-      gap: 12px;
+      gap: 9px;
     }
 
     .viz-title {
       max-width: 90%;
+    }
+
+    .viz-timer {
+      color: #3f5968;
+      font-size: clamp(0.74rem, 1.5vw, 0.88rem);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      direction: ltr;
+      opacity: 0.92;
     }
 
     .viz-pause-message {
@@ -542,8 +555,8 @@
     }
 
     .viz-btn {
-      width: 38px;
-      height: 38px;
+      width: 61px;
+      height: 61px;
       border: 0;
       border-radius: 50%;
       background: linear-gradient(135deg, rgba(69, 96, 111, 0.96), rgba(96, 121, 134, 0.92));
@@ -552,7 +565,7 @@
       place-items: center;
       box-shadow: 0 8px 18px rgba(48,72,86,0.22);
       cursor: pointer;
-      font-size: 1rem;
+      font-size: 1.34rem;
     }
 
     .viz-btn:hover {
@@ -693,6 +706,12 @@
     }
 
 
+    @keyframes slowTurquoiseGradient {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; }
       .hero-art { min-height: 210px; }
@@ -720,9 +739,9 @@
         min-height: 220px;
       }
       .viz-btn {
-        width: 34px;
-        height: 34px;
-        font-size: 0.92rem;
+        width: 54px;
+        height: 54px;
+        font-size: 1.18rem;
       }
     }
   </style>
@@ -751,6 +770,7 @@
       <div class="viz-wave"></div>
       <div class="viz-center">
         <div class="viz-title" id="vizCenter">לא מתנגן כעת</div>
+        <div class="viz-timer" id="vizTimer">00:00 / 00:00</div>
         <div class="viz-pause-message" id="vizPauseMessage"></div>
         <div class="breath-coach" id="breathCoach">
           <div class="breath-phase" id="breathPhase">שאיפה דרך האף</div>
@@ -812,6 +832,7 @@
     const visualizer = document.getElementById('visualizer');
     const vizCenter = document.getElementById('vizCenter');
     const vizPauseMessage = document.getElementById('vizPauseMessage');
+    const vizTimer = document.getElementById('vizTimer');
     const breathCoach = document.getElementById('breathCoach');
     const breathPhase = document.getElementById('breathPhase');
     const breathInstruction = document.getElementById('breathInstruction');
@@ -828,6 +849,7 @@
     let breathTimer = null;
     let breathPhaseMode = 'inhale';
     let breathSecondsLeft = 3;
+    let timerInterval = null;
 
     const fallbackTracks = [
       {
@@ -920,6 +942,34 @@
       } catch (error) {
         return fallbackTracks;
       }
+    }
+
+
+    function formatTime(seconds) {
+      if (!Number.isFinite(seconds) || seconds < 0) return '00:00';
+      const total = Math.floor(seconds);
+      const minutes = Math.floor(total / 60);
+      const secs = total % 60;
+      return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    function updateTimerDisplay() {
+      if (!vizTimer || !currentAudio) return;
+      const elapsed = currentAudio.currentTime || 0;
+      const duration = currentAudio.duration || 0;
+      vizTimer.textContent = `${formatTime(elapsed)} / ${formatTime(duration)}`;
+    }
+
+    function startTimerDisplay() {
+      stopTimerDisplay(false);
+      updateTimerDisplay();
+      timerInterval = setInterval(updateTimerDisplay, 10000);
+    }
+
+    function stopTimerDisplay(clear = true) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      if (clear && vizTimer) vizTimer.textContent = '00:00 / 00:00';
     }
 
     function setIdle(audio) {
@@ -1055,6 +1105,7 @@
       }
       setVisualizerControls('playing');
       updateBreathCoachForTitle(title);
+      startTimerDisplay();
     }
 
     function showPausedVisualizer(title) {
@@ -1069,6 +1120,8 @@
       updateBreathCoachForTitle(title);
       clearInterval(breathTimer);
       breathTimer = null;
+      stopTimerDisplay(false);
+      updateTimerDisplay();
     }
 
     function hideVisualizer() {
@@ -1081,6 +1134,7 @@
       }
       setVisualizerControls('playing');
       stopBreathCoach();
+      stopTimerDisplay(true);
     }
 
     function stopOtherAudios(currentId) {
@@ -1156,6 +1210,7 @@
 
         audio.addEventListener('canplaythrough', () => {
           markAudioReady(audio);
+          if (currentAudio === audio) updateTimerDisplay();
         }, { once: true });
 
         audio.addEventListener('loadedmetadata', () => {
