@@ -902,29 +902,15 @@
       align-items: center;
       justify-content: center;
       pointer-events: none;
-      opacity: 0;
-      transform: scale(1);
-      filter: blur(0);
-      transition:
-        opacity 3.4s ease,
-        transform 3.4s ease,
-        filter 3.4s ease;
     }
 
     .countdown-overlay.active {
       display: flex;
-      opacity: 1;
-    }
-
-    .countdown-overlay.fade-out {
-      opacity: 0;
-      transform: scale(1.035);
-      filter: blur(8px);
     }
 
     .countdown-card {
-      width: min(78vw, 430px);
-      padding: 18px 20px 26px;
+      min-width: min(74vw, 360px);
+      padding: 26px 28px 30px;
       border-radius: 34px;
       background:
         radial-gradient(circle at 50% 20%, rgba(255,255,255,0.98), rgba(234,249,251,0.90)),
@@ -937,25 +923,12 @@
       text-align: center;
       color: #163746;
       direction: rtl;
-      overflow: hidden;
-    }
-
-    .countdown-image {
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      object-fit: cover;
-      object-position: center;
-      border-radius: 24px;
-      display: block;
-      margin: 0 auto 16px;
-      box-shadow: 0 14px 34px rgba(31,92,120,0.18);
-      background: rgba(255,255,255,0.55);
     }
 
     .countdown-text {
       font-size: clamp(1.18rem, 3vw, 1.65rem);
       font-weight: 900;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       color: #335765;
     }
 
@@ -965,7 +938,6 @@
       font-weight: 900;
       color: #245466;
       text-shadow: 0 8px 24px rgba(31,92,120,0.16);
-      direction: ltr;
     }
 
     .cue-stage {
@@ -1430,14 +1402,9 @@
       }
 
       .countdown-card {
-        width: min(84vw, 360px);
-        padding: 14px 14px 22px;
+        min-width: min(82vw, 360px);
+        padding: 24px 22px 28px;
         border-radius: 30px;
-      }
-
-      .countdown-image {
-        border-radius: 22px;
-        margin-bottom: 13px;
       }
 
       .countdown-text {
@@ -1589,7 +1556,7 @@
 
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 136 <span>(27.06.2026, תמונת פתיחה עם ספירה ופייד־אאוט לפני תחילת האודיו)</span></div>
+        <div class="version-line">גרסה מס׳ 200 <span>(28.06.2026, גרסה יציבה — עוצמת שמע רגילה לכל אורך התרגול)</span></div>
       </div>
 
       <div class="hero-art">
@@ -1679,7 +1646,6 @@
 
             <div class="countdown-overlay" id="countdownOverlay" aria-live="polite">
               <div class="countdown-card">
-                <img class="countdown-image" src="assets/breathing-scene.png" alt="איור נשימה והרפיה" />
                 <div class="countdown-text">מיד מתחילים</div>
                 <div class="countdown-number" id="countdownNumber">3</div>
               </div>
@@ -1739,10 +1705,7 @@
     let wakeLock = null;
 
     let countdownInterval = null;
-    let countdownTimeout = null;
     let countdownActive = false;
-
-    const INTRO_FADE_DURATION = 3400;
 
     const fallbackTracks = [
       {
@@ -1892,7 +1855,7 @@
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=136', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=200', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
@@ -1903,7 +1866,7 @@
 
     async function loadCues() {
       try {
-        const response = await fetch('assets/cues.json?v=136', { cache: 'no-store' });
+        const response = await fetch('assets/cues.json?v=200', { cache: 'no-store' });
         if (!response.ok) throw new Error('cues.json not found');
         const data = await response.json();
 
@@ -2059,44 +2022,21 @@
       updateOutsideCaption(null);
     }
 
-    function setCountdownNumber(number) {
+    function showCountdownOverlay(number = 3) {
       if (countdownNumber) countdownNumber.textContent = String(number);
-    }
-
-    function showIntroFadeOverlay() {
-      if (!countdownOverlay) return;
-
-      countdownOverlay.classList.remove('fade-out');
-      countdownOverlay.classList.add('active');
-      setCountdownNumber(3);
-
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          countdownOverlay.classList.add('fade-out');
-        });
-      });
-
+      if (countdownOverlay) countdownOverlay.classList.add('active');
       clearCueDisplay();
     }
 
     function hideCountdownOverlay() {
-      if (!countdownOverlay) return;
-
-      countdownOverlay.classList.remove('active');
-      countdownOverlay.classList.remove('fade-out');
+      if (countdownOverlay) countdownOverlay.classList.remove('active');
     }
 
     function clearCountdown() {
       clearInterval(countdownInterval);
-      clearTimeout(countdownTimeout);
       countdownInterval = null;
-      countdownTimeout = null;
       countdownActive = false;
       hideCountdownOverlay();
-    }
-
-    function isProgressiveMuscleTrack() {
-      return currentTrackId === 'progressive-muscle-relaxation';
     }
 
     function applyTrackVolumePolicy() {
@@ -2107,11 +2047,7 @@
         return;
       }
 
-      if (isProgressiveMuscleTrack() && currentAudio.currentTime < 2) {
-        currentAudio.volume = 0.55;
-      } else {
-        currentAudio.volume = 1;
-      }
+      currentAudio.volume = 1;
     }
 
     function updateProgressDisplay() {
@@ -2361,7 +2297,7 @@
       clearCueDisplay();
       resetProgressDisplay();
       setVisualizerControls('countdown');
-      showIntroFadeOverlay();
+      showCountdownOverlay(3);
       requestWakeLock();
     }
 
@@ -2415,32 +2351,9 @@
           audio.pause();
           audio.currentTime = 0;
           audio.volume = 1;
-          audio.muted = false;
           setIdle(audio);
         }
       });
-    }
-
-    function primeAudioForDelayedStart(audio) {
-      try {
-        audio.muted = true;
-        audio.volume = 0;
-        audio.currentTime = 0;
-
-        const playPromise = audio.play();
-
-        if (playPromise && typeof playPromise.then === 'function') {
-          playPromise.then(() => {
-            audio.pause();
-            audio.currentTime = 0;
-            audio.muted = false;
-          }).catch(() => {
-            audio.muted = false;
-          });
-        }
-      } catch (error) {
-        audio.muted = false;
-      }
     }
 
     function startPlaybackAfterCountdown() {
@@ -2449,13 +2362,11 @@
       clearCountdown();
 
       try {
-        currentAudio.pause();
         currentAudio.currentTime = 0;
       } catch (error) {
         // אם הדפדפן לא מאפשר seek ברגע זה, ממשיכים רגיל
       }
 
-      currentAudio.muted = false;
       applyTrackVolumePolicy();
 
       const btn = getButtonForAudio(currentAudio);
@@ -2464,12 +2375,14 @@
       if (btn) btn.textContent = '❚❚ עצור';
       if (status) status.textContent = 'מנגן';
 
-      currentAudio.play().then(() => {
-        showVisualizer(currentTitle);
-      }).catch(() => {
-        if (status) status.textContent = 'לא ניתן לנגן';
-        stopCurrent();
-      });
+      if (currentAudio.paused) {
+        currentAudio.play().catch(() => {
+          if (status) status.textContent = 'לא ניתן לנגן';
+          stopCurrent();
+        });
+      }
+
+      showVisualizer(currentTitle);
     }
 
     function startAudioWithCountdown(audio, title, trackId = '') {
@@ -2491,36 +2404,38 @@
       currentTrackId = trackId || audio.dataset.trackId || '';
 
       try {
-        currentAudio.pause();
         currentAudio.currentTime = 0;
       } catch (error) {
         // אין צורך לעצור
       }
 
       currentAudio.volume = 0;
-      currentAudio.muted = false;
       countdownActive = true;
 
       if (btn) btn.textContent = 'מתכונן...';
       if (status) status.textContent = 'מתחיל בעוד 3...';
 
       showCountdownVisualizer(title);
-      primeAudioForDelayedStart(currentAudio);
 
-      let count = 3;
+      currentAudio.play().then(() => {
+        let count = 3;
+        showCountdownOverlay(count);
 
-      countdownInterval = setInterval(() => {
-        count -= 1;
+        countdownInterval = setInterval(() => {
+          count -= 1;
 
-        if (count >= 1) {
-          setCountdownNumber(count);
-          if (status) status.textContent = `מתחיל בעוד ${count}...`;
-        }
-      }, 1000);
-
-      countdownTimeout = setTimeout(() => {
-        startPlaybackAfterCountdown();
-      }, INTRO_FADE_DURATION + 120);
+          if (count >= 1) {
+            showCountdownOverlay(count);
+            if (status) status.textContent = `מתחיל בעוד ${count}...`;
+          } else {
+            startPlaybackAfterCountdown();
+          }
+        }, 1000);
+      }).catch(() => {
+        clearCountdown();
+        if (status) status.textContent = 'לא ניתן לנגן';
+        stopCurrent();
+      });
     }
 
     function resumeAudio(audio, title, trackId = '') {
@@ -2533,7 +2448,6 @@
 
       countdownActive = false;
       hideCountdownOverlay();
-      currentAudio.muted = false;
       applyTrackVolumePolicy();
 
       audio.play().then(() => {
@@ -2569,7 +2483,6 @@
         currentAudio.pause();
         currentAudio.currentTime = 0;
         currentAudio.volume = 1;
-        currentAudio.muted = false;
         setIdle(currentAudio);
       }
 
@@ -2716,7 +2629,6 @@
           status.textContent = 'הסתיים';
 
           audio.volume = 1;
-          audio.muted = false;
           clearCountdown();
 
           if (currentAudio === audio) {
