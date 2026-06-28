@@ -1,10 +1,11 @@
-<!-- גרסה 200 - יציבה ותקינה -->
+<!-- INDEX_VERSION: 201 | גרסה 201 - יציבה ותקינה | ללא השמעה בזמן ספירת פתיחה -->
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#4f9fb0" />
+  <meta name="app-version" content="201" />
   <title>אתר ההרפיות | ד״ר אביב נוף</title>
 
   <style>
@@ -910,8 +911,8 @@
     }
 
     .countdown-card {
-      min-width: min(74vw, 360px);
-      padding: 26px 28px 30px;
+      width: min(82vw, 410px);
+      padding: 17px 18px 26px;
       border-radius: 34px;
       background:
         radial-gradient(circle at 50% 20%, rgba(255,255,255,0.98), rgba(234,249,251,0.90)),
@@ -926,10 +927,22 @@
       direction: rtl;
     }
 
+    .countdown-image {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      border-radius: 24px;
+      box-shadow: 0 14px 34px rgba(31,92,120,0.18);
+      margin: 0 auto 15px;
+      background: rgba(255,255,255,0.55);
+    }
+
     .countdown-text {
       font-size: clamp(1.18rem, 3vw, 1.65rem);
       font-weight: 900;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       color: #335765;
     }
 
@@ -939,6 +952,26 @@
       font-weight: 900;
       color: #245466;
       text-shadow: 0 8px 24px rgba(31,92,120,0.16);
+      direction: ltr;
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0);
+      transition:
+        opacity 420ms ease,
+        transform 420ms ease,
+        filter 420ms ease;
+    }
+
+    .countdown-number.dissolve-out {
+      opacity: 0;
+      transform: scale(0.92);
+      filter: blur(6px);
+    }
+
+    .countdown-number.dissolve-in {
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0);
     }
 
     .cue-stage {
@@ -1403,9 +1436,14 @@
       }
 
       .countdown-card {
-        min-width: min(82vw, 360px);
-        padding: 24px 22px 28px;
+        width: min(84vw, 360px);
+        padding: 14px 14px 22px;
         border-radius: 30px;
+      }
+
+      .countdown-image {
+        border-radius: 22px;
+        margin-bottom: 13px;
       }
 
       .countdown-text {
@@ -1557,7 +1595,7 @@
 
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 200 <span>(28.06.2026, גרסה יציבה — עוצמת שמע רגילה לכל אורך התרגול)</span></div>
+        <div class="version-line">גרסה מס׳ 201 <span>(28.06.2026, גרסה יציבה — ספירה ללא השמעת אודיו ותמונה מרכזית)</span></div>
       </div>
 
       <div class="hero-art">
@@ -1647,6 +1685,7 @@
 
             <div class="countdown-overlay" id="countdownOverlay" aria-live="polite">
               <div class="countdown-card">
+                <img class="countdown-image" src="assets/breathing-scene.png" alt="איור נשימה והרפיה" />
                 <div class="countdown-text">מיד מתחילים</div>
                 <div class="countdown-number" id="countdownNumber">3</div>
               </div>
@@ -1658,6 +1697,8 @@
   </div>
 
   <script>
+    const APP_VERSION = '201';
+
     const bodyEl = document.body;
     const grid = document.getElementById('tracksGrid');
 
@@ -1706,7 +1747,12 @@
     let wakeLock = null;
 
     let countdownInterval = null;
+    let countdownTimeouts = [];
     let countdownActive = false;
+    let waitingForManualStart = false;
+
+    const COUNTDOWN_STEP_MS = 1500;
+    const COUNTDOWN_DISSOLVE_MS = 420;
 
     const fallbackTracks = [
       {
@@ -1856,7 +1902,7 @@
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=200', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=201', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
@@ -1867,7 +1913,7 @@
 
     async function loadCues() {
       try {
-        const response = await fetch('assets/cues.json?v=200', { cache: 'no-store' });
+        const response = await fetch('assets/cues.json?v=201', { cache: 'no-store' });
         if (!response.ok) throw new Error('cues.json not found');
         const data = await response.json();
 
@@ -2024,18 +2070,46 @@
     }
 
     function showCountdownOverlay(number = 3) {
-      if (countdownNumber) countdownNumber.textContent = String(number);
+      if (countdownNumber) {
+        countdownNumber.textContent = String(number);
+        countdownNumber.classList.remove('dissolve-out', 'dissolve-in');
+      }
+
       if (countdownOverlay) countdownOverlay.classList.add('active');
       clearCueDisplay();
     }
 
+    function dissolveCountdownTo(number) {
+      if (!countdownNumber) return;
+
+      countdownNumber.classList.add('dissolve-out');
+      countdownNumber.classList.remove('dissolve-in');
+
+      const swapTimer = setTimeout(() => {
+        countdownNumber.textContent = String(number);
+        countdownNumber.classList.remove('dissolve-out');
+        countdownNumber.classList.add('dissolve-in');
+      }, COUNTDOWN_DISSOLVE_MS);
+
+      const cleanTimer = setTimeout(() => {
+        countdownNumber.classList.remove('dissolve-in');
+      }, COUNTDOWN_DISSOLVE_MS * 2 + 30);
+
+      countdownTimeouts.push(swapTimer, cleanTimer);
+    }
+
     function hideCountdownOverlay() {
       if (countdownOverlay) countdownOverlay.classList.remove('active');
+      if (countdownNumber) countdownNumber.classList.remove('dissolve-out', 'dissolve-in');
     }
 
     function clearCountdown() {
       clearInterval(countdownInterval);
       countdownInterval = null;
+
+      countdownTimeouts.forEach(timer => clearTimeout(timer));
+      countdownTimeouts = [];
+
       countdownActive = false;
       hideCountdownOverlay();
     }
@@ -2251,6 +2325,13 @@
         return;
       }
 
+      if (mode === 'manual-start') {
+        vizPlay.classList.remove('hidden');
+        vizPause.classList.add('hidden');
+        vizStop.classList.remove('hidden');
+        return;
+      }
+
       if (mode === 'paused') {
         vizPlay.classList.remove('hidden');
         vizPause.classList.add('hidden');
@@ -2299,6 +2380,26 @@
       resetProgressDisplay();
       setVisualizerControls('countdown');
       showCountdownOverlay(3);
+      requestWakeLock();
+    }
+
+    function showManualStartVisualizer(title) {
+      bodyEl.classList.add('playing');
+
+      if (visualizer) visualizer.classList.add('active');
+      if (vizCenter) vizCenter.textContent = title;
+
+      if (vizPauseMessage) {
+        vizPauseMessage.textContent = 'לחצו על ▶ להתחלה';
+        vizPauseMessage.classList.add('active');
+      }
+
+      hideCountdownOverlay();
+      setVisualizerControls('manual-start');
+      stopBreathCoach();
+      stopTimerDisplay(true);
+      clearCueDisplay();
+      resetProgressDisplay();
       requestWakeLock();
     }
 
@@ -2363,6 +2464,7 @@
       clearCountdown();
 
       try {
+        currentAudio.pause();
         currentAudio.currentTime = 0;
       } catch (error) {
         // אם הדפדפן לא מאפשר seek ברגע זה, ממשיכים רגיל
@@ -2376,14 +2478,35 @@
       if (btn) btn.textContent = '❚❚ עצור';
       if (status) status.textContent = 'מנגן';
 
-      if (currentAudio.paused) {
-        currentAudio.play().catch(() => {
-          if (status) status.textContent = 'לא ניתן לנגן';
-          stopCurrent();
-        });
-      }
+      currentAudio.play().then(() => {
+        waitingForManualStart = false;
+        showVisualizer(currentTitle);
+      }).catch(() => {
+        waitingForManualStart = true;
 
-      showVisualizer(currentTitle);
+        if (btn) btn.textContent = '▶︎ התחל';
+        if (status) status.textContent = 'לחצו להתחלה';
+
+        showManualStartVisualizer(currentTitle);
+      });
+    }
+
+    function startCountdownSequence() {
+      showCountdownOverlay(3);
+
+      const toTwo = setTimeout(() => {
+        dissolveCountdownTo(2);
+      }, COUNTDOWN_STEP_MS);
+
+      const toOne = setTimeout(() => {
+        dissolveCountdownTo(1);
+      }, COUNTDOWN_STEP_MS * 2);
+
+      const toStart = setTimeout(() => {
+        startPlaybackAfterCountdown();
+      }, COUNTDOWN_STEP_MS * 3);
+
+      countdownTimeouts.push(toTwo, toOne, toStart);
     }
 
     function startAudioWithCountdown(audio, title, trackId = '') {
@@ -2403,40 +2526,23 @@
       currentAudio = audio;
       currentTitle = title;
       currentTrackId = trackId || audio.dataset.trackId || '';
+      waitingForManualStart = false;
 
       try {
+        currentAudio.pause();
         currentAudio.currentTime = 0;
       } catch (error) {
         // אין צורך לעצור
       }
 
-      currentAudio.volume = 0;
+      currentAudio.volume = 1;
       countdownActive = true;
 
       if (btn) btn.textContent = 'מתכונן...';
       if (status) status.textContent = 'מתחיל בעוד 3...';
 
       showCountdownVisualizer(title);
-
-      currentAudio.play().then(() => {
-        let count = 3;
-        showCountdownOverlay(count);
-
-        countdownInterval = setInterval(() => {
-          count -= 1;
-
-          if (count >= 1) {
-            showCountdownOverlay(count);
-            if (status) status.textContent = `מתחיל בעוד ${count}...`;
-          } else {
-            startPlaybackAfterCountdown();
-          }
-        }, 1000);
-      }).catch(() => {
-        clearCountdown();
-        if (status) status.textContent = 'לא ניתן לנגן';
-        stopCurrent();
-      });
+      startCountdownSequence();
     }
 
     function resumeAudio(audio, title, trackId = '') {
@@ -2448,7 +2554,17 @@
       currentTrackId = trackId || audio.dataset.trackId || '';
 
       countdownActive = false;
+      waitingForManualStart = false;
       hideCountdownOverlay();
+
+      if (audio.currentTime <= 0.05) {
+        try {
+          audio.currentTime = 0;
+        } catch (error) {
+          // ממשיכים רגיל
+        }
+      }
+
       applyTrackVolumePolicy();
 
       audio.play().then(() => {
@@ -2490,6 +2606,7 @@
       currentAudio = null;
       currentTitle = '';
       currentTrackId = '';
+      waitingForManualStart = false;
 
       hideVisualizer();
     }
@@ -2605,6 +2722,11 @@
             return;
           }
 
+          if (waitingForManualStart && currentAudio === audio) {
+            resumeAudio(audio, title, trackId);
+            return;
+          }
+
           if (audio.paused) {
             const isResume =
               currentAudio === audio &&
@@ -2638,6 +2760,7 @@
             currentTrackId = '';
           }
 
+          waitingForManualStart = false;
           hideVisualizer();
         });
       });
