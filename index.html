@@ -1,11 +1,11 @@
-<!-- INDEX_VERSION: 203 | גרסה 203 - יציבה | תיקון ספירה, תמונה והפעלה אוטומטית בנייד -->
+<!-- INDEX_VERSION: 204 | גרסה 204 -->
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#4f9fb0" />
-  <meta name="app-version" content="203" />
+  <meta name="app-version" content="204" />
   <title>אתר ההרפיות | ד״ר אביב נוף</title>
 
   <style>
@@ -23,6 +23,10 @@
       --viz1: rgba(28, 90, 112, 0.72);
       --viz2: rgba(54, 135, 154, 0.58);
       --viz3: rgba(150, 218, 218, 0.48);
+      --heroSp1: rgba(144, 208, 223, 0.56);
+      --heroSp2: rgba(170, 203, 224, 0.42);
+      --heroSp3: rgba(209, 233, 239, 0.44);
+      --heroDrop: rgba(183, 219, 229, 0.48);
     }
 
     * { box-sizing: border-box; }
@@ -116,19 +120,100 @@
       letter-spacing: 0.01em;
     }
 
-    .version-line span {
-      font-weight: 600;
-      opacity: 0.9;
-    }
-
     .hero-art {
       min-height: 250px;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: visible;
+    }
+
+    .hero-visual {
+      position: relative;
+      width: min(100%, 420px);
+      min-height: 290px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+      padding: 20px;
+      isolation: isolate;
+    }
+
+    .hero-rain {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .hero-drop {
+      position: absolute;
+      top: -16%;
+      width: 7px;
+      height: 22px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), var(--heroDrop));
+      box-shadow: 0 0 10px rgba(183, 219, 229, 0.14);
+      opacity: 0.6;
+      animation: heroRainSlow linear infinite;
+    }
+
+    .hero-drop.hd1 { left: 16%; animation-duration: 10.8s; animation-delay: -2.1s; }
+    .hero-drop.hd2 { left: 28%; animation-duration: 12.2s; animation-delay: -5.4s; height: 18px; width: 6px; }
+    .hero-drop.hd3 { left: 41%; animation-duration: 11.6s; animation-delay: -1.8s; }
+    .hero-drop.hd4 { left: 53%; animation-duration: 13s; animation-delay: -6.1s; height: 17px; width: 6px; }
+    .hero-drop.hd5 { left: 66%; animation-duration: 12.6s; animation-delay: -3.2s; }
+    .hero-drop.hd6 { left: 78%; animation-duration: 11.2s; animation-delay: -7.4s; height: 19px; width: 6px; }
+    .hero-drop.hd7 { left: 88%; animation-duration: 13.4s; animation-delay: -4.8s; }
+
+    .hero-spiral {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+    }
+
+    .hero-spiral.hs1 {
+      inset: 8px;
+      border: 1.4px solid transparent;
+      border-top-color: var(--heroSp1);
+      border-right-color: var(--heroSp2);
+      animation: heroSpinClock 18s linear infinite;
+      opacity: 0.95;
+    }
+
+    .hero-spiral.hs2 {
+      inset: 24px;
+      border: 1.2px solid transparent;
+      border-left-color: var(--heroSp2);
+      border-bottom-color: var(--heroSp3);
+      animation: heroSpinCounter 16s linear infinite;
+      opacity: 0.82;
+    }
+
+    .hero-spiral.hs3 {
+      inset: 42px;
+      border: 1.1px solid transparent;
+      border-top-color: rgba(163, 216, 226, 0.52);
+      border-left-color: rgba(216, 236, 239, 0.44);
+      animation: heroSpinClock 13s linear infinite;
+      opacity: 0.74;
+    }
+
+    .hero-spiral.hs4 {
+      inset: 62px;
+      border: 1px solid transparent;
+      border-right-color: rgba(144, 208, 223, 0.42);
+      border-bottom-color: rgba(180, 216, 229, 0.34);
+      animation: heroSpinCounter 11s linear infinite;
+      opacity: 0.68;
     }
 
     .scene-card {
+      position: relative;
       width: min(100%, 336px);
       border-radius: 32px;
       padding: 10px;
@@ -136,6 +221,7 @@
       border: 1px solid rgba(255,255,255,0.76);
       box-shadow: 0 24px 64px rgba(48, 72, 86, 0.18);
       overflow: hidden;
+      z-index: 2;
     }
 
     .scene-card img {
@@ -394,12 +480,6 @@
       flex-direction: column;
       gap: 2px;
       font-weight: 700;
-    }
-
-    .status small {
-      font-size: 0.72rem;
-      color: #7a8a95;
-      font-weight: 600;
     }
 
     audio { display: none; }
@@ -1189,6 +1269,22 @@
       100% { transform: translateY(118vh); opacity: 0; }
     }
 
+    @keyframes heroSpinClock {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes heroSpinCounter {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+
+    @keyframes heroRainSlow {
+      0% { transform: translateY(-12%); opacity: 0; }
+      14% { opacity: 0.58; }
+      100% { transform: translateY(122%); opacity: 0; }
+    }
+
     @keyframes breatheIn {
       from { transform: scale(0.74); }
       to { transform: scale(1.12); }
@@ -1223,7 +1319,12 @@
         min-height: auto;
       }
 
-      .hero-art { min-height: 160px; }
+      .hero-art { min-height: 190px; }
+      .hero-visual {
+        width: min(100%, 360px);
+        min-height: 250px;
+      }
+
       .scene-card { width: min(100%, 312px); }
 
       .grid {
@@ -1546,6 +1647,21 @@
         border-radius: 28px;
       }
 
+      .hero-art {
+        min-height: 170px;
+      }
+
+      .hero-visual {
+        width: min(100%, 320px);
+        min-height: 220px;
+        padding: 14px;
+      }
+
+      .hero-spiral.hs1 { inset: 4px; }
+      .hero-spiral.hs2 { inset: 16px; }
+      .hero-spiral.hs3 { inset: 28px; }
+      .hero-spiral.hs4 { inset: 42px; }
+
       .grid {
         grid-template-columns: 1fr;
         gap: 14px;
@@ -1595,12 +1711,29 @@
 
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה מס׳ 203 <span>(28.06.2026, תיקון ספירה והפעלה אוטומטית בנייד)</span></div>
+        <div class="version-line">גרסה 204 | 28.06.2026</div>
       </div>
 
       <div class="hero-art">
-        <div class="scene-card">
-          <img src="assets/breathing-scene.png" alt="איור נשימה והרפיה" />
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-rain">
+            <span class="hero-drop hd1"></span>
+            <span class="hero-drop hd2"></span>
+            <span class="hero-drop hd3"></span>
+            <span class="hero-drop hd4"></span>
+            <span class="hero-drop hd5"></span>
+            <span class="hero-drop hd6"></span>
+            <span class="hero-drop hd7"></span>
+          </div>
+
+          <div class="hero-spiral hs1"></div>
+          <div class="hero-spiral hs2"></div>
+          <div class="hero-spiral hs3"></div>
+          <div class="hero-spiral hs4"></div>
+
+          <div class="scene-card">
+            <img src="assets/breathing-scene.png" alt="איור נשימה והרפיה" />
+          </div>
         </div>
       </div>
     </section>
@@ -1697,7 +1830,7 @@
   </div>
 
   <script>
-    const APP_VERSION = '203';
+    const APP_VERSION = '204';
 
     const bodyEl = document.body;
     const grid = document.getElementById('tracksGrid');
@@ -1878,7 +2011,6 @@
       const description = escapeHtml(track.description);
       const icon = escapeHtml(track.icon || '◌');
       const audio = escapeHtml(track.audio);
-      const updated = escapeHtml(track.updated || 'טרם עודכן');
       const trackId = escapeHtml(track.id);
 
       return `
@@ -1892,17 +2024,17 @@
 
           <div class="play-row">
             <button class="play" data-audio="${audioId}" data-title="${title}" data-track-id="${trackId}">▶︎ נגן</button>
-            <span class="status" id="${statusId}">בהכנה <small>${updated}</small></span>
+            <span class="status" id="${statusId}">בהכנה</span>
           </div>
 
-          <audio id="${audioId}" src="${audio}" data-updated="${updated}" data-track-id="${trackId}" playsinline preload="auto"></audio>
+          <audio id="${audioId}" src="${audio}" data-track-id="${trackId}" playsinline preload="auto"></audio>
         </article>
       `;
     }
 
     async function loadTracks() {
       try {
-        const response = await fetch('assets/tracks.json?v=203', { cache: 'no-store' });
+        const response = await fetch('assets/tracks.json?v=204', { cache: 'no-store' });
         if (!response.ok) throw new Error('tracks.json not found');
         const tracks = await response.json();
         return Array.isArray(tracks) && tracks.length ? tracks : fallbackTracks;
@@ -1913,7 +2045,7 @@
 
     async function loadCues() {
       try {
-        const response = await fetch('assets/cues.json?v=203', { cache: 'no-store' });
+        const response = await fetch('assets/cues.json?v=204', { cache: 'no-store' });
         if (!response.ok) throw new Error('cues.json not found');
         const data = await response.json();
 
@@ -2198,7 +2330,6 @@
       const btn = document.querySelector(`[data-audio="${audio.id}"]`);
       const status = document.getElementById(`status-${audio.id}`);
       const available = audio.dataset.available === 'true';
-      const updated = audio.dataset.updated || 'טרם עודכן';
 
       if (btn) {
         btn.textContent = '▶︎ נגן';
@@ -2207,11 +2338,7 @@
       }
 
       if (status) {
-        if (available) {
-          status.innerHTML = `מוכן <small>עודכן: ${updated}</small>`;
-        } else {
-          status.innerHTML = `בהכנה <small>${updated}</small>`;
-        }
+        status.textContent = available ? 'מוכן' : 'בהכנה';
       }
     }
 
@@ -2233,7 +2360,6 @@
 
       const btn = getButtonForAudio(audio);
       const status = getStatusForAudio(audio);
-      const updated = audio.dataset.updated || 'טרם עודכן';
 
       if (btn) {
         btn.disabled = true;
@@ -2241,7 +2367,7 @@
       }
 
       if (status) {
-        status.innerHTML = `בהכנה <small>${updated}</small>`;
+        status.textContent = 'בהכנה';
       }
     }
 
@@ -2546,7 +2672,7 @@
 
       if (audio.dataset.available !== 'true') {
         if (status) {
-          status.innerHTML = `בהכנה <small>${audio.dataset.updated || 'טרם עודכן'}</small>`;
+          status.textContent = 'בהכנה';
         }
         return;
       }
@@ -2752,7 +2878,7 @@
 
         button.addEventListener('click', () => {
           if (audio.dataset.available !== 'true') {
-            status.innerHTML = `בהכנה <small>${audio.dataset.updated || 'טרם עודכן'}</small>`;
+            status.textContent = 'בהכנה';
             return;
           }
 
