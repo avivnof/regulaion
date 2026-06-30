@@ -1,11 +1,11 @@
-<!-- INDEX_VERSION: 225 | גרסה 225 - הסרת כותרת בחירת התרגול -->
+<!-- INDEX_VERSION: 226 | גרסה 226 - פיצול נשימה סרעפתית להקנייה ותרגול -->
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#4f9fb0" />
-  <meta name="app-version" content="225" />
+  <meta name="app-version" content="226" />
   <title>אתר ההרפיות | ד״ר אביב נוף</title>
   <style>
     :root{--ink:#1d3340;--muted:#647681;--deep:#314c5b;--teal:#4e9fb0;--shadow:0 22px 55px rgba(48,72,86,.16);--soft:0 10px 28px rgba(48,72,86,.12);--glass:rgba(255,255,255,.74)}
@@ -990,6 +990,108 @@
       margin-top: 28px;
     }
 
+  
+    /* v226: split diaphragmatic breathing card into two clickable halves */
+    .breathing-split-card {
+      grid-column: span 2;
+      min-height: 250px !important;
+      cursor: default !important;
+    }
+
+    .breathing-split-card .breathing-split-header {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-bottom: 14px;
+    }
+
+    .breathing-split-card .breathing-split-title {
+      margin: 0;
+      font-size: 1.14rem;
+      color: var(--ink);
+      line-height: 1.35;
+    }
+
+    .breathing-split-card .breathing-split-subtitle {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: .88rem;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .breathing-split-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      height: calc(100% - 82px);
+    }
+
+    .breathing-half {
+      border: 1px solid rgba(255,255,255,.82);
+      border-radius: 22px;
+      padding: 14px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.74), rgba(255,255,255,.48)),
+        rgba(255,255,255,.52);
+      box-shadow: 0 10px 24px rgba(31,92,120,.10);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 150px;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .breathing-half:hover,
+    .breathing-half:focus-visible {
+      transform: translateY(-4px);
+      border-color: rgba(78,159,176,.90);
+      box-shadow:
+        0 0 0 5px rgba(255,255,255,.44),
+        0 0 0 9px rgba(78,159,176,.13),
+        0 18px 36px rgba(31,92,120,.18);
+      outline: none;
+    }
+
+    .breathing-half h3 {
+      margin: 0 0 7px;
+      color: var(--ink);
+      font-size: 1.04rem;
+      line-height: 1.28;
+    }
+
+    .breathing-half p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .88rem;
+      line-height: 1.45;
+      min-height: unset;
+    }
+
+    .breathing-half .play {
+      min-width: 132px;
+      align-self: flex-start;
+      padding: 12px 18px 13px;
+      font-size: .96rem;
+      pointer-events: none;
+    }
+
+    .breathing-half .status {
+      margin-top: 8px;
+      font-size: .78rem;
+    }
+
+    @media (max-width: 860px) {
+      .breathing-split-card {
+        grid-column: span 1;
+      }
+
+      .breathing-split-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -999,7 +1101,7 @@
         <div class="logo-wrap"><img src="assets/nof-logo.jpg" alt="לוגו מכון נוף" /></div>
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה 225 | 28.06.2026</div>
+        <div class="version-line">גרסה 226 | 28.06.2026</div>
       </div>
       <div class="hero-art">
         <div class="hero-visual" aria-hidden="true">
@@ -1016,7 +1118,7 @@
     <div class="viz-layout"><div class="viz-main-row"><div class="viz-side"><div class="remote-box"><div class="remote-label">שלט נגן</div><div class="viz-info"><div class="viz-title" id="vizCenter">לא מתנגן כעת</div><div class="viz-timer" id="vizTimer">00:00 / 00:00</div></div><div class="viz-controls"><button class="viz-btn hidden" id="vizPlay" type="button" aria-label="המשך">▶</button><button class="viz-btn" id="vizPause" type="button" aria-label="השהה">❚❚</button><button class="viz-btn" id="vizStop" type="button" aria-label="עצור">■</button></div><div class="remote-progress"><input class="progress-range" id="progressRange" type="range" min="0" max="1000" value="0" step="1" aria-label="פס התקדמות" /><div class="remote-progress-times"><span class="progress-time" id="progressCurrent">00:00</span><span class="progress-time" id="progressDuration">00:00</span></div></div><div class="viz-pause-message" id="vizPauseMessage"></div></div></div><div class="viz-visual-area"><div class="viz-core"><button class="viz-close" id="vizClose" type="button" aria-label="סגור ועצור">×</button><div class="viz-ring r1"></div><div class="viz-ring r2"></div><div class="viz-ring r3"></div><div class="viz-ring r4"></div><div class="viz-center"><div class="cue-stage" id="cueStage" aria-live="polite"></div><div class="breath-coach" id="breathCoach"><div class="breath-phase" id="breathPhase">שאיפה דרך האף</div><div class="breath-instruction" id="breathInstruction">הבטן עולה קלות</div><div class="breath-circle" id="breathCircle"><div class="breath-count" id="breathCount">3</div></div></div></div><div class="outside-caption" id="outsideCaption"></div><div class="countdown-overlay" id="countdownOverlay" aria-live="polite"><div class="countdown-card"><img class="countdown-image" src="assets/breathing-scene.png" alt="איור נשימה והרפיה" /><div class="countdown-text">מיד מתחילים</div><div class="countdown-number" id="countdownNumber">3</div></div></div><div class="end-overlay" id="endOverlay" aria-live="polite"><div class="end-card"><div class="end-title">תודה שתרגלתם</div><button class="end-button" id="endBackButton" type="button">חזרה לעמוד התרגול הראשי</button></div></div></div></div></div></div>
   </div>
   <script>
-    const APP_VERSION='225';
+    const APP_VERSION='226';
     const bodyEl=document.body,grid=document.getElementById('tracksGrid'),visualizer=document.getElementById('visualizer'),vizCenter=document.getElementById('vizCenter'),vizPauseMessage=document.getElementById('vizPauseMessage'),vizTimer=document.getElementById('vizTimer'),cueStage=document.getElementById('cueStage'),outsideCaption=document.getElementById('outsideCaption'),countdownOverlay=document.getElementById('countdownOverlay'),countdownNumber=document.getElementById('countdownNumber'),progressRange=document.getElementById('progressRange'),progressCurrent=document.getElementById('progressCurrent'),progressDuration=document.getElementById('progressDuration'),breathCoach=document.getElementById('breathCoach'),breathPhase=document.getElementById('breathPhase'),breathInstruction=document.getElementById('breathInstruction'),breathCircle=document.getElementById('breathCircle'),breathCount=document.getElementById('breathCount'),vizPlay=document.getElementById('vizPlay'),vizPause=document.getElementById('vizPause'),vizStop=document.getElementById('vizStop'),vizClose=document.getElementById('vizClose'),endOverlay=document.getElementById('endOverlay'),endBackButton=document.getElementById('endBackButton');
 
     const practiceTotal = document.getElementById('practiceTotal');
@@ -1320,7 +1422,7 @@
 
 async function requestWakeLock(){if(!('wakeLock'in navigator))return;try{if(!wakeLock){wakeLock=await navigator.wakeLock.request('screen');wakeLock.addEventListener('release',()=>{wakeLock=null})}}catch(e){wakeLock=null}}async function releaseWakeLock(){if(!wakeLock)return;try{await wakeLock.release()}catch(e){}finally{wakeLock=null}}document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&visualizer.classList.contains('active')&&currentAudio)requestWakeLock()});
     function escapeHtml(v){return String(v??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;')}function normalizeCue(c){const t=c.type||(c.src?(c.text?'text-image':'image'):'text');return{type:t,start:String(c.start||'00:00'),end:String(c.end||'00:00'),text:String(c.text||''),src:String(c.src||''),alt:String(c.alt||c.text||'תמונת המחשה')}}function trackToCard(track,index){const audioId=`audio-${index+1}`,statusId=`status-${audioId}`,title=escapeHtml(track.title),description=escapeHtml(track.description),duration=escapeHtml(track.duration||track.length||'משך משתנה'),icon=escapeHtml(track.icon||'◌'),audio=escapeHtml(track.audio),trackId=escapeHtml(track.id),isReady=track.status==='ready';return`<article class="card ${isReady?'':'card-disabled'}" tabindex="${isReady?'0':'-1'}" role="button" aria-label="הפעל ${title}"><div class="card-top"><div class="icon-box">${icon}</div><h3>${title}</h3></div><p>${description}</p><div class="duration-pill loading-duration" id="duration-${audioId}">משך</div><div class="play-row"><button class="play" data-audio="${audioId}" data-title="${title}" data-track-id="${trackId}" ${isReady?'':'disabled'}>▶︎ נגן</button><span class="status" id="${statusId}">${isReady?'מוכן':'בהכנה'}</span></div><audio id="${audioId}" src="${audio}" data-track-id="${trackId}" data-config-status="${isReady?'ready':'preparing'}" playsinline preload="auto"></audio></article>`}
-    async function loadTracks(){try{const r=await fetch('assets/tracks.json?v=225',{cache:'no-store'});if(!r.ok)throw new Error('tracks');const t=await r.json();return Array.isArray(t)&&t.length?t:fallbackTracks}catch(e){return fallbackTracks}}async function loadCues(){try{const r=await fetch('assets/cues.json?v=225',{cache:'no-store'});if(!r.ok)throw new Error('cues');const d=await r.json();if(!d||typeof d!=='object')return{};const out={};Object.keys(d).forEach(id=>{if(Array.isArray(d[id]))out[id]=d[id].map(normalizeCue)});return out}catch(e){return{}}}
+    async function loadTracks(){try{const r=await fetch('assets/tracks.json?v=226',{cache:'no-store'});if(!r.ok)throw new Error('tracks');const t=await r.json();return Array.isArray(t)&&t.length?t:fallbackTracks}catch(e){return fallbackTracks}}async function loadCues(){try{const r=await fetch('assets/cues.json?v=226',{cache:'no-store'});if(!r.ok)throw new Error('cues');const d=await r.json();if(!d||typeof d!=='object')return{};const out={};Object.keys(d).forEach(id=>{if(Array.isArray(d[id]))out[id]=d[id].map(normalizeCue)});return out}catch(e){return{}}}
     function formatTime(s){if(!Number.isFinite(s)||s<0)return'00:00';const total=Math.floor(s),m=Math.floor(total/60),sec=total%60;return`${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`}function parseCueTime(v){if(!v||typeof v!=='string')return 0;const p=v.split(':').map(Number);if(p.some(Number.isNaN))return 0;if(p.length===2)return p[0]*60+p[1];if(p.length===3)return p[0]*3600+p[1]*60+p[2];return 0}function getActiveCue(id,sec){const list=cuesByTrack[id]||[];return list.find(c=>sec>=parseCueTime(c.start)&&sec<parseCueTime(c.end))}function cueKey(c){return c?[c.type||'text',c.start||'',c.end||'',c.text||'',c.src||'',c.alt||''].join('|'):''}function buildCueMarkup(c){if(!c)return'';const type=c.type||'text',text=escapeHtml(c.text||''),src=escapeHtml(c.src||''),alt=escapeHtml(c.alt||c.text||'תמונת המחשה');if(type==='image')return`<div class="cue-content image-only-content"><img class="cue-image only-image" src="${src}" alt="${alt}" /></div>`;if(type==='text-image')return`<div class="cue-content text-image-content"><div class="cue-image-wrap"><img class="cue-image with-caption" src="${src}" alt="${alt}" /></div></div>`;return`<div class="cue-content text-only-content"><div class="cue-text-only">${text}</div></div>`}function updateOutsideCaption(c){if(!outsideCaption)return;if(c&&c.type==='text-image'&&c.text){outsideCaption.textContent=c.text;outsideCaption.classList.add('active')}else{outsideCaption.textContent='';outsideCaption.classList.remove('active')}}function setCueWithDissolve(c,key){if(!cueStage)return;clearTimeout(cueTransitionTimer);activeCueKey=key||'';cueStage.classList.add('leaving');cueStage.classList.remove('active');updateOutsideCaption(null);cueTransitionTimer=setTimeout(()=>{cueStage.innerHTML=buildCueMarkup(c);updateOutsideCaption(c);if(c){cueStage.classList.remove('leaving');requestAnimationFrame(()=>cueStage.classList.add('active'))}else cueStage.classList.remove('leaving','active')},520)}function updateCueDisplay(){if(!cueStage||!currentAudio||!currentTrackId||countdownActive)return;const c=getActiveCue(currentTrackId,currentAudio.currentTime||0),k=cueKey(c);if(k===activeCueKey)return;c?setCueWithDissolve(c,k):setCueWithDissolve(null,'')}function clearCueDisplay(){if(!cueStage)return;clearTimeout(cueTransitionTimer);activeCueKey='';cueStage.innerHTML='';cueStage.classList.remove('active','leaving');updateOutsideCaption(null)}
     function hideEndOverlay(){if(endOverlay)endOverlay.classList.remove('active')}function showEndScreen(){bodyEl.classList.add('playing');visualizer.classList.add('active');hideCountdownOverlay();setVisualizerControls('playing');vizPlay.classList.add('hidden');vizPause.classList.add('hidden');vizStop.classList.add('hidden');stopBreathCoach();stopTimerDisplay(true);clearCueDisplay();resetProgressDisplay();vizCenter.textContent='התרגול הסתיים';vizPauseMessage.textContent='';vizPauseMessage.classList.remove('active');if(endOverlay)endOverlay.classList.add('active');releaseWakeLock()}function returnToMainPracticePage(){hideEndOverlay();hideVisualizer()}function markCardSelectedFromButton(button){const card=button?button.closest('.card'):null;if(!card||card.classList.contains('card-disabled'))return;card.classList.add('card-selecting');setTimeout(()=>card.classList.remove('card-selecting'),260)}function showCountdownOverlay(n=3){if(countdownNumber){countdownNumber.textContent=String(n);countdownNumber.classList.remove('dissolve-out','dissolve-in')}countdownOverlay.classList.add('active');clearCueDisplay()}function dissolveCountdownTo(n){if(!countdownNumber)return;countdownNumber.classList.add('dissolve-out');countdownNumber.classList.remove('dissolve-in');const a=setTimeout(()=>{countdownNumber.textContent=String(n);countdownNumber.classList.remove('dissolve-out');countdownNumber.classList.add('dissolve-in')},COUNTDOWN_DISSOLVE_MS),b=setTimeout(()=>countdownNumber.classList.remove('dissolve-in'),COUNTDOWN_DISSOLVE_MS*2+30);countdownTimeouts.push(a,b)}function hideCountdownOverlay(){countdownOverlay.classList.remove('active');countdownNumber.classList.remove('dissolve-out','dissolve-in')}function clearCountdown(){countdownTimeouts.forEach(t=>clearTimeout(t));countdownTimeouts=[];countdownActive=false;hideCountdownOverlay()}function applyTrackVolumePolicy(){if(!currentAudio)return;if(countdownActive){currentAudio.muted=true;currentAudio.volume=0;return}currentAudio.muted=false;currentAudio.volume=1}
     function updateProgressDisplay(){if(!currentAudio)return;const e=currentAudio.currentTime||0,d=currentAudio.duration||0;progressCurrent.textContent=formatTime(e);progressDuration.textContent=formatTime(d);if(!isSeeking&&Number.isFinite(d)&&d>0)progressRange.value=String(Math.round(e/d*1000));if(!Number.isFinite(d)||d<=0)progressRange.value='0'}function resetProgressDisplay(){progressRange.value='0';progressCurrent.textContent='00:00';progressDuration.textContent='00:00'}function updateTimerDisplay(){if(!vizTimer||!currentAudio||countdownActive)return;vizTimer.textContent=`${formatTime(currentAudio.currentTime||0)} / ${formatTime(currentAudio.duration||0)}`;applyTrackVolumePolicy();updateProgressDisplay();updateCueDisplay()}function startCueChecking(){stopCueChecking();updateCueDisplay();cueCheckInterval=setInterval(updateCueDisplay,450)}function stopCueChecking(){clearInterval(cueCheckInterval);cueCheckInterval=null}function startTimerDisplay(){stopTimerDisplay(false);updateTimerDisplay();timerInterval=setInterval(updateTimerDisplay,1000);startCueChecking()}function stopTimerDisplay(clear=true){clearInterval(timerInterval);timerInterval=null;stopCueChecking();if(clear){vizTimer.textContent='00:00 / 00:00';resetProgressDisplay()}}
@@ -1461,6 +1563,128 @@ function bindAudioEvents(){buttons=Array.from(document.querySelectorAll('.play')
     if(endBackButton)endBackButton.addEventListener('click',returnToMainPracticePage);vizPlay.addEventListener('click',()=>{if(currentAudio&&currentAudio.paused)resumeAudio(currentAudio,currentTitle,currentTrackId)});vizPause.addEventListener('click',pauseCurrent);vizStop.addEventListener('click',stopCurrent);vizClose.addEventListener('click',stopCurrent);bindProgressEvents();
     bindPracticeTrackerEvents();
     bindPracticeTrackerEvents();Promise.all([loadTracks(),loadCues()]).then(([tracks,cues])=>{cuesByTrack=cues||{};grid.innerHTML=tracks.map(trackToCard).join('');bindAudioEvents();bindCardClickEvents()});
+  
+    /* v226: split diaphragmatic breathing card after render */
+    (function(){
+      const breathingIntroTrack = {
+        id: 'diaphragmatic-breathing-intro',
+        title: 'הקניית נשימות סרעפתיות',
+        subtitle: 'מתחילים',
+        description: 'הסבר והדרכה ראשונית ללמידת הנשימה הסרעפתית.',
+        audio: 'assets/audio/diaphragmatic-breathing-intro.mp3',
+        duration: 'משך: מחשב...',
+        available: true
+      };
+
+      const breathingPracticeTrack = {
+        id: 'diaphragmatic-breathing-practice',
+        title: 'תרגול נשימות סרעפתיות',
+        subtitle: 'מתקדמים',
+        description: 'תרגול רציף לאחר שהטכניקה כבר מוכרת.',
+        audio: 'assets/audio/diaphragmatic-breathing-practice.mp3',
+        duration: 'משך: מחשב...',
+        available: true
+      };
+
+      function escapeBreathingHtml(value){
+        return String(value ?? '')
+          .replaceAll('&','&amp;')
+          .replaceAll('<','&lt;')
+          .replaceAll('>','&gt;')
+          .replaceAll('"','&quot;')
+          .replaceAll("'","&#039;");
+      }
+
+      function findBreathingCard(){
+        const cards = [...document.querySelectorAll('.card')];
+        return cards.find(card => {
+          const text = card.textContent || '';
+          const id = card.dataset ? (card.dataset.trackId || card.dataset.id || '') : '';
+          return id === 'diaphragmatic-breathing' ||
+                 text.includes('נשימה סרעפתית') ||
+                 text.includes('נשימות סרעפתיות');
+        });
+      }
+
+      function playBreathingTrack(track){
+        const possibleStartNames = ['startTrack','playTrack','startRelaxation','startPlayback'];
+        for (const name of possibleStartNames) {
+          if (typeof window[name] === 'function') {
+            window[name](track);
+            return;
+          }
+        }
+
+        try {
+          const playButton = document.querySelector(`[data-track-id="${track.id}"] .play`);
+          if (playButton) {
+            playButton.click();
+            return;
+          }
+        } catch {}
+
+        const audio = document.querySelector('audio');
+        if (audio) {
+          audio.src = track.audio;
+          audio.play().catch(() => {});
+        }
+      }
+
+      function makeHalf(track){
+        const half = document.createElement('div');
+        half.className = 'breathing-half';
+        half.tabIndex = 0;
+        half.setAttribute('role','button');
+        half.setAttribute('aria-label', track.title);
+        half.innerHTML = `
+          <div>
+            <h3>${escapeBreathingHtml(track.title)}</h3>
+            <p>${escapeBreathingHtml(track.description)}</p>
+          </div>
+          <div>
+            <button class="play" type="button">התחל תרגול</button>
+            <span class="status">${escapeBreathingHtml(track.subtitle)}</span>
+          </div>
+        `;
+        half.addEventListener('click', () => playBreathingTrack(track));
+        half.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            playBreathingTrack(track);
+          }
+        });
+        return half;
+      }
+
+      function splitBreathingCard(){
+        const card = findBreathingCard();
+        if (!card || card.classList.contains('breathing-split-card')) return;
+
+        card.classList.add('breathing-split-card');
+        card.setAttribute('aria-label', 'נשימה סרעפתית - בחירה בין הקנייה לתרגול');
+        card.innerHTML = `
+          <div class="breathing-split-header">
+            <div class="icon-box">🌬️</div>
+            <div>
+              <h3 class="breathing-split-title">הרפיית נשימות סרעפתיות</h3>
+              <div class="breathing-split-subtitle">בחרו מסלול: הקנייה למתחילים או תרגול למתקדמים</div>
+            </div>
+          </div>
+          <div class="breathing-split-options"></div>
+        `;
+
+        const options = card.querySelector('.breathing-split-options');
+        options.appendChild(makeHalf(breathingIntroTrack));
+        options.appendChild(makeHalf(breathingPracticeTrack));
+      }
+
+      const observer = new MutationObserver(splitBreathingCard);
+      observer.observe(document.body, { childList: true, subtree: true });
+      window.addEventListener('load', splitBreathingCard);
+      setTimeout(splitBreathingCard, 100);
+      setTimeout(splitBreathingCard, 600);
+    })();
+
   </script>
 </body>
 </html>
