@@ -19,12 +19,21 @@
   },
   {
     "id": "diaphragmatic-breathing",
-    "title": "הרפיית נשימה סרעפתית",
-    "description": "נשימה שמעודדת קוהרנטיות של קצב הלב",
+    "title": "נשימה סרעפתית – הקניה למתחילים",
+    "description": "הסבר והנחיה ראשונית לנשימה סרעפתית",
     "icon": "🌬️",
     "audio": "audio/diaphragmatic-breathing.mp3",
-    "updated": "טרם עודכן",
-    "status": "preparing"
+    "updated": "04.07.2026",
+    "status": "ready"
+  },
+  {
+    "id": "diaphragmatic-breathing-practice",
+    "title": "נשימה סרעפתית – תרגול מתקדם",
+    "description": "תרגול רציף של נשימה סרעפתית למי שכבר מכיר את ההנחיות",
+    "icon": "🌬️",
+    "audio": "audio/diaphragmatic-breathing-practice.mp3",
+    "updated": "04.07.2026",
+    "status": "ready"
   },
   {
     "id": "diaphragmatic-breathing-holds",
