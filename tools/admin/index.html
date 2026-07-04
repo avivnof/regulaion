@@ -1,0 +1,1729 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ניהול אתר ההרפיות</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f8fb;
+      --surface: #ffffff;
+      --surface-2: #eef5f6;
+      --ink: #17242b;
+      --muted: #5d6b75;
+      --line: #d9e2e7;
+      --primary: #237d8d;
+      --primary-dark: #155967;
+      --accent: #b35f4b;
+      --ok: #287a4b;
+      --warn: #9a6b13;
+      --danger: #a83d3d;
+      --shadow: 0 14px 38px rgba(37, 52, 61, .09);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Arial, "Noto Sans Hebrew", sans-serif;
+      line-height: 1.5;
+    }
+
+    button, input, select, textarea {
+      font: inherit;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      border-radius: 7px;
+      min-height: 38px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    button:hover { border-color: #aac2cc; }
+    button.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+    button.primary:hover { background: var(--primary-dark); }
+    button.danger { color: var(--danger); }
+    button.ghost { background: transparent; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: rgba(246, 248, 251, .94);
+      backdrop-filter: blur(10px);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 14px 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    .top-actions, .row-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr) 420px;
+      gap: 14px;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 14px 18px 22px;
+      min-height: calc(100vh - 68px);
+    }
+
+    body.projection-mode header,
+    body.projection-mode main > aside,
+    body.projection-mode .preview-pane,
+    body.projection-mode .tabs {
+      display: none;
+    }
+
+    body.projection-mode main {
+      display: block;
+      max-width: none;
+      width: 100%;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    body.projection-mode .workbench {
+      min-height: 100vh;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      background: var(--bg);
+    }
+
+    body.projection-mode .editor {
+      padding: 0;
+    }
+
+    aside, section, .preview-pane {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    aside {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+      background: var(--surface-2);
+    }
+
+    .panel-head h2 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .track-list {
+      overflow: auto;
+      padding: 8px;
+    }
+
+    .track-item {
+      width: 100%;
+      text-align: right;
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 8px;
+      align-items: center;
+      border-radius: 7px;
+      padding: 10px;
+      margin: 0 0 6px;
+      min-height: 58px;
+    }
+
+    .track-item.active {
+      border-color: rgba(35, 125, 141, .5);
+      background: #e9f5f7;
+    }
+
+    .track-icon {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 7px;
+      background: #f7fbfb;
+      border: 1px solid var(--line);
+    }
+
+    .track-title {
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .track-meta {
+      color: var(--muted);
+      font-size: .82rem;
+    }
+
+    .workbench {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 6px;
+      padding: 10px 14px 0;
+      border-bottom: 1px solid var(--line);
+      background: var(--surface-2);
+    }
+
+    .tab {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-color: transparent;
+    }
+
+    .tab.active {
+      background: var(--surface);
+      border-color: var(--line);
+      border-bottom-color: var(--surface);
+      transform: translateY(1px);
+      font-weight: 700;
+    }
+
+    .editor {
+      padding: 14px;
+      overflow: auto;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: .88rem;
+      font-weight: 700;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      color: var(--ink);
+      padding: 9px 10px;
+      min-height: 38px;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .span-2 { grid-column: 1 / -1; }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .cue-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .projection-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+    }
+
+    .projection-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .projection-title {
+      margin: 0;
+      font-size: 1.08rem;
+    }
+
+    .projection-layout {
+      display: grid;
+      grid-template-columns: minmax(340px, 42%) minmax(0, 1fr);
+      gap: 14px;
+      padding: 14px;
+      min-height: 0;
+      height: calc(100vh - 65px);
+    }
+
+    .projection-panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .projection-actions {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .projection-actions-list {
+      display: grid;
+      gap: 8px;
+      overflow: auto;
+      padding: 10px;
+      max-height: calc(100vh - 116px);
+    }
+
+    .projection-action {
+      width: 100%;
+      display: grid;
+      grid-template-columns: auto 1px minmax(0, 1fr);
+      gap: 10px;
+      align-items: stretch;
+      text-align: right;
+      border-radius: 8px;
+      padding: 10px;
+      min-height: 74px;
+      background: #fff;
+    }
+
+    .projection-action.active,
+    .projection-action.playing {
+      border-color: rgba(35, 125, 141, .52);
+      background: #eaf6f8;
+    }
+
+    .projection-time {
+      direction: ltr;
+      color: var(--primary-dark);
+      font-weight: 800;
+      font-size: .9rem;
+      white-space: nowrap;
+      align-self: center;
+    }
+
+    .projection-separator {
+      width: 1px;
+      background: var(--line);
+    }
+
+    .projection-action-text {
+      display: grid;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .projection-kind {
+      font-weight: 800;
+      font-size: .82rem;
+    }
+
+    .projection-kind.text { color: #23649b; }
+    .projection-kind.image { color: var(--ok); }
+    .projection-kind.text-image { color: var(--accent); }
+
+    .projection-description {
+      color: var(--muted);
+      font-size: .86rem;
+      overflow-wrap: anywhere;
+      line-height: 1.35;
+    }
+
+    .projection-work {
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: stretch;
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .projection-editor-stack {
+      display: grid;
+      gap: 12px;
+      min-width: 0;
+      min-height: 0;
+      overflow: auto;
+    }
+
+    .projection-work .run-editor {
+      margin-top: 0;
+    }
+
+    .run-editor-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .run-editor-head h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .run-editor {
+      display: grid;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fbfb;
+      padding: 12px;
+      margin-top: 12px;
+    }
+
+    .run-audio {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .run-audio audio {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .time-chip {
+      direction: ltr;
+      min-width: 132px;
+      text-align: center;
+      border-radius: 999px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--primary-dark);
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .type-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .type-tab.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .cue-builder-fields {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    .cue-builder-preview {
+      min-height: 104px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 12px;
+      text-align: center;
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    .cue-builder-preview img {
+      max-width: 100%;
+      max-height: 180px;
+      object-fit: contain;
+      border-radius: 7px;
+      background: #fff;
+    }
+
+    .cue-builder-preview strong {
+      display: block;
+      margin-top: 8px;
+      color: var(--ink);
+    }
+
+    .overlap-box {
+      display: grid;
+      gap: 10px;
+      border: 1px solid rgba(168, 61, 61, .28);
+      border-radius: 8px;
+      background: #fff6f5;
+      color: #6f2c2c;
+      padding: 12px;
+    }
+
+    .overlap-box[hidden] {
+      display: none;
+    }
+
+    .overlap-box strong {
+      color: var(--danger);
+    }
+
+    .final-preview {
+      display: grid;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 12px;
+      margin-top: 0;
+      align-self: end;
+    }
+
+    .final-preview-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .final-preview-head h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .final-preview-screen {
+      min-height: 148px;
+      max-height: 220px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f6fbfc;
+      padding: 16px;
+      text-align: center;
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    .final-preview-screen img {
+      max-width: 100%;
+      max-height: 158px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .final-preview-screen strong {
+      display: block;
+      margin-top: 10px;
+      color: var(--ink);
+      font-size: 1.05rem;
+      line-height: 1.45;
+    }
+
+    .cue-row {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .cue-grid {
+      display: grid;
+      grid-template-columns: 92px 92px 130px minmax(0, 1fr);
+      gap: 10px;
+      align-items: end;
+    }
+
+    .cue-extra {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    .status-line {
+      min-height: 24px;
+      color: var(--muted);
+      font-size: .9rem;
+      padding: 0 14px 14px;
+    }
+
+    .status-line.ok { color: var(--ok); }
+    .status-line.warn { color: var(--warn); }
+    .status-line.danger { color: var(--danger); }
+
+    .preview-pane {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 620px;
+      border: 0;
+      background: #fff;
+    }
+
+    .file-list {
+      display: grid;
+      gap: 6px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: .84rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: #fff;
+      color: var(--muted);
+      font-size: .8rem;
+      white-space: nowrap;
+    }
+
+    .empty {
+      color: var(--muted);
+      padding: 18px;
+      text-align: center;
+    }
+
+    pre {
+      direction: ltr;
+      text-align: left;
+      white-space: pre-wrap;
+      background: #0f1a20;
+      color: #e8f1f3;
+      border-radius: 8px;
+      padding: 12px;
+      overflow: auto;
+      max-height: 260px;
+    }
+
+    @media (max-width: 1180px) {
+      main { grid-template-columns: 300px minmax(0, 1fr); }
+      .preview-pane { grid-column: 1 / -1; min-height: 560px; }
+      .projection-layout { grid-template-columns: 1fr; height: auto; }
+      .projection-actions-list { max-height: none; }
+      .projection-work { grid-template-rows: auto auto; overflow: visible; }
+      .projection-editor-stack { overflow: visible; }
+    }
+
+    @media (max-width: 760px) {
+      .topbar { align-items: stretch; flex-direction: column; }
+      main { grid-template-columns: 1fr; padding: 10px; }
+      .form-grid, .cue-grid, .cue-extra, .cue-builder-fields, .run-audio, .type-tabs { grid-template-columns: 1fr; }
+      body.projection-mode main { padding: 0; }
+      .projection-top { align-items: stretch; flex-direction: column; }
+      .projection-layout { padding: 10px; }
+      .projection-action { grid-template-columns: 1fr; }
+      .projection-separator { width: 100%; height: 1px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topbar">
+      <h1>ניהול אתר ההרפיות</h1>
+      <div class="top-actions">
+        <button id="reloadBtn" type="button">רענון</button>
+        <button id="saveBtn" class="primary" type="button">שמירה</button>
+        <button id="gitStatusBtn" type="button">בדיקת שינויים</button>
+        <button id="commitBtn" type="button">שמירה ל־Git</button>
+        <button id="pushBtn" type="button">פרסום</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <aside>
+      <div class="panel-head">
+        <h2>תרגילים</h2>
+        <button id="addTrackBtn" type="button">הוספה</button>
+      </div>
+      <div id="trackList" class="track-list"></div>
+    </aside>
+
+    <section class="workbench">
+      <div class="tabs">
+        <button class="tab active" data-tab="track" type="button">פרטי תרגיל</button>
+        <button class="tab" data-tab="cues" type="button">עורך ההקרנה</button>
+        <button class="tab" data-tab="files" type="button">קבצים</button>
+        <button class="tab" data-tab="publish" type="button">פרסום</button>
+      </div>
+
+      <div id="trackEditor" class="editor"></div>
+      <div id="cuesEditor" class="editor" hidden></div>
+      <div id="filesEditor" class="editor" hidden></div>
+      <div id="publishEditor" class="editor" hidden></div>
+      <div id="statusLine" class="status-line"></div>
+    </section>
+
+    <div class="preview-pane">
+      <div class="panel-head">
+        <h2>תצוגה מקדימה</h2>
+        <button id="previewBtn" type="button">טעינה מחדש</button>
+      </div>
+      <iframe id="previewFrame" src="/"></iframe>
+    </div>
+  </main>
+
+  <script>
+    const state = {
+      tracks: [],
+      cues: {},
+      audioFiles: [],
+      cueImageFiles: [],
+      selectedId: '',
+      tab: 'track',
+      dirty: false,
+      editingCue: null,
+      projectionPreviewTime: 0
+    };
+
+    const $ = (selector) => document.querySelector(selector);
+    const el = {
+      list: $('#trackList'),
+      trackEditor: $('#trackEditor'),
+      cuesEditor: $('#cuesEditor'),
+      filesEditor: $('#filesEditor'),
+      publishEditor: $('#publishEditor'),
+      status: $('#statusLine'),
+      preview: $('#previewFrame')
+    };
+
+    function setStatus(text, kind = '') {
+      el.status.textContent = text || '';
+      el.status.className = `status-line ${kind}`.trim();
+    }
+
+    function markDirty() {
+      state.dirty = true;
+      setStatus('יש שינויים שלא נשמרו', 'warn');
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function formatCueTime(seconds) {
+      if (!Number.isFinite(seconds) || seconds < 0) return '00:00';
+      const total = Math.floor(seconds);
+      const hours = Math.floor(total / 3600);
+      const minutes = Math.floor((total % 3600) / 60);
+      const secs = total % 60;
+      if (hours > 0) {
+        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      }
+      return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    function parseCueTime(value) {
+      const parts = String(value || '').trim().split(':').map(Number);
+      if (!parts.length || parts.some((part) => Number.isNaN(part))) return NaN;
+      if (parts.length === 2) return parts[0] * 60 + parts[1];
+      if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+      return NaN;
+    }
+
+    function cueTypeLabel(type) {
+      if (type === 'image') return 'תמונה';
+      if (type === 'text-image') return 'תמונה + טקסט';
+      return 'טקסט';
+    }
+
+    function normalizeCueForEditor(cue = {}) {
+      const type = cue.type || (cue.src ? (cue.text ? 'text-image' : 'image') : 'text');
+      return {
+        type,
+        start: String(cue.start || '00:00'),
+        end: String(cue.end || '00:10'),
+        text: String(cue.text || ''),
+        src: String(cue.src || ''),
+        alt: String(cue.alt || cue.text || '')
+      };
+    }
+
+    function slugify(value) {
+      return String(value || '')
+        .trim()
+        .toLowerCase()
+        .replace(/['"]/g, '')
+        .replace(/[^a-z0-9\u0590-\u05ff]+/g, '-')
+        .replace(/^-+|-+$/g, '') || `track-${Date.now()}`;
+    }
+
+    function currentTrack() {
+      return state.tracks.find((track) => track.id === state.selectedId) || state.tracks[0] || null;
+    }
+
+    async function api(path, options = {}) {
+      const response = await fetch(path, options);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || data.stderr || 'הפעולה נכשלה');
+      return data;
+    }
+
+    async function loadState() {
+      const data = await api('/api/state');
+      state.tracks = data.tracks || [];
+      state.cues = data.cues || {};
+      state.audioFiles = data.audioFiles || [];
+      state.cueImageFiles = data.cueImageFiles || [];
+      if (!state.selectedId && state.tracks[0]) state.selectedId = state.tracks[0].id;
+      if (!state.tracks.some((track) => track.id === state.selectedId)) {
+        state.selectedId = state.tracks[0]?.id || '';
+      }
+      state.dirty = false;
+      render();
+      setStatus('נטען', 'ok');
+    }
+
+    function render() {
+      renderTrackList();
+      renderTabs();
+      renderTrackEditor();
+      renderCuesEditor();
+      renderFilesEditor();
+      renderPublishEditor();
+    }
+
+    function renderTrackList() {
+      if (!state.tracks.length) {
+        el.list.innerHTML = '<div class="empty">אין תרגילים</div>';
+        return;
+      }
+
+      el.list.innerHTML = state.tracks.map((track) => `
+        <button class="track-item ${track.id === state.selectedId ? 'active' : ''}" type="button" data-track-id="${escapeHtml(track.id)}">
+          <span class="track-icon">${escapeHtml(track.icon || '◌')}</span>
+          <span>
+            <span class="track-title">${escapeHtml(track.title || track.id)}</span>
+            <span class="track-meta">${escapeHtml(track.status === 'ready' ? 'מוכן' : 'בהכנה')} · ${escapeHtml(track.audio || '')}</span>
+          </span>
+        </button>
+      `).join('');
+
+      el.list.querySelectorAll('[data-track-id]').forEach((button) => {
+        button.addEventListener('click', () => {
+          state.selectedId = button.dataset.trackId;
+          render();
+        });
+      });
+    }
+
+    function renderTabs() {
+      document.body.classList.toggle('projection-mode', state.tab === 'cues');
+      document.querySelectorAll('.tab').forEach((button) => {
+        const active = button.dataset.tab === state.tab;
+        button.classList.toggle('active', active);
+        button.onclick = () => {
+          state.tab = button.dataset.tab;
+          render();
+        };
+      });
+
+      el.trackEditor.hidden = state.tab !== 'track';
+      el.cuesEditor.hidden = state.tab !== 'cues';
+      el.filesEditor.hidden = state.tab !== 'files';
+      el.publishEditor.hidden = state.tab !== 'publish';
+    }
+
+    function updateTrackField(field, value) {
+      const track = currentTrack();
+      if (!track) return;
+      track[field] = value;
+      if (field === 'id') {
+        const oldId = state.selectedId;
+        const nextId = slugify(value);
+        track.id = nextId;
+        state.selectedId = nextId;
+        if (state.cues[oldId] && oldId !== nextId) {
+          state.cues[nextId] = state.cues[oldId];
+          delete state.cues[oldId];
+        }
+      }
+      markDirty();
+      renderTrackList();
+    }
+
+    function renderTrackEditor() {
+      const track = currentTrack();
+      if (!track) {
+        el.trackEditor.innerHTML = '<div class="empty">בחר תרגיל לעריכה</div>';
+        return;
+      }
+
+      const audioOptions = [''].concat(state.audioFiles);
+      el.trackEditor.innerHTML = `
+        <div class="form-grid">
+          <label>מזהה
+            <input data-field="id" value="${escapeHtml(track.id)}" />
+          </label>
+          <label>סטטוס
+            <select data-field="status">
+              <option value="ready" ${track.status === 'ready' ? 'selected' : ''}>מוכן</option>
+              <option value="preparing" ${track.status !== 'ready' ? 'selected' : ''}>בהכנה</option>
+            </select>
+          </label>
+          <label>שם התרגיל
+            <input data-field="title" value="${escapeHtml(track.title)}" />
+          </label>
+          <label>סמל
+            <input data-field="icon" value="${escapeHtml(track.icon || '')}" />
+          </label>
+          <label class="span-2">תיאור
+            <textarea data-field="description">${escapeHtml(track.description || '')}</textarea>
+          </label>
+          <label class="span-2">קובץ שמע
+            <select data-field="audio">
+              ${audioOptions.map((file) => `<option value="${escapeHtml(file)}" ${track.audio === file ? 'selected' : ''}>${escapeHtml(file || 'ללא')}</option>`).join('')}
+            </select>
+          </label>
+          <label class="span-2">העלאת קובץ שמע לתרגיל הזה
+            <input id="trackAudioUpload" type="file" accept=".mp3,.wav,.m4a,audio/*" />
+          </label>
+          <label>עודכן
+            <input data-field="updated" value="${escapeHtml(track.updated || '')}" />
+          </label>
+          <label>משך ידני
+            <input data-field="duration" value="${escapeHtml(track.duration || '')}" />
+          </label>
+        </div>
+        <div class="row-actions" style="margin-top: 14px;">
+          <button type="button" id="moveUpBtn">למעלה</button>
+          <button type="button" id="moveDownBtn">למטה</button>
+          <button type="button" class="danger" id="deleteTrackBtn">מחיקה</button>
+        </div>
+      `;
+
+      el.trackEditor.querySelectorAll('[data-field]').forEach((field) => {
+        field.addEventListener('input', () => updateTrackField(field.dataset.field, field.value));
+        field.addEventListener('change', () => updateTrackField(field.dataset.field, field.value));
+      });
+
+      $('#moveUpBtn').onclick = () => moveTrack(-1);
+      $('#moveDownBtn').onclick = () => moveTrack(1);
+      $('#deleteTrackBtn').onclick = deleteTrack;
+      $('#trackAudioUpload').onchange = (event) => uploadFile(event.target.files[0], 'audio', {
+        assignToTrackId: track.id
+      });
+    }
+
+    function moveTrack(delta) {
+      const index = state.tracks.findIndex((track) => track.id === state.selectedId);
+      const next = index + delta;
+      if (index < 0 || next < 0 || next >= state.tracks.length) return;
+      const [track] = state.tracks.splice(index, 1);
+      state.tracks.splice(next, 0, track);
+      markDirty();
+      render();
+    }
+
+    function deleteTrack() {
+      const track = currentTrack();
+      if (!track || !confirm(`למחוק את "${track.title || track.id}"?`)) return;
+      state.tracks = state.tracks.filter((item) => item.id !== track.id);
+      delete state.cues[track.id];
+      state.selectedId = state.tracks[0]?.id || '';
+      markDirty();
+      render();
+    }
+
+    function cueDraftForTrack(trackId) {
+      if (state.editingCue && state.editingCue.trackId === trackId) {
+        return normalizeCueForEditor(state.cues[trackId]?.[state.editingCue.index]);
+      }
+      return { type: 'text', start: '00:00', end: '00:10', text: '', src: '', alt: '' };
+    }
+
+    function sortCues(trackId) {
+      if (!Array.isArray(state.cues[trackId])) return;
+      state.cues[trackId].sort((a, b) => parseCueTime(a.start) - parseCueTime(b.start));
+    }
+
+    function findCueOverlap(trackId, cue, excludeIndex = -1) {
+      const start = parseCueTime(cue.start);
+      const end = parseCueTime(cue.end);
+      const overlaps = (state.cues[trackId] || [])
+        .map((item, index) => ({ cue: normalizeCueForEditor(item), index }))
+        .filter((item) => item.index !== excludeIndex)
+        .filter((item) => {
+          const itemStart = parseCueTime(item.cue.start);
+          const itemEnd = parseCueTime(item.cue.end);
+          return Number.isFinite(itemStart) && Number.isFinite(itemEnd) && start < itemEnd && end > itemStart;
+        });
+      return overlaps.length ? overlaps : null;
+    }
+
+    function suggestNonOverlappingCueTime(trackId, cue, excludeIndex = -1) {
+      const duration = Math.max(1, parseCueTime(cue.end) - parseCueTime(cue.start));
+      const sorted = (state.cues[trackId] || [])
+        .map((item, index) => ({ cue: normalizeCueForEditor(item), index }))
+        .filter((item) => item.index !== excludeIndex)
+        .map((item) => ({ start: parseCueTime(item.cue.start), end: parseCueTime(item.cue.end) }))
+        .filter((item) => Number.isFinite(item.start) && Number.isFinite(item.end))
+        .sort((a, b) => a.start - b.start);
+
+      let suggestedStart = parseCueTime(cue.start);
+      let changed = true;
+      while (changed) {
+        changed = false;
+        const suggestedEnd = suggestedStart + duration;
+        const blocker = sorted.find((item) => suggestedStart < item.end && suggestedEnd > item.start);
+        if (blocker) {
+          suggestedStart = blocker.end;
+          changed = true;
+        }
+      }
+      return {
+        start: formatCueTime(suggestedStart),
+        end: formatCueTime(suggestedStart + duration)
+      };
+    }
+
+    function showCueOverlapFix(overlapText, suggestion) {
+      const box = $('#cueOverlapBox');
+      const message = $('#cueOverlapMessage');
+      if (!box || !message) return;
+      box.hidden = false;
+      box.dataset.start = suggestion.start;
+      box.dataset.end = suggestion.end;
+      message.innerHTML = `<strong>יש חפיפה בזמנים.</strong><br>הרמז חופף ל: ${escapeHtml(overlapText)}.<br>אפשר לתקן אוטומטית ל-${escapeHtml(suggestion.start)}-${escapeHtml(suggestion.end)}.`;
+      setStatus('הרמז לא נשמר בגלל חפיפה. אשר את תיקון הזמנים או שנה ידנית.', 'danger');
+    }
+
+    function confirmCueOverlapFix(trackId, cue, excludeIndex = -1) {
+      const overlaps = findCueOverlap(trackId, cue, excludeIndex);
+      if (!overlaps) return true;
+      const suggestion = suggestNonOverlappingCueTime(trackId, cue, excludeIndex);
+      const overlapText = overlaps
+        .map((item) => `${item.cue.start}-${item.cue.end} (${cueTypeLabel(item.cue.type)})`)
+        .join(', ');
+      showCueOverlapFix(overlapText, suggestion);
+      return false;
+    }
+
+    function validateAllCueOverlaps() {
+      for (const trackId of Object.keys(state.cues || {})) {
+        const list = Array.isArray(state.cues[trackId]) ? state.cues[trackId].map(normalizeCueForEditor) : [];
+        const sorted = list
+          .map((cue, index) => ({ cue, index, start: parseCueTime(cue.start), end: parseCueTime(cue.end) }))
+          .filter((item) => Number.isFinite(item.start) && Number.isFinite(item.end))
+          .sort((a, b) => a.start - b.start);
+        for (let i = 1; i < sorted.length; i += 1) {
+          if (sorted[i].start < sorted[i - 1].end) {
+            const track = state.tracks.find((item) => item.id === trackId);
+            throw new Error(`אי אפשר לשמור: קיימת חפיפה ב-${track?.title || trackId}, בין ${sorted[i - 1].cue.start}-${sorted[i - 1].cue.end} לבין ${sorted[i].cue.start}-${sorted[i].cue.end}.`);
+          }
+        }
+      }
+    }
+
+    function activeCueAt(trackId, seconds) {
+      return (state.cues[trackId] || [])
+        .map(normalizeCueForEditor)
+        .find((cue) => seconds >= parseCueTime(cue.start) && seconds < parseCueTime(cue.end));
+    }
+
+    function cueDisplayMarkup(cue) {
+      if (!cue) return 'אין רמז פעיל בזמן הזה';
+      const text = escapeHtml(cue.text || '').replaceAll('\n', '<br>');
+      const image = cue.src ? cueImagePreviewMarkup(cue.src, cue.alt || cue.text || '') : '';
+      if (cue.type === 'image') return image || 'תמונה חסרה';
+      if (cue.type === 'text-image') return `<div>${image}<strong>${text || ''}</strong></div>`;
+      return text || 'טקסט חסר';
+    }
+
+    function cueActionDescription(cue) {
+      const normalized = normalizeCueForEditor(cue);
+      if (normalized.type === 'text') {
+        return normalized.text || 'טקסט ללא פירוט';
+      }
+      if (normalized.type === 'image') {
+        return normalized.alt || defaultCueAltFromPath(normalized.src) || 'תמונה ללא תיאור';
+      }
+      const imageText = normalized.alt || defaultCueAltFromPath(normalized.src) || 'תמונה';
+      const text = normalized.text ? `, עם טקסט: ${normalized.text}` : '';
+      return `${imageText}${text}`;
+    }
+
+    function cueActionButton(cue, index, isActive = false) {
+      const normalized = normalizeCueForEditor(cue);
+      const typeClass = normalized.type || 'text';
+      const cueKeyValue = `${normalized.start}|${normalized.end}|${normalized.type}|${normalized.text}|${normalized.src}`;
+      return `
+        <button class="projection-action ${isActive ? 'active' : ''}" type="button" data-projection-index="${index}" data-cue-key="${escapeHtml(cueKeyValue)}">
+          <span class="projection-time">${escapeHtml(normalized.start)} - ${escapeHtml(normalized.end)}</span>
+          <span class="projection-separator" aria-hidden="true"></span>
+          <span class="projection-action-text">
+            <span class="projection-kind ${escapeHtml(typeClass)}">${escapeHtml(cueTypeLabel(normalized.type))}</span>
+            <span class="projection-description">${escapeHtml(cueActionDescription(normalized))}</span>
+          </span>
+        </button>
+      `;
+    }
+
+    function setCueBuilderType(type) {
+      const selectedType = type || 'text';
+      const typeInput = $('#cueBuilderType');
+      if (typeInput) typeInput.value = selectedType;
+      document.querySelectorAll('[data-builder-type]').forEach((button) => {
+        button.classList.toggle('active', button.dataset.builderType === selectedType);
+      });
+      const needsText = selectedType === 'text' || selectedType === 'text-image';
+      const needsImage = selectedType === 'image' || selectedType === 'text-image';
+      document.querySelectorAll('[data-text-field]').forEach((field) => { field.hidden = !needsText; });
+      document.querySelectorAll('[data-image-field]').forEach((field) => { field.hidden = !needsImage; });
+      updateCueBuilderPreview();
+    }
+
+    function cueImagePreviewMarkup(src, alt) {
+      if (!src) return '';
+      return `<img src="/${escapeHtml(src).replace(/^\/+/, '')}" alt="${escapeHtml(alt || '')}" />`;
+    }
+
+    function updateCueBuilderPreview() {
+      const preview = $('#cueBuilderPreview');
+      if (!preview) return;
+      const type = $('#cueBuilderType')?.value || 'text';
+      const text = $('#cueBuilderText')?.value.trim() || '';
+      const src = $('#cueBuilderSrc')?.value.trim() || '';
+      const alt = $('#cueBuilderAlt')?.value.trim() || text;
+      if (type === 'text') {
+        preview.innerHTML = text ? escapeHtml(text).replaceAll('\n', '<br>') : 'הטקסט שיופיע בהרצה יוצג כאן';
+        return;
+      }
+      if (type === 'image') {
+        preview.innerHTML = src ? cueImagePreviewMarkup(src, alt) : 'התמונה שתופיע בהרצה תוצג כאן';
+        return;
+      }
+      if (src && text) {
+        preview.innerHTML = `<div>${cueImagePreviewMarkup(src, alt)}<strong>${escapeHtml(text).replaceAll('\n', '<br>')}</strong></div>`;
+      } else if (src) {
+        preview.innerHTML = cueImagePreviewMarkup(src, alt);
+      } else if (text) {
+        preview.innerHTML = escapeHtml(text).replaceAll('\n', '<br>');
+      } else {
+        preview.textContent = 'תמונה וטקסט שיופיעו בהרצה יוצגו כאן';
+      }
+    }
+
+    function getCueBuilderCue() {
+      const type = $('#cueBuilderType')?.value || 'text';
+      const start = $('#cueBuilderStart')?.value.trim() || '';
+      const end = $('#cueBuilderEnd')?.value.trim() || '';
+      const startSec = parseCueTime(start);
+      const endSec = parseCueTime(end);
+      if (!Number.isFinite(startSec) || !Number.isFinite(endSec)) {
+        throw new Error('יש להזין זמן תקין בפורמט 00:00 או 00:00:00.');
+      }
+      if (endSec <= startSec) {
+        throw new Error('זמן הסיום חייב להיות אחרי זמן ההתחלה.');
+      }
+      const cue = { type, start, end };
+      if (type === 'text' || type === 'text-image') {
+        const text = $('#cueBuilderText')?.value.trim() || '';
+        if (!text) throw new Error('יש להזין טקסט לרמז.');
+        cue.text = text;
+      }
+      if (type === 'image' || type === 'text-image') {
+        const src = $('#cueBuilderSrc')?.value.trim() || '';
+        if (!src) throw new Error('יש לבחור או להעלות תמונה לרמז.');
+        cue.src = src;
+        cue.alt = $('#cueBuilderAlt')?.value.trim() || cue.text || defaultCueAltFromPath(src);
+      }
+      return cue;
+    }
+
+    function bindCueBuilder(track) {
+      document.querySelectorAll('[data-builder-type]').forEach((button) => {
+        button.onclick = () => setCueBuilderType(button.dataset.builderType);
+      });
+      ['#cueBuilderText', '#cueBuilderSrc', '#cueBuilderAlt'].forEach((selector) => {
+        const input = $(selector);
+        if (input) input.addEventListener('input', updateCueBuilderPreview);
+        if (input) input.addEventListener('change', updateCueBuilderPreview);
+      });
+      const audio = $('#cueBuilderAudio');
+      const current = $('#cueBuilderCurrent');
+      const duration = $('#cueBuilderDuration');
+      const updateTime = () => {
+        if (!audio || !current || !duration) return;
+        current.textContent = formatCueTime(audio.currentTime || 0);
+        duration.textContent = formatCueTime(audio.duration || 0);
+      };
+      if (audio) {
+        audio.addEventListener('timeupdate', updateTime);
+        audio.addEventListener('loadedmetadata', updateTime);
+      }
+      $('#setCueStartBtn').onclick = () => {
+        $('#cueBuilderStart').value = formatCueTime(audio?.currentTime || 0);
+        updateCueBuilderPreview();
+      };
+      $('#setCueEndBtn').onclick = () => {
+        $('#cueBuilderEnd').value = formatCueTime(audio?.currentTime || 0);
+        updateCueBuilderPreview();
+      };
+      $('#applyOverlapFixBtn').onclick = () => {
+        const box = $('#cueOverlapBox');
+        $('#cueBuilderStart').value = box.dataset.start || $('#cueBuilderStart').value;
+        $('#cueBuilderEnd').value = box.dataset.end || $('#cueBuilderEnd').value;
+        box.hidden = true;
+        setStatus('הזמנים תוקנו בטופס. לחץ שוב על הוספה או עדכון כדי לשמור את הרמז.', 'warn');
+      };
+      $('#cancelOverlapFixBtn').onclick = () => {
+        $('#cueOverlapBox').hidden = true;
+        setStatus('התיקון האוטומטי בוטל. אפשר לשנות את הזמנים ידנית.', 'warn');
+      };
+      $('#cueBuilderAddBtn').onclick = () => {
+        try {
+          if (!state.cues[track.id]) state.cues[track.id] = [];
+          const cue = getCueBuilderCue();
+          if (!confirmCueOverlapFix(track.id, cue)) return;
+          state.cues[track.id].push(cue);
+          sortCues(track.id);
+          state.editingCue = null;
+          markDirty();
+          renderCuesEditor();
+          setStatus('הרמז נוסף. לחץ שמירה כדי לעדכן את האתר.', 'warn');
+        } catch (error) {
+          setStatus(error.message, 'danger');
+        }
+      };
+      $('#cueBuilderUpdateBtn').onclick = () => {
+        try {
+          if (!state.editingCue || state.editingCue.trackId !== track.id) return;
+          const cue = getCueBuilderCue();
+          if (!confirmCueOverlapFix(track.id, cue, state.editingCue.index)) return;
+          state.cues[track.id][state.editingCue.index] = cue;
+          sortCues(track.id);
+          state.editingCue = null;
+          markDirty();
+          renderCuesEditor();
+          setStatus('הרמז עודכן. לחץ שמירה כדי לעדכן את האתר.', 'warn');
+        } catch (error) {
+          setStatus(error.message, 'danger');
+        }
+      };
+      $('#cueBuilderCancelBtn').onclick = () => {
+        state.editingCue = null;
+        renderCuesEditor();
+      };
+      $('#cueBuilderImageUpload').onchange = (event) => uploadFile(event.target.files[0], 'cue-image', {
+        assignToBuilder: true
+      });
+      setCueBuilderType($('#cueBuilderType')?.value || 'text');
+    }
+
+    function bindFinalPreview(track) {
+      const audio = $('#finalPreviewAudio');
+      const screen = $('#finalPreviewScreen');
+      const current = $('#finalPreviewCurrent');
+      const duration = $('#finalPreviewDuration');
+      if (!audio || !screen || !current || !duration) return;
+
+      const refresh = () => {
+        current.textContent = formatCueTime(audio.currentTime || 0);
+        duration.textContent = formatCueTime(audio.duration || 0);
+        const cue = activeCueAt(track.id, audio.currentTime || 0);
+        screen.innerHTML = cueDisplayMarkup(cue);
+        const activeKey = cue ? `${cue.start}|${cue.end}|${cue.type}|${cue.text}|${cue.src}` : '';
+        document.querySelectorAll('.projection-action').forEach((button) => {
+          button.classList.toggle('playing', button.dataset.cueKey === activeKey);
+        });
+      };
+
+      audio.addEventListener('timeupdate', refresh);
+      audio.addEventListener('loadedmetadata', refresh);
+      audio.addEventListener('ended', refresh);
+      if (Number.isFinite(state.projectionPreviewTime) && state.projectionPreviewTime > 0) {
+        try { audio.currentTime = state.projectionPreviewTime; } catch {}
+        screen.innerHTML = cueDisplayMarkup(activeCueAt(track.id, state.projectionPreviewTime));
+        current.textContent = formatCueTime(state.projectionPreviewTime);
+      }
+      $('#finalPreviewPlay').onclick = () => {
+        const played = audio.play();
+        if (played && typeof played.catch === 'function') played.catch(() => setStatus('לא ניתן להפעיל את האודיו כרגע.', 'danger'));
+      };
+      $('#finalPreviewPause').onclick = () => audio.pause();
+      $('#finalPreviewStop').onclick = () => {
+        audio.pause();
+        audio.currentTime = 0;
+        refresh();
+      };
+      $('#finalPreviewRefresh').onclick = refresh;
+      refresh();
+    }
+
+    function bindProjectionActions(track) {
+      document.querySelectorAll('[data-projection-index]').forEach((button) => {
+        button.onclick = () => {
+          const index = Number(button.dataset.projectionIndex);
+          const cue = normalizeCueForEditor(state.cues[track.id]?.[index]);
+          state.editingCue = { trackId: track.id, index };
+          state.projectionPreviewTime = parseCueTime(cue.start);
+          renderCuesEditor();
+          setStatus('הפעולה נטענה לעריכה ולסימולציה.', 'ok');
+        };
+      });
+    }
+
+    function renderCuesEditor() {
+      const track = currentTrack();
+      if (!track) {
+        el.cuesEditor.innerHTML = '<div class="empty">בחר תרגיל לעריכה</div>';
+        return;
+      }
+
+      const cues = state.cues[track.id] || [];
+      const draft = cueDraftForTrack(track.id);
+      const imageOptions = [''].concat(state.cueImageFiles);
+      const isEditing = Boolean(state.editingCue && state.editingCue.trackId === track.id);
+      const sortedCues = cues
+        .map((cue, index) => ({ cue: normalizeCueForEditor(cue), index }))
+        .sort((a, b) => parseCueTime(a.cue.start) - parseCueTime(b.cue.start));
+      el.cuesEditor.innerHTML = `
+        <div class="projection-shell">
+          <div class="projection-top">
+            <h2 class="projection-title">עורך ההקרנה: ${escapeHtml(track.title || track.id)}</h2>
+            <div class="row-actions">
+              <button type="button" id="projectionBackBtn">חזרה לניהול התרגיל</button>
+              <button type="button" class="primary" id="projectionSaveBtn">שמירה</button>
+            </div>
+          </div>
+          <div class="projection-layout">
+            <aside class="projection-panel projection-actions">
+              <div class="panel-head">
+                <h2>פעולות הקרנה</h2>
+                <span class="pill">${sortedCues.length} פעולות</span>
+              </div>
+              <div class="projection-actions-list">
+                ${sortedCues.length ? sortedCues.map((item) => cueActionButton(item.cue, item.index, isEditing && state.editingCue.index === item.index)).join('') : '<div class="empty">אין עדיין פעולות הקרנה לתרגיל הזה.</div>'}
+              </div>
+            </aside>
+              <div class="projection-work">
+              <div class="projection-editor-stack">
+                <div class="projection-panel run-editor">
+                  <div class="run-editor-head">
+                    <h3>${isEditing ? 'עריכת פעולה קיימת' : 'הוספת פעולה חדשה'}</h3>
+                    <span class="pill">${isEditing ? 'נטען מהרשימה' : 'פעולה חדשה'}</span>
+                  </div>
+                  <div class="run-audio">
+                    <audio id="cueBuilderAudio" controls src="/${escapeHtml(track.audio || '').replace(/^\/+/, '')}"></audio>
+                    <div class="time-chip"><span id="cueBuilderCurrent">00:00</span> / <span id="cueBuilderDuration">00:00</span></div>
+                  </div>
+                  <div class="cue-builder-fields">
+                    <label>התחלה
+                      <input id="cueBuilderStart" value="${escapeHtml(draft.start)}" placeholder="00:00" />
+                    </label>
+                    <label>סיום
+                      <input id="cueBuilderEnd" value="${escapeHtml(draft.end)}" placeholder="00:10" />
+                    </label>
+                  </div>
+                  <div class="row-actions">
+                    <button id="setCueStartBtn" type="button">קבע התחלה לפי האודיו</button>
+                    <button id="setCueEndBtn" type="button">קבע סיום לפי האודיו</button>
+                  </div>
+                  <input id="cueBuilderType" type="hidden" value="${escapeHtml(draft.type)}" />
+                  <div class="type-tabs">
+                    <button class="type-tab" type="button" data-builder-type="text">טקסט</button>
+                    <button class="type-tab" type="button" data-builder-type="image">תמונה</button>
+                    <button class="type-tab" type="button" data-builder-type="text-image">תמונה + טקסט</button>
+                  </div>
+                  <label data-text-field>טקסט הרמז
+                    <textarea id="cueBuilderText" placeholder="לדוגמה: שימו לב לנשימה בקצב רגוע">${escapeHtml(draft.text)}</textarea>
+                  </label>
+                  <div class="cue-builder-fields" data-image-field>
+                    <label>תמונה קיימת
+                      <select id="cueBuilderSrc">
+                        ${imageOptions.map((file) => `<option value="${escapeHtml(file)}" ${draft.src === file ? 'selected' : ''}>${escapeHtml(file || 'ללא')}</option>`).join('')}
+                      </select>
+                    </label>
+                    <label>העלאת תמונה לרמז
+                      <input id="cueBuilderImageUpload" type="file" accept=".png,.jpg,.jpeg,.webp,image/*" />
+                    </label>
+                  </div>
+                  <label data-image-field>תיאור תמונה
+                    <input id="cueBuilderAlt" value="${escapeHtml(draft.alt)}" placeholder="למשל: אדם יושב עם ידיים מונחות" />
+                  </label>
+                  <div class="cue-builder-preview" id="cueBuilderPreview"></div>
+                  <div class="overlap-box" id="cueOverlapBox" hidden>
+                    <div id="cueOverlapMessage"></div>
+                    <div class="row-actions">
+                      <button id="applyOverlapFixBtn" class="primary" type="button">אשר תיקון זמנים</button>
+                      <button id="cancelOverlapFixBtn" type="button">בטל</button>
+                    </div>
+                  </div>
+                  <div class="row-actions">
+                    <button id="cueBuilderAddBtn" class="primary" type="button" ${isEditing ? 'disabled' : ''}>הוסף להרצה</button>
+                    <button id="cueBuilderUpdateBtn" type="button" ${isEditing ? '' : 'disabled'}>עדכן רמז</button>
+                    <button id="cueBuilderCancelBtn" type="button" ${isEditing ? '' : 'disabled'}>בטל עריכה</button>
+                  </div>
+                </div>
+                <div class="projection-panel" style="padding: 12px;">
+                  <label>העלאת תמונה כרמז חדש לתרגיל הזה
+                    <input id="trackCueImageUpload" type="file" accept=".png,.jpg,.jpeg,.webp,image/*" />
+                  </label>
+                </div>
+              </div>
+              <div class="projection-panel final-preview">
+                <div class="final-preview-head">
+                  <h3>תצוגת התוצר הסופי</h3>
+                  <div class="time-chip"><span id="finalPreviewCurrent">00:00</span> / <span id="finalPreviewDuration">00:00</span></div>
+                </div>
+                <audio id="finalPreviewAudio" src="/${escapeHtml(track.audio || '').replace(/^\/+/, '')}" preload="metadata"></audio>
+                <div class="final-preview-screen" id="finalPreviewScreen">לחץ נגן כדי לראות את הרמזים לפי הזמן</div>
+                <div class="row-actions">
+                  <button id="finalPreviewPlay" class="primary" type="button">נגן</button>
+                  <button id="finalPreviewPause" type="button">השהה</button>
+                  <button id="finalPreviewStop" type="button">עצור</button>
+                  <button id="finalPreviewRefresh" type="button">רענן</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      $('#projectionBackBtn').onclick = () => {
+        state.tab = 'track';
+        render();
+      };
+      $('#projectionSaveBtn').onclick = () => saveAll().catch((error) => setStatus(error.message, 'danger'));
+      $('#trackCueImageUpload').onchange = (event) => uploadFile(event.target.files[0], 'cue-image', {
+        createCueForTrackId: track.id
+      });
+      bindCueBuilder(track);
+      bindFinalPreview(track);
+      bindProjectionActions(track);
+    }
+
+    function renderCueRow(cue, index) {
+      const imageOptions = [''].concat(state.cueImageFiles);
+      return `
+        <div class="cue-row" data-cue-index="${index}">
+          <div class="row-actions" style="margin-bottom: 10px;">
+            <span class="pill">${escapeHtml(cueTypeLabel(cue.type))}</span>
+            <button type="button" data-cue-action="edit">ערוך בטופס</button>
+          </div>
+          <div class="cue-grid">
+            <label>התחלה
+              <input data-cue-field="start" value="${escapeHtml(cue.start || '')}" placeholder="00:00" />
+            </label>
+            <label>סיום
+              <input data-cue-field="end" value="${escapeHtml(cue.end || '')}" placeholder="00:10" />
+            </label>
+            <label>סוג
+              <select data-cue-field="type">
+                <option value="text" ${cue.type === 'text' ? 'selected' : ''}>טקסט</option>
+                <option value="image" ${cue.type === 'image' ? 'selected' : ''}>תמונה</option>
+                <option value="text-image" ${cue.type === 'text-image' ? 'selected' : ''}>טקסט ותמונה</option>
+              </select>
+            </label>
+            <label>טקסט
+              <input data-cue-field="text" value="${escapeHtml(cue.text || '')}" />
+            </label>
+          </div>
+          <div class="cue-extra">
+            <label>תמונה
+              <select data-cue-field="src">
+                ${imageOptions.map((file) => `<option value="${escapeHtml(file)}" ${cue.src === file ? 'selected' : ''}>${escapeHtml(file || 'ללא')}</option>`).join('')}
+              </select>
+            </label>
+            <label>תיאור תמונה
+              <input data-cue-field="alt" value="${escapeHtml(cue.alt || '')}" />
+            </label>
+          </div>
+          <div class="row-actions" style="margin-top: 10px;">
+            <button type="button" data-cue-action="up">למעלה</button>
+            <button type="button" data-cue-action="down">למטה</button>
+            <button type="button" class="danger" data-cue-action="delete">מחיקה</button>
+          </div>
+          <label style="margin-top: 10px;">העלאת תמונה לרמז הזה
+            <input data-cue-upload="${index}" type="file" accept=".png,.jpg,.jpeg,.webp,image/*" />
+          </label>
+        </div>
+      `;
+    }
+
+    function bindCueRow(row, trackId) {
+      const index = Number(row.dataset.cueIndex);
+      row.querySelectorAll('[data-cue-field]').forEach((field) => {
+        field.addEventListener('input', () => {
+          state.cues[trackId][index][field.dataset.cueField] = field.value;
+          markDirty();
+        });
+        field.addEventListener('change', () => {
+          state.cues[trackId][index][field.dataset.cueField] = field.value;
+          markDirty();
+        });
+      });
+
+      row.querySelectorAll('[data-cue-action]').forEach((button) => {
+        button.onclick = () => {
+          const cues = state.cues[trackId] || [];
+          const action = button.dataset.cueAction;
+          if (action === 'edit') {
+            state.editingCue = { trackId, index };
+            renderCuesEditor();
+            return;
+          }
+          if (action === 'delete') cues.splice(index, 1);
+          if (action === 'up' && index > 0) cues.splice(index - 1, 0, cues.splice(index, 1)[0]);
+          if (action === 'down' && index < cues.length - 1) cues.splice(index + 1, 0, cues.splice(index, 1)[0]);
+          markDirty();
+          renderCuesEditor();
+        };
+      });
+
+      row.querySelectorAll('[data-cue-upload]').forEach((input) => {
+        input.onchange = (event) => uploadFile(event.target.files[0], 'cue-image', {
+          assignToCueTrackId: trackId,
+          cueIndex: index
+        });
+      });
+    }
+
+    function renderFilesEditor() {
+      el.filesEditor.innerHTML = `
+        <div class="form-grid">
+          <label class="span-2">העלאת שמע
+            <input id="audioUpload" type="file" accept=".mp3,.wav,.m4a,audio/*" />
+          </label>
+          <label class="span-2">העלאת תמונת רמז
+            <input id="imageUpload" type="file" accept=".png,.jpg,.jpeg,.webp,image/*" />
+          </label>
+        </div>
+        <div class="file-list">
+          <strong>קבצי שמע</strong>
+          ${state.audioFiles.map((file) => `<span>${escapeHtml(file)}</span>`).join('') || '<span>אין קבצים</span>'}
+          <strong style="margin-top: 10px;">תמונות רמז</strong>
+          ${state.cueImageFiles.map((file) => `<span>${escapeHtml(file)}</span>`).join('') || '<span>אין קבצים</span>'}
+        </div>
+      `;
+
+      $('#audioUpload').onchange = (event) => uploadFile(event.target.files[0], 'audio');
+      $('#imageUpload').onchange = (event) => uploadFile(event.target.files[0], 'cue-image');
+    }
+
+    function defaultCueAltFromPath(filePath) {
+      const name = String(filePath || '').split('/').pop() || '';
+      return name.replace(/\.[^.]+$/, '').replaceAll('-', ' ');
+    }
+
+    async function uploadFile(file, kind, options = {}) {
+      if (!file) return;
+      setStatus('מעלה קובץ...');
+      const result = await api(`/api/upload?kind=${encodeURIComponent(kind)}`, {
+        method: 'POST',
+        headers: { 'x-file-name': encodeURIComponent(file.name) },
+        body: await file.arrayBuffer()
+      });
+      const listName = kind === 'audio' ? 'audioFiles' : 'cueImageFiles';
+      if (!state[listName].includes(result.path)) {
+        state[listName].push(result.path);
+        state[listName].sort((a, b) => a.localeCompare(b, 'he'));
+      }
+      if (options.assignToBuilder) {
+        const select = $('#cueBuilderSrc');
+        if (select && ![...select.options].some((option) => option.value === result.path)) {
+          select.insertAdjacentHTML('beforeend', `<option value="${escapeHtml(result.path)}">${escapeHtml(result.path)}</option>`);
+        }
+        if (select) select.value = result.path;
+        const alt = $('#cueBuilderAlt');
+        if (alt && !alt.value.trim()) alt.value = defaultCueAltFromPath(result.path);
+        updateCueBuilderPreview();
+        setStatus(`התמונה נוספה לטופס: ${result.path}. עכשיו לחץ הוסף להרצה או עדכן רמז.`, 'warn');
+        return;
+      }
+      if (options.assignToTrackId) {
+        const track = state.tracks.find((item) => item.id === options.assignToTrackId);
+        if (track) {
+          track.audio = result.path;
+          track.status = 'ready';
+          state.selectedId = track.id;
+          markDirty();
+        }
+      }
+      if (options.createCueForTrackId) {
+        state.selectedId = options.createCueForTrackId;
+        if (!state.cues[options.createCueForTrackId]) state.cues[options.createCueForTrackId] = [];
+        state.cues[options.createCueForTrackId].push({
+          type: 'image',
+          start: '00:00',
+          end: '00:10',
+          text: '',
+          src: result.path,
+          alt: defaultCueAltFromPath(result.path)
+        });
+        markDirty();
+      }
+      if (options.assignToCueTrackId && Number.isInteger(options.cueIndex)) {
+        state.selectedId = options.assignToCueTrackId;
+        const cue = state.cues[options.assignToCueTrackId]?.[options.cueIndex];
+        if (cue) {
+          cue.src = result.path;
+          cue.alt = cue.alt || defaultCueAltFromPath(result.path);
+          cue.type = cue.text ? 'text-image' : 'image';
+          markDirty();
+        }
+      }
+      render();
+      const linked = options.assignToTrackId || options.createCueForTrackId || options.assignToCueTrackId;
+      setStatus(linked ? `הקובץ נוסף ושויך: ${result.path}. לחץ שמירה כדי לעדכן את האתר.` : `הקובץ נוסף: ${result.path}`, linked ? 'warn' : 'ok');
+    }
+
+    function renderPublishEditor(output = '') {
+      el.publishEditor.innerHTML = `
+        <div class="form-grid">
+          <label class="span-2">הודעת שמירה
+            <input id="commitMessage" value="Update relaxation site content" />
+          </label>
+        </div>
+        <div class="row-actions" style="margin-top: 14px;">
+          <button id="publishStatusBtn" type="button">בדיקת שינויים</button>
+          <button id="publishCommitBtn" type="button">שמירה ל־Git</button>
+          <button id="publishPushBtn" class="primary" type="button">פרסום ל־GitHub</button>
+        </div>
+        ${output ? `<pre>${escapeHtml(output)}</pre>` : ''}
+      `;
+      $('#publishStatusBtn').onclick = gitStatus;
+      $('#publishCommitBtn').onclick = gitCommit;
+      $('#publishPushBtn').onclick = gitPush;
+    }
+
+    async function saveAll() {
+      setStatus('שומר...');
+      validateAllCueOverlaps();
+      await api('/api/tracks', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ tracks: state.tracks })
+      });
+      await api('/api/cues', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ cues: state.cues })
+      });
+      state.dirty = false;
+      setStatus('נשמר', 'ok');
+      reloadPreview();
+    }
+
+    async function gitStatus() {
+      const result = await api('/api/git-status');
+      const text = result.stdout || result.stderr || 'אין שינויים';
+      renderPublishEditor(text);
+      setStatus('בדיקת שינויים הסתיימה', 'ok');
+    }
+
+    async function gitCommit() {
+      if (state.dirty) await saveAll();
+      const message = $('#commitMessage')?.value || 'Update relaxation site content';
+      const result = await api('/api/git-commit', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ message })
+      });
+      renderPublishEditor(`${result.stdout}\n${result.stderr}`.trim());
+      setStatus('נשמר ל־Git', 'ok');
+    }
+
+    async function gitPush() {
+      const result = await api('/api/git-push', { method: 'POST' });
+      renderPublishEditor(`${result.stdout}\n${result.stderr}`.trim());
+      setStatus('נשלח ל־GitHub', 'ok');
+    }
+
+    function reloadPreview() {
+      el.preview.src = `/?preview=${Date.now()}`;
+    }
+
+    $('#addTrackBtn').onclick = () => {
+      const id = `new-track-${Date.now()}`;
+      state.tracks.push({
+        id,
+        title: 'תרגיל חדש',
+        description: '',
+        icon: '◌',
+        audio: '',
+        updated: '',
+        status: 'preparing'
+      });
+      state.selectedId = id;
+      markDirty();
+      render();
+    };
+
+    $('#saveBtn').onclick = () => saveAll().catch((error) => setStatus(error.message, 'danger'));
+    $('#reloadBtn').onclick = () => loadState().catch((error) => setStatus(error.message, 'danger'));
+    $('#previewBtn').onclick = reloadPreview;
+    $('#gitStatusBtn').onclick = () => { state.tab = 'publish'; render(); gitStatus().catch((error) => setStatus(error.message, 'danger')); };
+    $('#commitBtn').onclick = () => { state.tab = 'publish'; render(); gitCommit().catch((error) => setStatus(error.message, 'danger')); };
+    $('#pushBtn').onclick = () => { state.tab = 'publish'; render(); gitPush().catch((error) => setStatus(error.message, 'danger')); };
+
+    loadState().catch((error) => setStatus(error.message, 'danger'));
+  </script>
+</body>
+</html>

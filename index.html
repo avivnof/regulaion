@@ -2340,7 +2340,14 @@ function bindAudioEvents(){buttons=Array.from(document.querySelectorAll('.play')
       }
 
       const observer = new MutationObserver(splitBreathingCard);
-      observer.observe(document.body, { childList: true, subtree: true });
+      function observeBreathingCards(){
+        if(!document.body){
+          document.addEventListener('DOMContentLoaded', observeBreathingCards, { once: true });
+          return;
+        }
+        observer.observe(document.body, { childList: true, subtree: true });
+      }
+      observeBreathingCards();
       window.addEventListener('load', splitBreathingCard);
       setTimeout(splitBreathingCard, 100);
       setTimeout(splitBreathingCard, 600);
