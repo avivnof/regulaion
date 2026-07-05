@@ -19,19 +19,10 @@
   },
   {
     "id": "diaphragmatic-breathing",
-    "title": "נשימה סרעפתית – הקניה למתחילים",
-    "description": "הסבר והנחיה ראשונית לנשימה סרעפתית",
+    "title": "הרפיית נשימה סרעפתית",
+    "description": "הקנייה ותרגול של נשימה סרעפתית",
     "icon": "🌬️",
-    "audio": "audio/diaphragmatic-breathing.mp3",
-    "updated": "04.07.2026",
-    "status": "ready"
-  },
-  {
-    "id": "diaphragmatic-breathing-practice",
-    "title": "נשימה סרעפתית – תרגול מתקדם",
-    "description": "תרגול רציף של נשימה סרעפתית למי שכבר מכיר את ההנחיות",
-    "icon": "🌬️",
-    "audio": "audio/diaphragmatic-breathing-practice.mp3",
+    "audio": "audio/diaphragmatic-breathing-intro.mp3",
     "updated": "04.07.2026",
     "status": "ready"
   },
