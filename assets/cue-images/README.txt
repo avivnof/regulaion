@@ -1,1 +1,0 @@
-Upload these files to GitHub folder: assets/cue-images/\n\nUse the shown paths in cues.json exactly.\n
