@@ -1,0 +1,22 @@
+נתיבים מוכנים ל-cues.json:
+
+assets/cue-images/mindfulness-breathing-inhale-air-arrows.jpg
+assets/cue-images/mindfulness-breathing-exhale-air-arrows.jpg
+assets/cue-images/mindfulness-seated-calm-eyes-closed.jpg
+assets/cue-images/mindfulness-hands-on-chest-and-belly.jpg
+assets/cue-images/mindfulness-neck-chest-highlight-closeup.jpg
+assets/cue-images/mindfulness-neck-chest-hand-closeup.jpg
+assets/cue-images/mindfulness-full-body-neck-chest-highlight.jpg
+assets/cue-images/mindfulness-seated-lotus-room-eyes-closed.jpg
+assets/cue-images/mindfulness-seated-chair-looking-window.jpg
+assets/cue-images/mindfulness-thoughts-soft-clouds.jpg
+assets/cue-images/mindfulness-emotion-clouds-hand-on-chest.jpg
+assets/cue-images/mindfulness-intense-emotion-orange-swirl.jpg
+assets/cue-images/mindfulness-calm-lake-imagery.jpg
+assets/cue-images/mindfulness-open-eyes-room-awareness.jpg
+assets/cue-images/mindfulness-mixed-emotions-landscape.jpg
+assets/cue-images/mindfulness-guitar-windmill-sketch.jpg
+assets/cue-images/mindfulness-colored-windmill-river-sketch.jpg
+assets/cue-images/mindfulness-blue-hat-windmill-sketch.jpg
+assets/cue-images/mindfulness-sunset-windmill-sketch.jpg
+assets/cue-images/mindfulness-thoughts-river-logs.jpg
