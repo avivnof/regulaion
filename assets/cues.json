@@ -554,5 +554,199 @@
       "src": "assets/cue-images/בחזרה למצב הרפוי כללי.png",
       "alt": "מגיעים לסיום ההרפיה,\nנזיז את האצבעות, נפקח את העיניים\nחוזרים להמשך היום שלנו\nותודה שתרגלתם."
     }
+  ],
+  "diaphragmatic-breathing-intro": [
+    {
+      "type": "text-image",
+      "start": "00:00",
+      "end": "00:21",
+      "text": "ברוכות הבאות וברוכים הבאים \nלתהליך הלמידה של נשימה סרעפתית",
+      "src": "assets/cue-images/final-breathing-08-rest.jpg",
+      "alt": "ברוכות הבאות וברוכים הבאים \nלתהליך הלמידה של נשימה סרעפתית"
+    },
+    {
+      "type": "text-image",
+      "start": "00:21",
+      "end": "00:30",
+      "text": "לכל אחת ואחד יש קצב נשימה שונה\nנלמד בנחת מהו הקצב האישי שלכם.ן",
+      "src": "assets/cue-images/final-breathing-09-rest.jpg",
+      "alt": "לכל אחת ואחד יש קצב נשימה שונה\nנלמד בנחת מהו הקצב האישי שלכם.ן"
+    },
+    {
+      "type": "text-image",
+      "start": "00:39",
+      "end": "00:49",
+      "text": "עקרון 1\nנשימה איטית ועמוקה",
+      "src": "assets/cue-images/final-breathing-08-rest.jpg",
+      "alt": "עקרון 1\nנשימה איטית ועמוקה"
+    },
+    {
+      "type": "text-image",
+      "start": "00:49",
+      "end": "01:14",
+      "text": "שימו לב לנשימות\nונסו לייצר נשימות איטיות ועמוקות",
+      "src": "assets/cue-images/final-breathing-10-rest.jpg",
+      "alt": "שימו לב לנשימות\nונסו לייצר נשימות איטיות ועמוקות"
+    },
+    {
+      "type": "text-image",
+      "start": "01:16",
+      "end": "01:32",
+      "text": "עקרון שני:\nהפעלת הסרעפת דרך שרירי הבטן\nהבטן עולה ויורדת דרך הפעלת שרירית הבטן\nהבטן עולה ויורדת",
+      "src": "assets/cue-images/breathing-side-by-side.jpg",
+      "alt": "עקרון שני:\nהפעלת הסרעפת דרך שרירי הבטן\nהבטן עולה ויורדת דרך הפעלת שרירית הבטן\nהבטן עולה ויורדת"
+    },
+    {
+      "type": "text-image",
+      "start": "01:32",
+      "end": "01:48",
+      "text": "כשמכניסים את האוויר (שאיפה פנימה)\nהבטן עולה בעזרת דחיפה של שרירי הבטן\nכאילו האוויר נכנס לבטן ומנפח אותה.",
+      "src": "assets/cue-images/final-breathing-01-inhale.jpg",
+      "alt": "כשמכניסים את האוויר (שאיפה פנימה)\nהבטן עולה בעזרת דחיפה של שרירי הבטן\nכאילו האוויר מעלה אותה למטה."
+    },
+    {
+      "type": "text-image",
+      "start": "01:49",
+      "end": "01:59",
+      "text": "כשמוציאים את האוויר (נשיפה החוצה)\nהבטן יורדת בעזרת שחרור שרירי הבטן\nכאילו שהאוויר התרוקן הבטן",
+      "src": "assets/cue-images/final-breathing-05-exhale.jpg",
+      "alt": "final-breathing-05-exhale.jpg"
+    },
+    {
+      "type": "text-image",
+      "start": "02:00",
+      "end": "02:05",
+      "text": "להכניס אוויר \nהבטן עולה",
+      "src": "assets/cue-images/final-breathing-03-inhale.jpg",
+      "alt": "להכניס אוויר \nהבטן עולה"
+    },
+    {
+      "type": "text-image",
+      "start": "02:06",
+      "end": "02:08",
+      "text": "להוציא אוויר\nהבטן יורדת",
+      "src": "assets/cue-images/final-breathing-05-exhale.jpg",
+      "alt": "להוציא אוויר\nהבטן יורדת"
+    },
+    {
+      "type": "text-image",
+      "start": "02:09",
+      "end": "02:11",
+      "text": "להכניס אוויר\nהבטן עולה",
+      "src": "assets/cue-images/final-breathing-01-inhale.jpg",
+      "alt": "להכניס אוויר\nהבטן עולה"
+    },
+    {
+      "type": "text-image",
+      "start": "02:12",
+      "end": "02:14",
+      "text": "להוציא אוויר\nהבטן יורדת",
+      "src": "assets/cue-images/final-breathing-06-exhale.jpg",
+      "alt": "להוציא אוויר\nהבטן יורדת"
+    },
+    {
+      "type": "text-image",
+      "start": "02:17",
+      "end": "02:33",
+      "text": "עקרון שלישי:\nהכנסת האוויר נעשית דרך האף\nכאילו מריחים פרח",
+      "src": "assets/cue-images/nasal-inhale-flower.jpg",
+      "alt": "עקרון שלישי:\nהכנסת האוויר נעשית דרך האף\nכאילו מריחים פרח"
+    },
+    {
+      "type": "text-image",
+      "start": "02:33",
+      "end": "02:49",
+      "text": "ההוצאה של האוויר (נשיפה) נעשית דרך הפה\nכאילו מכבים בעדינות נר באיטיות רבה מאוד",
+      "src": "assets/cue-images/gentle-exhale-candle.jpg",
+      "alt": "ההוצאה של האוויר (נשיפה) נעשית דרך הפה\nכאילו מכבים בעדינות נר באיטיות רבה מאוד"
+    },
+    {
+      "type": "text-image",
+      "start": "02:52",
+      "end": "02:59",
+      "text": "יחס של \nשלוש שניות (הכנסת אוויר)\n4 שניות הוצאת אוויר",
+      "src": "assets/cue-images/breathing-side-by-side-34.jpg",
+      "alt": "יחס של \nשלוש שניות (הכנסת אוויר)\n4 שניות הוצאת אוויר"
+    },
+    {
+      "type": "text-image",
+      "start": "02:59",
+      "end": "03:15",
+      "text": "נשימה איטית ועמוקה עם עלייה וירידה של הבטן\nהכנסת האוויר: דרך האף והבטן עולה (הרחת פרח ריחני)\nהוצאת אוויר: דרך הפה והבטן יורדת (כיבוי נר איטי)",
+      "src": "assets/cue-images/breathing-flower-candle-web.jpg",
+      "alt": "נשימה איטית ועמוקה עם עלייה וירידה של הבטן\nהכנסת האוויר: דרך האף והבטן עולה (הרחת פרח ריחני)\nהוצאת אוויר: דרך הפה והבטן יורדת (כיבוי נר איטי)"
+    },
+    {
+      "type": "text-image",
+      "start": "03:17",
+      "end": "03:20",
+      "text": "מכניסים אוויר\nהבטן עולה",
+      "src": "assets/cue-images/final-breathing-03-inhale.jpg",
+      "alt": "final-breathing-03-inhale.jpg"
+    },
+    {
+      "type": "text-image",
+      "start": "03:20",
+      "end": "03:23",
+      "text": "מוציאים אוויר באיטיות\nהבטן יורדת למטה",
+      "src": "assets/cue-images/final-breathing-05-exhale.jpg",
+      "alt": "מוציאים אוויר באיטיות\nהבטן יורדת למטה"
+    },
+    {
+      "type": "text-image",
+      "start": "03:22",
+      "end": "03:46",
+      "text": "בעת הוצאת האוויר\nניתן להשמיע את האות פ'\nככה: פףףףףףףףףףףףףףףףףף",
+      "src": "assets/cue-images/final-breathing-06-exhale.jpg",
+      "alt": "בעת הוצאת האוויר\nניתן להשמיע את האות פ'\nככה: פףףףףףףףףףףףףףףףףף"
+    },
+    {
+      "type": "text-image",
+      "start": "03:47",
+      "end": "04:07",
+      "text": "סריקת גוף כללית\nנבחן האם אנחנו יושבים בצורה נוחה",
+      "src": "assets/cue-images/final-breathing-09-rest.jpg",
+      "alt": "סריקת גוף כללית\nנבחן האם אנחנו יושבים בצורה נוחה"
+    },
+    {
+      "type": "text-image",
+      "start": "04:10",
+      "end": "04:23",
+      "text": "הידיים על הבטן כדי להרגיש עלייה וירידה\nבלי להפעיל לחץ על הבטן",
+      "src": "assets/cue-images/breathing-side-by-side.jpg",
+      "alt": "הידיים על הבטן"
+    },
+    {
+      "type": "text-image",
+      "start": "04:22",
+      "end": "04:25",
+      "text": "מכניסים אוויר דרך האף - הבטן עולה",
+      "src": "assets/cue-images/nasal-inhale-flower.jpg",
+      "alt": "מכניסים אוויר דרך האף - הבטן עולה"
+    },
+    {
+      "type": "text-image",
+      "start": "04:35",
+      "end": "04:41",
+      "text": "מוציאים אוויר דרך הפה\nהבטן יורדת",
+      "src": "assets/cue-images/gentle-puff-exhale-turquoise-web.jpg",
+      "alt": "מוציאים אוויר דרך הפה\nהבטן יורדת"
+    },
+    {
+      "type": "text-image",
+      "start": "04:44",
+      "end": "05:13",
+      "text": "5 נשימות\nהכנסה - דרך האף והבטן עולה \nהוצאה - דרך הפה והבטן יורדת",
+      "src": "assets/cue-images/breathing-flower-candle-web.jpg",
+      "alt": "5 נשימות\nהכנסה - דרך האף והבטן עולה \nהוצאה - דרך הפה והבטן יורדת"
+    },
+    {
+      "type": "text-image",
+      "start": "05:14",
+      "end": "05:26",
+      "text": "ההמלצה היא לתרגל את תרגיל ההקנייה (קובץ זה) כחמש פעמים\nואז לעבור אל לחצן התרגול\nתודה שתרגלתם!",
+      "src": "assets/cue-images/final-breathing-08-rest.jpg",
+      "alt": "ההמלצה היא לתרגל את תרגיל ההקנייה (קובץ זה) כחמש פעמים\nואז לעבור אל לחצן התרגול\nתודה שתרגלתם!"
+    }
   ]
 }
