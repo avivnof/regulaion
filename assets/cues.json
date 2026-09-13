@@ -343,70 +343,98 @@
   ],
   "progressive-muscle-relaxation": [
     {
-      "type": "text",
-      "start": "00:02",
-      "end": "00:22",
-      "text": "ברוכים הבאים, בואו נתחיל"
+      "type": "text-image",
+      "start": "00:00",
+      "end": "00:06",
+      "text": "ברוכים הבאים, בואו נתחיל",
+      "src": "assets/cue-images/pmr-hi-guy.jpg",
+      "alt": "ברוכים הבאים, בואו נתחיל"
     },
     {
-      "type": "text",
+      "type": "text-image",
+      "start": "00:07",
+      "end": "00:14",
+      "text": "נשים לב לגוף שלנו\nננסה להרפות",
+      "src": "assets/cue-images/pmr4.jpg",
+      "alt": "נשים לב לגוף שלנו\nננסה להרפות"
+    },
+    {
+      "type": "text-image",
+      "start": "00:14",
+      "end": "00:22",
+      "text": "נסרוק את הגוף ונבדוק \nשהגוף רפוי ורגוע",
+      "src": "assets/cue-images/pmr4.jpg",
+      "alt": "pmr4.jpg"
+    },
+    {
+      "type": "text-image",
       "start": "00:22",
       "end": "00:30",
-      "text": "אפשר לעצום את העיניים"
+      "text": "אפשר לעצום את העיניים",
+      "src": "assets/cue-images/pmr4.jpg",
+      "alt": "אפשר לעצום את העיניים"
     },
     {
-      "type": "image",
+      "type": "text-image",
       "start": "00:35",
       "end": "01:05",
+      "text": "כעת נתמקד בשרירי הידיים\nנכווץ את השריריים",
       "src": "assets/cue-images/pmr-hands-tight.jpg",
       "alt": "תמונת המחשה"
     },
     {
-      "type": "image",
+      "type": "text-image",
       "start": "01:05",
       "end": "01:28",
+      "text": "נרפה את שרירי הידיים\nנניח אותן ונשים לב להבדל",
       "src": "assets/cue-images/pmr-relaxed.jpg",
       "alt": "תמונת המחשה"
     },
     {
-      "type": "image",
+      "type": "text-image",
       "start": "01:28",
       "end": "01:53",
+      "text": "נכווץ את שרירי היידיים",
       "src": "assets/cue-images/pmr-hands-tight.jpg",
       "alt": "תמונת המחשה"
     },
     {
-      "type": "image",
+      "type": "text-image",
       "start": "01:53",
       "end": "02:20",
+      "text": "נשחרר ונרפה את שריריי הידיים",
       "src": "assets/cue-images/pmr-relaxed.jpg",
       "alt": "תמונת המחשה"
     },
     {
-      "type": "image",
+      "type": "text-image",
       "start": "02:21",
       "end": "02:39",
+      "text": "נכווץ את שרירי הידיים",
       "src": "assets/cue-images/pmr-hands-tight.jpg",
       "alt": "תמונת המחשה"
     },
     {
-      "type": "image",
+      "type": "text-image",
       "start": "02:39",
       "end": "02:56",
+      "text": "נשחרר את שרירי הידיים",
       "src": "assets/cue-images/pmr-relaxed.jpg",
       "alt": "תמונת המחשה"
     },
     {
-      "type": "image",
+      "type": "text-image",
       "start": "02:56",
       "end": "03:33",
+      "text": "שרירי הרגליים - נלחץ",
       "src": "assets/cue-images/pmr-legs-tight.jpg",
       "alt": "תמונת המחשה"
     },
     {
-      "type": "image",
+      "type": "text-image",
       "start": "03:33",
       "end": "03:59",
+      "text": "נשחרר את שרירי הרגליים\nנרפה",
       "src": "assets/cue-images/pmr-relaxed.jpg",
       "alt": "תמונת המחשה"
     },
@@ -551,7 +579,7 @@
       "start": "11:31",
       "end": "11:51",
       "text": "מגיעים לסיום ההרפיה,\nנזיז את האצבעות, נפקח את העיניים\nחוזרים להמשך היום שלנו\nותודה שתרגלתם.",
-      "src": "assets/cue-images/pmr-relaxed.jpg",
+      "src": "assets/cue-images/pmr-hi-guy.jpg",
       "alt": "מגיעים לסיום ההרפיה,\nנזיז את האצבעות, נפקח את העיניים\nחוזרים להמשך היום שלנו\nותודה שתרגלתם."
     }
   ],
