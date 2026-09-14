@@ -1,12 +1,12 @@
-<!-- INDEX_VERSION: 300 | גרסה 300 - גרסה יציבה -->
-<!-- LIVE_SITE: https://avivnof.github.io/regulaion/?v=300 -->
+<!-- INDEX_VERSION: 301 | פיצול נשימה עם עצירות להקנייה ולתרגול -->
+<!-- LIVE_SITE: https://avivnof.github.io/regulaion/?v=301 -->
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#4f9fb0" />
-  <meta name="app-version" content="300" />
+  <meta name="app-version" content="301" />
   <title>אתר ההרפיות | ד״ר אביב נוף</title>
   <style>
     :root{--ink:#1d3340;--muted:#647681;--deep:#314c5b;--teal:#4e9fb0;--shadow:0 22px 55px rgba(48,72,86,.16);--soft:0 10px 28px rgba(48,72,86,.12);--glass:rgba(255,255,255,.74)}
@@ -1646,10 +1646,10 @@
   <main class="shell">
     <section class="hero">
       <div class="brand">
-        <div class="logo-wrap"><img src="assets/nof-logo.jpg?v=300" alt="לוגו מכון נוף" /></div>
+        <div class="logo-wrap"><img src="assets/nof-logo.jpg?v=301" alt="לוגו מכון נוף" /></div>
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה 300 | 14.09.2026</div>
+        <div class="version-line">גרסה 301 | 14.09.2026</div>
       </div>
       <div class="hero-art">
         <div class="hero-visual" aria-hidden="true">
@@ -1661,13 +1661,13 @@
     </section>
 <section class="grid" id="tracksGrid" aria-label="תרגילי ויסות והרפיה"></section><section class="disclaimer">תרגילי האתר מיועדים לוויסות והרגעה, ואינם תחליף לייעוץ, אבחון או טיפול מקצועי.</section>
   </main>
-  <audio id="countdownMusicAudio" src="audio/countdown-music.mp3?v=300" preload="auto" playsinline></audio>
+  <audio id="countdownMusicAudio" src="audio/countdown-music.mp3?v=301" preload="auto" playsinline></audio>
   <div class="visualizer" id="visualizer" aria-hidden="true">
     <div class="viz-backdrop"></div><div class="viz-droplets" aria-hidden="true"><span class="drop d1"></span><span class="drop d2"></span><span class="drop d3"></span><span class="drop d4"></span><span class="drop d5"></span></div>
     <div class="viz-layout"><div class="viz-main-row"><div class="viz-side"><div class="remote-box"><div class="remote-label">שלט נגן</div><div class="viz-info"><div class="viz-title" id="vizCenter">לא מתנגן כעת</div><div class="viz-timer" id="vizTimer">00:00 / 00:00</div></div><div class="viz-controls"><button class="viz-btn hidden" id="vizPlay" type="button" aria-label="המשך">▶</button><button class="viz-btn" id="vizPause" type="button" aria-label="השהה">❚❚</button><button class="viz-btn" id="vizStop" type="button" aria-label="עצור">■</button></div><div class="remote-progress"><input class="progress-range" id="progressRange" type="range" min="0" max="1000" value="0" step="1" aria-label="פס התקדמות" /><div class="remote-progress-times"><span class="progress-time" id="progressCurrent">00:00</span><span class="progress-time" id="progressDuration">00:00</span></div></div><div class="viz-pause-message" id="vizPauseMessage"></div></div></div><div class="viz-visual-area"><div class="viz-core"><button class="viz-close" id="vizClose" type="button" aria-label="סגור ועצור">×</button><div class="viz-ring r1"></div><div class="viz-ring r2"></div><div class="viz-ring r3"></div><div class="viz-ring r4"></div><div class="viz-center"><div class="cue-stage" id="cueStage" aria-live="polite"></div><div class="breath-coach" id="breathCoach"><div class="breath-phase" id="breathPhase">שאיפה דרך האף</div><div class="breath-instruction" id="breathInstruction">הבטן עולה קלות</div><div class="breath-circle" id="breathCircle"><div class="breath-count" id="breathCount">3</div></div></div></div><div class="outside-caption" id="outsideCaption"></div><div class="countdown-overlay" id="countdownOverlay" aria-live="polite"><div class="countdown-card"><img class="countdown-image" src="assets/breathing-scene.jpg" alt="איור נשימה והרפיה" /><div class="countdown-text">מיד מתחילים</div><div class="countdown-number" id="countdownNumber">3</div><div class="countdown-wait-icon" id="countdownWaitIcon" aria-hidden="true">✦</div></div></div><div class="end-overlay" id="endOverlay" aria-live="polite"><div class="end-card"><div class="end-title">תודה שתרגלתם</div><button class="end-button" id="endBackButton" type="button">חזרה לעמוד התרגול הראשי</button></div></div></div></div></div></div>
   </div>
   <script>
-    const APP_VERSION='300';
+    const APP_VERSION='301';
     const bodyEl=document.body,grid=document.getElementById('tracksGrid'),visualizer=document.getElementById('visualizer'),vizCenter=document.getElementById('vizCenter'),vizPauseMessage=document.getElementById('vizPauseMessage'),vizTimer=document.getElementById('vizTimer'),cueStage=document.getElementById('cueStage'),outsideCaption=document.getElementById('outsideCaption'),countdownOverlay=document.getElementById('countdownOverlay'),countdownNumber=document.getElementById('countdownNumber'),countdownWaitIcon=document.getElementById('countdownWaitIcon'),countdownMusicAudio=document.getElementById('countdownMusicAudio'),progressRange=document.getElementById('progressRange'),progressCurrent=document.getElementById('progressCurrent'),progressDuration=document.getElementById('progressDuration'),breathCoach=document.getElementById('breathCoach'),breathPhase=document.getElementById('breathPhase'),breathInstruction=document.getElementById('breathInstruction'),breathCircle=document.getElementById('breathCircle'),breathCount=document.getElementById('breathCount'),vizPlay=document.getElementById('vizPlay'),vizPause=document.getElementById('vizPause'),vizStop=document.getElementById('vizStop'),vizClose=document.getElementById('vizClose'),endOverlay=document.getElementById('endOverlay'),endBackButton=document.getElementById('endBackButton');
 
     const practiceTotal = document.getElementById('practiceTotal');
@@ -1971,7 +1971,7 @@
 
 async function requestWakeLock(){if(!('wakeLock'in navigator))return;try{if(!wakeLock){wakeLock=await navigator.wakeLock.request('screen');wakeLock.addEventListener('release',()=>{wakeLock=null})}}catch(e){wakeLock=null}}async function releaseWakeLock(){if(!wakeLock)return;try{await wakeLock.release()}catch(e){}finally{wakeLock=null}}document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&visualizer.classList.contains('active')&&currentAudio)requestWakeLock()});
     function escapeHtml(v){return String(v??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;')}function normalizeCue(c){const t=c.type||(c.src?(c.text?'text-image':'image'):'text');return{type:t,start:String(c.start||'00:00'),end:String(c.end||'00:00'),text:String(c.text||''),src:String(c.src||''),alt:String(c.alt||c.text||'תמונת המחשה')}}function trackToCard(track,index){const audioId=`audio-${index+1}`,statusId=`status-${audioId}`,title=escapeHtml(track.title),description=escapeHtml(track.description),duration=escapeHtml(track.duration||track.length||'משך משתנה'),icon=escapeHtml(track.icon||'◌'),audio=escapeHtml(track.audio),trackId=escapeHtml(track.id),isReady=track.status==='ready';return`<article class="card ${isReady?'':'card-disabled'}" tabindex="${isReady?'0':'-1'}" role="button" aria-label="הפעל ${title}"><div class="card-top"><div class="icon-box">${icon}</div><h3>${title}</h3></div><p>${description}</p><div class="duration-pill loading-duration" id="duration-${audioId}">משך</div><div class="play-row"><button class="play" data-audio="${audioId}" data-title="${title}" data-track-id="${trackId}" ${isReady?'':'disabled'}>▶︎ נגן</button><span class="status" id="${statusId}">${isReady?'מוכן':'בהכנה'}</span></div><audio id="${audioId}" src="${audio}" data-track-id="${trackId}" data-config-status="${isReady?'ready':'preparing'}" playsinline preload="auto"></audio></article>`}
-    async function loadTracks(){try{const r=await fetch('assets/tracks.json?v=300',{cache:'no-store'});if(!r.ok)throw new Error('tracks');const t=await r.json();return Array.isArray(t)&&t.length?t:fallbackTracks}catch(e){return fallbackTracks}}async function loadCues(forceFresh=false){try{const url=`assets/cues.json?v=${encodeURIComponent(APP_VERSION)}${forceFresh?`&cb=${Date.now()}`:''}`;const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error('cues');const d=await r.json();if(!d||typeof d!=='object')return{};const out={};Object.keys(d).forEach(id=>{if(Array.isArray(d[id]))out[id]=d[id].map(normalizeCue)});return out}catch(e){console.warn('לא ניתן לטעון cues.json',e);return{}}}
+    async function loadTracks(){try{const r=await fetch('assets/tracks.json?v=301',{cache:'no-store'});if(!r.ok)throw new Error('tracks');const t=await r.json();return Array.isArray(t)&&t.length?t:fallbackTracks}catch(e){return fallbackTracks}}async function loadCues(forceFresh=false){try{const url=`assets/cues.json?v=${encodeURIComponent(APP_VERSION)}${forceFresh?`&cb=${Date.now()}`:''}`;const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error('cues');const d=await r.json();if(!d||typeof d!=='object')return{};const out={};Object.keys(d).forEach(id=>{if(Array.isArray(d[id]))out[id]=d[id].map(normalizeCue)});return out}catch(e){console.warn('לא ניתן לטעון cues.json',e);return{}}}
 
     async function refreshCuesForTrack(trackId){
       const before=(cuesByTrack[trackId]||[]).length;
@@ -2284,9 +2284,10 @@ function bindAudioEvents(){buttons=Array.from(document.querySelectorAll('.play')
       }
 
       async function playBreathingTrack(track){
+        if(track.available === false)return;
         await refreshCuesForTrack(track.id);
         activeCueKey='';
-        const displayTitle = `הרפיית נשימה סרעפתית — ${track.title}`;
+        const displayTitle = `${track.groupTitle || 'הרפיית נשימה סרעפתית'} — ${track.title}`;
         const audioId = `audio-${track.id}`;
         let audio = document.getElementById(audioId);
 
@@ -2371,6 +2372,7 @@ function bindAudioEvents(){buttons=Array.from(document.querySelectorAll('.play')
       }
 
       function updateBreathingSplitDuration(track){
+        if(track.available === false)return;
         const el=document.getElementById(`breathing-duration-${track.id}`);
         if(!el)return;
         const probe=new Audio();
@@ -2389,17 +2391,18 @@ function bindAudioEvents(){buttons=Array.from(document.querySelectorAll('.play')
       function makeHalf(track){
         const half = document.createElement('div');
         half.className = 'breathing-half';
-        half.tabIndex = 0;
+        half.tabIndex = track.available === false ? -1 : 0;
+        if(track.available === false)half.setAttribute('aria-disabled','true');
         half.setAttribute('role','button');
         half.setAttribute('aria-label', track.title);
         half.innerHTML = `
           <div>
             <h3>${escapeBreathingHtml(track.title)}</h3>
-            <div class="breathing-duration" id="breathing-duration-${escapeBreathingHtml(track.id)}">משך: מחשב...</div>
+            <div class="breathing-duration" id="breathing-duration-${escapeBreathingHtml(track.id)}">${track.available === false ? 'האודיו בהכנה' : 'משך: מחשב...'}</div>
             <p>${escapeBreathingHtml(track.description)}</p>
           </div>
           <div>
-            <button class="split-play-button" type="button">▶︎ נגן</button>
+            <button class="split-play-button" type="button" ${track.available === false ? 'disabled' : ''}>${track.available === false ? 'בהכנה' : '▶︎ נגן'}</button>
             <span class="status">${escapeBreathingHtml(track.subtitle)}</span>
           </div>
         `;
@@ -2413,7 +2416,7 @@ function bindAudioEvents(){buttons=Array.from(document.querySelectorAll('.play')
         return half;
       }
 
-      function splitBreathingCard(){
+      function splitStandardBreathingCard(){
         const card = findBreathingCard();
         if (!card || card.classList.contains('breathing-split-card')) return;
 
@@ -2434,6 +2437,30 @@ function bindAudioEvents(){buttons=Array.from(document.querySelectorAll('.play')
         options.appendChild(makeHalf(breathingIntroTrack));
         options.appendChild(makeHalf(breathingPracticeTrack));
         setTimeout(()=>{updateBreathingSplitDuration(breathingIntroTrack);updateBreathingSplitDuration(breathingPracticeTrack);},80);
+      }
+
+
+      const holdsTracks = [
+        {id:'diaphragmatic-breathing-holds-intro',title:'הקנייה (מתחילים)',subtitle:'מתחילים',description:'',audio:'audio/diaphragmatic-breathing-holds-intro.mp3',available:false,groupTitle:'נשימה סרעפתית עם עצירות'},
+        {id:'diaphragmatic-breathing-holds-practice',title:'תרגול',subtitle:'מתקדמים',description:'',audio:'audio/diaphragmatic-breathing-holds-practice.mp3',available:false,groupTitle:'נשימה סרעפתית עם עצירות'}
+      ];
+
+      function splitBreathingCard(){
+        splitStandardBreathingCard();
+        const card = [...document.querySelectorAll('.card')].find(card =>
+          card.dataset.trackId === 'diaphragmatic-breathing-holds' ||
+          card.querySelector('.play[data-track-id="diaphragmatic-breathing-holds"]')
+        );
+        if(!card || card.classList.contains('breathing-split-card'))return;
+        card.classList.add('breathing-split-card');
+        card.classList.remove('card-disabled');
+        card.dataset.trackId = 'diaphragmatic-breathing-holds';
+        card.removeAttribute('role');
+        card.removeAttribute('tabindex');
+        card.setAttribute('aria-label','נשימה סרעפתית עם עצירות - בחירה בין הקנייה לתרגול');
+        card.innerHTML = '<div class="breathing-split-header"><div class="icon-box">🫧</div><div><h3 class="breathing-split-title">נשימה סרעפתית עם עצירות</h3></div></div><div class="breathing-split-options"></div>';
+        const options = card.querySelector('.breathing-split-options');
+        holdsTracks.forEach(track=>options.appendChild(makeHalf(track)));
       }
 
       const observer = new MutationObserver(splitBreathingCard);
