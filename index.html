@@ -1,12 +1,12 @@
-<!-- INDEX_VERSION: 305 | מונה ביקורים מזערי ועדין | 06.10.2026 -->
-<!-- LIVE_SITE: https://avivnof.github.io/regulaion/?v=305 -->
+<!-- INDEX_VERSION: 306 | ריווח ונראות מונה ביקורים | 06.10.2026 -->
+<!-- LIVE_SITE: https://avivnof.github.io/regulaion/?v=306 -->
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#4f9fb0" />
-  <meta name="app-version" content="305" />
+  <meta name="app-version" content="306" />
   <title>אתר ההרפיות | ד״ר אביב נוף</title>
   <style>
     :root{--ink:#1d3340;--muted:#647681;--deep:#314c5b;--teal:#4e9fb0;--shadow:0 22px 55px rgba(48,72,86,.16);--soft:0 10px 28px rgba(48,72,86,.12);--glass:rgba(255,255,255,.74)}
@@ -1690,14 +1690,15 @@
     .site-privacy{margin:12px 8px 0;text-align:center;color:var(--muted);font-size:.85rem;line-height:1.6}
     .disclaimer{white-space:normal;overflow:visible;text-overflow:clip}
     @media(prefers-reduced-motion:reduce){.hero-drop,.hero-spiral,.scene-card,.viz-ring,.drop,.viz-center,.viz-center::before,.viz-center::after{animation:none !important}.breathing-half,.card{transition:none !important}}
-    /* v305: plain compact count, with the date on its own line.
+    /* v306: explicit non-breaking space; slightly larger and 10% more opaque.
        Hits.sh's fixed 'hits' label is 31px; crop label and 5px numeric
-       padding at 0.8 scale. Keep the numeric width automatic as it grows. */
-    .visit-counter{display:flex;flex-direction:column;align-items:center;gap:4px;margin:20px 0 0;color:#69747b;font-size:9px;line-height:1.4;text-align:center;opacity:.38}
+       padding at 0.9 scale. Keep the numeric width automatic as it grows. */
+    .visit-counter{display:flex;flex-direction:column;align-items:center;gap:4px;margin:20px 0 0;color:#69747b;font-size:10px;line-height:1.4;text-align:center;opacity:.418}
     .visit-counter-value{display:inline-flex;align-items:center;gap:0;direction:ltr;white-space:nowrap}
+    .visit-counter-space{display:inline-block;flex:0 0 .35em;width:.35em;white-space:pre}
     .visit-counter-number{display:inline-flex;overflow:hidden;direction:ltr;mix-blend-mode:multiply}
-    .visit-counter img{display:block;height:16px;width:auto;max-width:none;margin-left:-28.8px;margin-right:-4px;border:0;filter:invert(1)}
-    .visit-counter-date{font-size:8px}
+    .visit-counter img{display:block;height:18px;width:auto;max-width:none;margin-left:-32.4px;margin-right:-4.5px;border:0;filter:invert(1)}
+    .visit-counter-date{font-size:9px}
     .visit-counter-error[hidden]{display:none}
   </style>
 </head>
@@ -1705,10 +1706,10 @@
   <main class="shell">
     <section class="hero">
       <div class="brand">
-        <div class="logo-wrap"><img src="assets/nof-logo.jpg?v=305" alt="לוגו מכון נוף" /></div>
+        <div class="logo-wrap"><img src="assets/nof-logo.jpg?v=306" alt="לוגו מכון נוף" /></div>
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה 305 | 06.10.2026</div>
+        <div class="version-line">גרסה 306 | 06.10.2026</div>
       </div>
       <div class="hero-art">
         <div class="hero-visual" aria-hidden="true">
@@ -1721,18 +1722,18 @@
 <section class="grid" id="tracksGrid" aria-label="תרגילי ויסות והרפיה"></section><section class="disclaimer">תרגילי האתר מיועדים לוויסות והרגעה, ואינם תחליף לייעוץ, אבחון או טיפול מקצועי.</section>
 <p class="site-privacy">אין צורך בהרשמה או בהזנת פרטים אישיים. נתוני מעקב תרגול, ככל שנשמרים, נשמרים בדפדפן במכשיר זה ואינם נשלחים למטפל דרך האתר. מחיקת נתוני הדפדפן תמחק אותם. מונה הביקורים הציבורי מופעל באמצעות שירות Hits.sh, שמקבל בקשת רשת בעת טעינת המונה; הוא סופר טעינות של העמוד ולא אנשים ייחודיים.</p>
     <footer class="visit-counter" aria-label="מונה ביקורים באתר">
-      <span class="visit-counter-value" id="visitCounterValue"><span class="visit-counter-number"><img id="siteVisitCounter" src="https://hits.sh/avivnof.github.io/regulaion.svg?label=hits&amp;style=flat-square&amp;color=000000&amp;labelColor=000000" alt="מספר ביקורים" referrerpolicy="no-referrer" decoding="async" /></span><span dir="rtl">ביקורים</span></span>
+      <span class="visit-counter-value" id="visitCounterValue"><span class="visit-counter-number"><img id="siteVisitCounter" src="https://hits.sh/avivnof.github.io/regulaion.svg?label=hits&amp;style=flat-square&amp;color=000000&amp;labelColor=000000" alt="מספר ביקורים" referrerpolicy="no-referrer" decoding="async" /></span><span class="visit-counter-space" aria-hidden="true">&nbsp;</span><span dir="rtl">ביקורים</span></span>
       <span class="visit-counter-error" id="visitCounterError" hidden>המונה אינו זמין כרגע</span>
       <span class="visit-counter-date">מאז 06.10.2026</span>
     </footer>
   </main>
-  <audio id="countdownMusicAudio" src="audio/countdown-music.mp3?v=305" preload="auto" playsinline></audio>
+  <audio id="countdownMusicAudio" src="audio/countdown-music.mp3?v=306" preload="auto" playsinline></audio>
   <div class="visualizer" id="visualizer" aria-hidden="true">
     <div class="viz-backdrop"></div><div class="viz-droplets" aria-hidden="true"><span class="drop d1"></span><span class="drop d2"></span><span class="drop d3"></span><span class="drop d4"></span><span class="drop d5"></span></div>
     <div class="viz-layout"><div class="viz-main-row"><div class="viz-side"><div class="remote-box"><div class="remote-label">שלט נגן</div><div class="viz-info"><div class="viz-title" id="vizCenter">לא מתנגן כעת</div><div class="viz-timer" id="vizTimer">00:00 / 00:00</div></div><div class="viz-controls"><button class="viz-btn hidden" id="vizPlay" type="button" aria-label="המשך">▶</button><button class="viz-btn" id="vizPause" type="button" aria-label="השהה">❚❚</button><button class="viz-btn" id="vizStop" type="button" aria-label="עצור">■</button></div><div class="remote-progress"><input class="progress-range" id="progressRange" type="range" min="0" max="1000" value="0" step="1" aria-label="פס התקדמות" /><div class="remote-progress-times"><span class="progress-time" id="progressCurrent">00:00</span><span class="progress-time" id="progressDuration">00:00</span></div></div><div class="viz-pause-message" id="vizPauseMessage"></div></div></div><div class="viz-visual-area"><div class="viz-core"><button class="viz-close" id="vizClose" type="button" aria-label="סגור ועצור">×</button><div class="viz-ring r1"></div><div class="viz-ring r2"></div><div class="viz-ring r3"></div><div class="viz-ring r4"></div><div class="viz-center"><div class="cue-stage" id="cueStage" aria-live="polite"></div><div class="breath-coach" id="breathCoach"><div class="breath-phase" id="breathPhase">שאיפה דרך האף</div><div class="breath-instruction" id="breathInstruction">הבטן עולה קלות</div><div class="breath-circle" id="breathCircle"><div class="breath-count" id="breathCount">3</div></div></div></div><div class="outside-caption" id="outsideCaption"></div><div class="countdown-overlay" id="countdownOverlay" aria-live="polite"><div class="countdown-card"><img class="countdown-image" src="assets/breathing-scene.jpg" alt="איור נשימה והרפיה" /><div class="countdown-text">מיד מתחילים</div><div class="countdown-number" id="countdownNumber">3</div><div class="countdown-wait-icon" id="countdownWaitIcon" aria-hidden="true">✦</div></div></div><div class="end-overlay" id="endOverlay" aria-live="polite"><div class="end-card"><div class="end-title">תודה שתרגלתם</div><button class="end-button" id="endBackButton" type="button">חזרה לעמוד התרגול הראשי</button></div></div></div></div></div></div>
   </div>
   <script>
-    const APP_VERSION='305';
+    const APP_VERSION='306';
     const siteVisitCounter=document.getElementById('siteVisitCounter');
     function showVisitCounterError(){document.getElementById('visitCounterValue').style.display='none';document.getElementById('visitCounterError').hidden=false;}
     siteVisitCounter.addEventListener('error',showVisitCounterError);
@@ -2028,7 +2029,7 @@
 
 async function requestWakeLock(){if(!('wakeLock'in navigator))return;try{if(!wakeLock){wakeLock=await navigator.wakeLock.request('screen');wakeLock.addEventListener('release',()=>{wakeLock=null})}}catch(e){wakeLock=null}}async function releaseWakeLock(){if(!wakeLock)return;try{await wakeLock.release()}catch(e){}finally{wakeLock=null}}document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&visualizer.classList.contains('active')&&currentAudio)requestWakeLock()});
     function escapeHtml(v){return String(v??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;')}function normalizeCue(c){const t=c.type||(c.src?(c.text?'text-image':'image'):'text');return{type:t,start:String(c.start||'00:00'),end:String(c.end||'00:00'),text:String(c.text||''),src:String(c.src||''),alt:String(c.alt||c.text||'תמונת המחשה')}}function trackToCard(track,index){const audioId=`audio-${index+1}`,statusId=`status-${audioId}`,title=escapeHtml(track.title),description=escapeHtml(track.description),duration=escapeHtml(track.duration||track.length||'משך משתנה'),icon=escapeHtml(track.icon||'◌'),audio=escapeHtml(track.audio),trackId=escapeHtml(track.id),isReady=track.status==='ready';return`<article class="card ${isReady?'':'card-disabled'}" aria-disabled="${!isReady}" tabindex="${isReady?'0':'-1'}" role="button" aria-label="הפעל ${title}"><div class="card-top"><div class="icon-box">${icon}</div><h3>${title}</h3></div><p>${description}</p><div class="duration-pill loading-duration" id="duration-${audioId}">משך</div><div class="play-row"><button class="play" data-audio="${audioId}" data-title="${title}" data-track-id="${trackId}" ${isReady?'':'disabled'}>${isReady?'▶︎ נגן':'בהכנה'}</button><span class="status" id="${statusId}">${isReady?'מוכן':'בהכנה'}</span></div><audio id="${audioId}" ${isReady?`src="${audio}"`:""} data-track-id="${trackId}" data-config-status="${isReady?'ready':'preparing'}" playsinline preload="auto"></audio></article>`}
-    async function loadTracks(){try{const r=await fetch('assets/tracks.json?v=305',{cache:'no-store'});if(!r.ok)throw new Error('tracks');const t=await r.json();return Array.isArray(t)&&t.length?t:fallbackTracks}catch(e){return fallbackTracks}}async function loadCues(forceFresh=false){try{const url=`assets/cues.json?v=${encodeURIComponent(APP_VERSION)}${forceFresh?`&cb=${Date.now()}`:''}`;const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error('cues');const d=await r.json();if(!d||typeof d!=='object')return{};const out={};Object.keys(d).forEach(id=>{if(Array.isArray(d[id]))out[id]=d[id].map(normalizeCue)});return out}catch(e){console.warn('לא ניתן לטעון cues.json',e);return{}}}
+    async function loadTracks(){try{const r=await fetch('assets/tracks.json?v=306',{cache:'no-store'});if(!r.ok)throw new Error('tracks');const t=await r.json();return Array.isArray(t)&&t.length?t:fallbackTracks}catch(e){return fallbackTracks}}async function loadCues(forceFresh=false){try{const url=`assets/cues.json?v=${encodeURIComponent(APP_VERSION)}${forceFresh?`&cb=${Date.now()}`:''}`;const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error('cues');const d=await r.json();if(!d||typeof d!=='object')return{};const out={};Object.keys(d).forEach(id=>{if(Array.isArray(d[id]))out[id]=d[id].map(normalizeCue)});return out}catch(e){console.warn('לא ניתן לטעון cues.json',e);return{}}}
 
     async function refreshCuesForTrack(trackId){
       const before=(cuesByTrack[trackId]||[]).length;
