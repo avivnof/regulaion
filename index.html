@@ -1,12 +1,12 @@
-<!-- INDEX_VERSION: 309 | טעינת הקלטה מלאה באייפון ומניעת סיום מיידי | 20.11.2026 -->
-<!-- LIVE_SITE: https://avivnof.github.io/regulaion/?v=309 -->
+<!-- INDEX_VERSION: 310 | החזרת ספירת הפתיחה באייפון | 20.11.2026 -->
+<!-- LIVE_SITE: https://avivnof.github.io/regulaion/?v=310 -->
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#4f9fb0" />
-  <meta name="app-version" content="309" />
+  <meta name="app-version" content="310" />
   <title>אתר ההרפיות | ד״ר אביב נוף</title>
   <style>
     :root{--ink:#1d3340;--muted:#647681;--deep:#314c5b;--teal:#4e9fb0;--shadow:0 22px 55px rgba(48,72,86,.16);--soft:0 10px 28px rgba(48,72,86,.12);--glass:rgba(255,255,255,.74)}
@@ -1706,10 +1706,10 @@
   <main class="shell">
     <section class="hero">
       <div class="brand">
-        <div class="logo-wrap"><img src="assets/nof-logo.jpg?v=309" alt="לוגו מכון נוף" /></div>
+        <div class="logo-wrap"><img src="assets/nof-logo.jpg?v=310" alt="לוגו מכון נוף" /></div>
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה 309 | 20.11.2026</div>
+        <div class="version-line">גרסה 310 | 20.11.2026</div>
       </div>
       <div class="hero-art">
         <div class="hero-visual" aria-hidden="true">
@@ -1727,13 +1727,13 @@
       <span class="visit-counter-date">מאז 06.10.2026</span>
     </footer>
   </main>
-  <audio id="countdownMusicAudio" src="audio/countdown-music.mp3?v=309" preload="none" playsinline></audio>
+  <audio id="countdownMusicAudio" src="audio/countdown-music.mp3?v=310" preload="none" playsinline></audio>
   <div class="visualizer" id="visualizer" aria-hidden="true">
     <div class="viz-backdrop"></div><div class="viz-droplets" aria-hidden="true"><span class="drop d1"></span><span class="drop d2"></span><span class="drop d3"></span><span class="drop d4"></span><span class="drop d5"></span></div>
     <div class="viz-layout"><div class="viz-main-row"><div class="viz-side"><div class="remote-box"><div class="remote-label">שלט נגן</div><div class="viz-info"><div class="viz-title" id="vizCenter">לא מתנגן כעת</div><div class="viz-timer" id="vizTimer">00:00 / 00:00</div></div><a id="directRecording" hidden target="_blank" rel="noopener">פתיחת ההקלטה בנגן של המכשיר</a><div class="viz-controls"><button class="viz-btn hidden" id="vizPlay" type="button" aria-label="המשך">▶</button><button class="viz-btn" id="vizPause" type="button" aria-label="השהה">❚❚</button><button class="viz-btn" id="vizStop" type="button" aria-label="עצור">■</button></div><div class="remote-progress"><input class="progress-range" id="progressRange" type="range" min="0" max="1000" value="0" step="1" aria-label="פס התקדמות" /><div class="remote-progress-times"><span class="progress-time" id="progressCurrent">00:00</span><span class="progress-time" id="progressDuration">00:00</span></div></div><div class="viz-pause-message" id="vizPauseMessage"></div></div></div><div class="viz-visual-area"><div class="viz-core"><button class="viz-close" id="vizClose" type="button" aria-label="סגור ועצור">×</button><div class="viz-ring r1"></div><div class="viz-ring r2"></div><div class="viz-ring r3"></div><div class="viz-ring r4"></div><div class="viz-center"><div class="cue-stage" id="cueStage" aria-live="polite"></div><div class="breath-coach" id="breathCoach"><div class="breath-phase" id="breathPhase">שאיפה דרך האף</div><div class="breath-instruction" id="breathInstruction">הבטן עולה קלות</div><div class="breath-circle" id="breathCircle"><div class="breath-count" id="breathCount">3</div></div></div></div><div class="outside-caption" id="outsideCaption"></div><div class="countdown-overlay" id="countdownOverlay" aria-live="polite"><div class="countdown-card"><img class="countdown-image" src="assets/breathing-scene.jpg" alt="איור נשימה והרפיה" /><div class="countdown-text">מיד מתחילים</div><div class="countdown-number" id="countdownNumber">3</div><div class="countdown-wait-icon" id="countdownWaitIcon" aria-hidden="true">✦</div></div></div><div class="end-overlay" id="endOverlay" aria-live="polite"><div class="end-card"><div class="end-title">תודה שתרגלתם</div><button class="end-button" id="endBackButton" type="button">חזרה לעמוד התרגול הראשי</button></div></div></div></div></div></div>
   </div>
   <script>
-    const APP_VERSION='309';
+    const APP_VERSION='310';
     const siteVisitCounter=document.getElementById('siteVisitCounter');
     function showVisitCounterError(){document.getElementById('visitCounterValue').style.display='none';document.getElementById('visitCounterError').hidden=false;}
     siteVisitCounter.addEventListener('error',showVisitCounterError);
@@ -2045,7 +2045,7 @@ async function requestWakeLock(){if(!('wakeLock'in navigator))return;try{if(!wak
         ]);
       }finally{clearTimeout(timer)}
     }
-    async function loadTracks(){try{const t=await fetchConfig('assets/tracks.json?v=309');return Array.isArray(t)&&t.length?t:fallbackTracks}catch(e){return fallbackTracks}}async function loadCues(forceFresh=false){try{const url=`assets/cues.json?v=${encodeURIComponent(APP_VERSION)}${forceFresh?`&cb=${Date.now()}`:''}`;const d=await fetchConfig(url);if(!d||typeof d!=='object')return{};const out={};Object.keys(d).forEach(id=>{if(Array.isArray(d[id]))out[id]=d[id].map(normalizeCue)});return out}catch(e){console.warn('לא ניתן לטעון cues.json',e);return{}}}
+    async function loadTracks(){try{const t=await fetchConfig('assets/tracks.json?v=310');return Array.isArray(t)&&t.length?t:fallbackTracks}catch(e){return fallbackTracks}}async function loadCues(forceFresh=false){try{const url=`assets/cues.json?v=${encodeURIComponent(APP_VERSION)}${forceFresh?`&cb=${Date.now()}`:''}`;const d=await fetchConfig(url);if(!d||typeof d!=='object')return{};const out={};Object.keys(d).forEach(id=>{if(Array.isArray(d[id]))out[id]=d[id].map(normalizeCue)});return out}catch(e){console.warn('לא ניתן לטעון cues.json',e);return{}}}
 
     async function refreshCuesForTrack(trackId){
       const before=(cuesByTrack[trackId]||[]).length;
@@ -2164,7 +2164,7 @@ function clearCountdown(){countdownActive=false;countdownTimeouts.forEach(t=>cle
       }
     }
 
-    function startPlaybackAfterCountdown(){
+    function startPlaybackAfterCountdown(onComplete=beginPlaybackAfterCountdownMusic){
       if(!currentAudio)return;
       if(countdownMusicAudio && !countdownMusicAudio.paused && !countdownMusicAudio.ended){
         vizPauseMessage.textContent='מיד מתחילים';
@@ -2175,16 +2175,16 @@ function clearCountdown(){countdownActive=false;countdownTimeouts.forEach(t=>cle
           if(finished || !countdownActive)return;
           finished=true;
           stopCountdownMusic();
-          fadeOutCountdownWaitIconThen(()=>beginPlaybackAfterCountdownMusic());
+          fadeOutCountdownWaitIconThen(onComplete);
         };
         countdownMusicAudio.onended=finish;
         countdownTimeouts.push(setTimeout(finish,8000));
         return;
       }
-      fadeOutCountdownWaitIconThen(()=>beginPlaybackAfterCountdownMusic());
+      fadeOutCountdownWaitIconThen(onComplete);
     }
 
-function startCountdownSequence(){startCountdownMusic();showCountdownOverlay(3);const a=setTimeout(()=>{if(countdownActive)dissolveCountdownTo(2)},COUNTDOWN_STEP_MS),b=setTimeout(()=>{if(countdownActive)dissolveCountdownTo(1)},COUNTDOWN_STEP_MS*2),c=setTimeout(()=>{if(countdownActive)startPlaybackAfterCountdown()},COUNTDOWN_STEP_MS*3);countdownTimeouts.push(a,b,c)}function isAppleMobile(){
+function startCountdownSequence(onComplete=beginPlaybackAfterCountdownMusic){startCountdownMusic();showCountdownOverlay(3);const a=setTimeout(()=>{if(countdownActive)dissolveCountdownTo(2)},COUNTDOWN_STEP_MS),b=setTimeout(()=>{if(countdownActive)dissolveCountdownTo(1)},COUNTDOWN_STEP_MS*2),c=setTimeout(()=>{if(countdownActive)startPlaybackAfterCountdown(onComplete)},COUNTDOWN_STEP_MS*3);countdownTimeouts.push(a,b,c)}function isAppleMobile(){
       return /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
         (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
     }
@@ -2220,12 +2220,28 @@ function startCountdownSequence(){startCountdownMusic();showCountdownOverlay(3);
       const original=audio.dataset.originalRecording || audio.src;
       audio.dataset.originalRecording=original;
       directRecording.href=original;
-      showPausedVisualizer(title);
-      setVisualizerControls('countdown');
-      vizStop.classList.remove('hidden');
-      vizPauseMessage.textContent='טוען את ההקלטה…';
       const controller=new AbortController();
       recordingRequest=controller;
+      let introDone=false, fileReady=false, started=false;
+      const isCurrent=()=>currentAudio===audio && recordingRequest===controller && !controller.signal.aborted;
+      function startWhenReady(){
+        if(!isCurrent() || !introDone || !fileReady || started)return;
+        started=true;
+        recordingRequest=null;
+        sessionStart=performance.now();
+        resumeAudio(audio,title,id);
+      }
+      resetCountdownVisualState();
+      countdownActive=true;
+      showCountdownVisualizer(title);
+      vizStop.classList.remove('hidden');
+      startCountdownSequence(()=>{
+        if(!isCurrent())return;
+        clearCountdown();
+        introDone=true;
+        if(!fileReady)vizPauseMessage.textContent='טוען את ההקלטה…';
+        startWhenReady();
+      });
       const timer=setTimeout(()=>controller.abort(),60000);
       try{
         const response=await fetch(original,{signal:controller.signal,credentials:'omit'});
@@ -2236,12 +2252,13 @@ function startCountdownSequence(){startCountdownMusic();showCountdownOverlay(3);
         const url=URL.createObjectURL(blob);
         recordingBlob={audio,url};
         audio.src=url;
-        sessionStart=performance.now();
-        resumeAudio(audio,title,id);
+        fileReady=true;
+        startWhenReady();
       }catch(e){
         if(currentAudio!==audio || controller!==recordingRequest)return;
+        recordingRequest=null;
         recoverTrack(audio,'לא ניתן לטעון את ההקלטה במלואה. נסו שוב או פתחו אותה בנגן המכשיר.');
-      }finally{clearTimeout(timer);if(recordingRequest===controller)recordingRequest=null}
+      }finally{clearTimeout(timer)}
     }
     function acceptTrackEnd(audio){
       if(currentAudio!==audio || countdownActive || !audio.ended)return false;
