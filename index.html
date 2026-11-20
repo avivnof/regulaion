@@ -1,12 +1,12 @@
-<!-- INDEX_VERSION: 307 | שיפור טעינה ראשונה בנייד | 08.10.2026 -->
-<!-- LIVE_SITE: https://avivnof.github.io/regulaion/?v=307 -->
+<!-- INDEX_VERSION: 308 | הפעלת התרגול ישירות באייפון | 20.11.2026 -->
+<!-- LIVE_SITE: https://avivnof.github.io/regulaion/?v=308 -->
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#4f9fb0" />
-  <meta name="app-version" content="307" />
+  <meta name="app-version" content="308" />
   <title>אתר ההרפיות | ד״ר אביב נוף</title>
   <style>
     :root{--ink:#1d3340;--muted:#647681;--deep:#314c5b;--teal:#4e9fb0;--shadow:0 22px 55px rgba(48,72,86,.16);--soft:0 10px 28px rgba(48,72,86,.12);--glass:rgba(255,255,255,.74)}
@@ -1706,10 +1706,10 @@
   <main class="shell">
     <section class="hero">
       <div class="brand">
-        <div class="logo-wrap"><img src="assets/nof-logo.jpg?v=307" alt="לוגו מכון נוף" /></div>
+        <div class="logo-wrap"><img src="assets/nof-logo.jpg?v=308" alt="לוגו מכון נוף" /></div>
         <h1>אתר ההרפיות</h1>
         <div class="subtitle">ד״ר אביב נוף, פסיכולוג קליני</div>
-        <div class="version-line">גרסה 307 | 08.10.2026</div>
+        <div class="version-line">גרסה 308 | 20.11.2026</div>
       </div>
       <div class="hero-art">
         <div class="hero-visual" aria-hidden="true">
@@ -1727,13 +1727,13 @@
       <span class="visit-counter-date">מאז 06.10.2026</span>
     </footer>
   </main>
-  <audio id="countdownMusicAudio" src="audio/countdown-music.mp3?v=307" preload="none" playsinline></audio>
+  <audio id="countdownMusicAudio" src="audio/countdown-music.mp3?v=308" preload="none" playsinline></audio>
   <div class="visualizer" id="visualizer" aria-hidden="true">
     <div class="viz-backdrop"></div><div class="viz-droplets" aria-hidden="true"><span class="drop d1"></span><span class="drop d2"></span><span class="drop d3"></span><span class="drop d4"></span><span class="drop d5"></span></div>
     <div class="viz-layout"><div class="viz-main-row"><div class="viz-side"><div class="remote-box"><div class="remote-label">שלט נגן</div><div class="viz-info"><div class="viz-title" id="vizCenter">לא מתנגן כעת</div><div class="viz-timer" id="vizTimer">00:00 / 00:00</div></div><div class="viz-controls"><button class="viz-btn hidden" id="vizPlay" type="button" aria-label="המשך">▶</button><button class="viz-btn" id="vizPause" type="button" aria-label="השהה">❚❚</button><button class="viz-btn" id="vizStop" type="button" aria-label="עצור">■</button></div><div class="remote-progress"><input class="progress-range" id="progressRange" type="range" min="0" max="1000" value="0" step="1" aria-label="פס התקדמות" /><div class="remote-progress-times"><span class="progress-time" id="progressCurrent">00:00</span><span class="progress-time" id="progressDuration">00:00</span></div></div><div class="viz-pause-message" id="vizPauseMessage"></div></div></div><div class="viz-visual-area"><div class="viz-core"><button class="viz-close" id="vizClose" type="button" aria-label="סגור ועצור">×</button><div class="viz-ring r1"></div><div class="viz-ring r2"></div><div class="viz-ring r3"></div><div class="viz-ring r4"></div><div class="viz-center"><div class="cue-stage" id="cueStage" aria-live="polite"></div><div class="breath-coach" id="breathCoach"><div class="breath-phase" id="breathPhase">שאיפה דרך האף</div><div class="breath-instruction" id="breathInstruction">הבטן עולה קלות</div><div class="breath-circle" id="breathCircle"><div class="breath-count" id="breathCount">3</div></div></div></div><div class="outside-caption" id="outsideCaption"></div><div class="countdown-overlay" id="countdownOverlay" aria-live="polite"><div class="countdown-card"><img class="countdown-image" src="assets/breathing-scene.jpg" alt="איור נשימה והרפיה" /><div class="countdown-text">מיד מתחילים</div><div class="countdown-number" id="countdownNumber">3</div><div class="countdown-wait-icon" id="countdownWaitIcon" aria-hidden="true">✦</div></div></div><div class="end-overlay" id="endOverlay" aria-live="polite"><div class="end-card"><div class="end-title">תודה שתרגלתם</div><button class="end-button" id="endBackButton" type="button">חזרה לעמוד התרגול הראשי</button></div></div></div></div></div></div>
   </div>
   <script>
-    const APP_VERSION='307';
+    const APP_VERSION='308';
     const siteVisitCounter=document.getElementById('siteVisitCounter');
     function showVisitCounterError(){document.getElementById('visitCounterValue').style.display='none';document.getElementById('visitCounterError').hidden=false;}
     siteVisitCounter.addEventListener('error',showVisitCounterError);
@@ -2045,7 +2045,7 @@ async function requestWakeLock(){if(!('wakeLock'in navigator))return;try{if(!wak
         ]);
       }finally{clearTimeout(timer)}
     }
-    async function loadTracks(){try{const t=await fetchConfig('assets/tracks.json?v=307');return Array.isArray(t)&&t.length?t:fallbackTracks}catch(e){return fallbackTracks}}async function loadCues(forceFresh=false){try{const url=`assets/cues.json?v=${encodeURIComponent(APP_VERSION)}${forceFresh?`&cb=${Date.now()}`:''}`;const d=await fetchConfig(url);if(!d||typeof d!=='object')return{};const out={};Object.keys(d).forEach(id=>{if(Array.isArray(d[id]))out[id]=d[id].map(normalizeCue)});return out}catch(e){console.warn('לא ניתן לטעון cues.json',e);return{}}}
+    async function loadTracks(){try{const t=await fetchConfig('assets/tracks.json?v=308');return Array.isArray(t)&&t.length?t:fallbackTracks}catch(e){return fallbackTracks}}async function loadCues(forceFresh=false){try{const url=`assets/cues.json?v=${encodeURIComponent(APP_VERSION)}${forceFresh?`&cb=${Date.now()}`:''}`;const d=await fetchConfig(url);if(!d||typeof d!=='object')return{};const out={};Object.keys(d).forEach(id=>{if(Array.isArray(d[id]))out[id]=d[id].map(normalizeCue)});return out}catch(e){console.warn('לא ניתן לטעון cues.json',e);return{}}}
 
     async function refreshCuesForTrack(trackId){
       const before=(cuesByTrack[trackId]||[]).length;
@@ -2184,7 +2184,34 @@ function clearCountdown(){countdownActive=false;countdownTimeouts.forEach(t=>cle
       fadeOutCountdownWaitIconThen(()=>beginPlaybackAfterCountdownMusic());
     }
 
-function startCountdownSequence(){startCountdownMusic();showCountdownOverlay(3);const a=setTimeout(()=>{if(countdownActive)dissolveCountdownTo(2)},COUNTDOWN_STEP_MS),b=setTimeout(()=>{if(countdownActive)dissolveCountdownTo(1)},COUNTDOWN_STEP_MS*2),c=setTimeout(()=>{if(countdownActive)startPlaybackAfterCountdown()},COUNTDOWN_STEP_MS*3);countdownTimeouts.push(a,b,c)}function startAudioWithCountdown(audio,title,trackId=''){resetCountdownVisualState();const btn=getButtonForAudio(audio),st=getStatusForAudio(audio);if(audio.dataset.available!=='true'){if(st)st.textContent='בהכנה';return}stopOtherAudios(audio.id);clearCountdown();currentAudio=audio;currentTitle=title;currentTrackId=trackId||audio.dataset.trackId||'';waitingForManualStart=false;countdownActive=true;if(btn)btn.textContent='מתכונן...';if(st)st.textContent='מתחיל בעוד 3...';showCountdownVisualizer(title);primeAudioMutedForCountdown(currentAudio);startCountdownSequence()}function resumeAudio(audio,title,trackId=''){const btn=getButtonForAudio(audio),st=getStatusForAudio(audio);currentAudio=audio;currentTitle=title;currentTrackId=trackId||audio.dataset.trackId||'';countdownActive=false;waitingForManualStart=false;hideCountdownOverlay();if(audio.currentTime<=.05)try{audio.currentTime=0}catch(e){}audio.muted=false;audio.volume=1;const p=audio.play();if(p&&typeof p.then==='function')p.then(()=>{if(btn)btn.textContent='❚❚ עצור';if(st)st.textContent='מנגן';showVisualizer(title)}).catch(()=>{if(st)st.textContent='לא ניתן לנגן';stopCurrent()});else{if(btn)btn.textContent='❚❚ עצור';if(st)st.textContent='מנגן';showVisualizer(title)}}function pauseCurrent(){if(!currentAudio)return;clearCountdown();currentAudio.pause();currentAudio.muted=false;currentAudio.volume=1;const btn=getButtonForAudio(currentAudio),st=getStatusForAudio(currentAudio);if(btn)btn.textContent='▶︎ נגן';if(st)st.textContent='הושהה';showPausedVisualizer(currentTitle||'השהייה')}function stopCurrent(){stopCountdownMusic();clearCountdown();if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;currentAudio.volume=1;currentAudio.muted=false;setIdle(currentAudio)}currentAudio=null;currentTitle='';currentTrackId='';waitingForManualStart=false;countdownAudioPrimed=false;hideVisualizer()}
+function startCountdownSequence(){startCountdownMusic();showCountdownOverlay(3);const a=setTimeout(()=>{if(countdownActive)dissolveCountdownTo(2)},COUNTDOWN_STEP_MS),b=setTimeout(()=>{if(countdownActive)dissolveCountdownTo(1)},COUNTDOWN_STEP_MS*2),c=setTimeout(()=>{if(countdownActive)startPlaybackAfterCountdown()},COUNTDOWN_STEP_MS*3);countdownTimeouts.push(a,b,c)}function isAppleMobile(){
+      return /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+        (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+    }
+    function recoverTrack(audio,message){
+      if(currentAudio!==audio)return;
+      clearCountdown();
+      audio.pause();
+      waitingForManualStart=true;
+      showPausedVisualizer(currentTitle);
+      vizPauseMessage.textContent=message;
+      setVisualizerControls('manual-start');
+    }
+    function acceptTrackEnd(audio){
+      if(currentAudio!==audio || countdownActive || !audio.ended)return false;
+      if(!Number.isFinite(audio.duration) || audio.duration<=0 || audio.currentTime<audio.duration-1){
+        recoverTrack(audio,'ההשמעה נקטעה. לחצו על ▶ להמשך.');
+        return false;
+      }
+      return true;
+    }
+    function startAudioWithCountdown(audio,title,trackId=''){resetCountdownVisualState();const btn=getButtonForAudio(audio),st=getStatusForAudio(audio);if(audio.dataset.available!=='true'){if(st)st.textContent='בהכנה';return}stopOtherAudios(audio.id);clearCountdown();currentAudio=audio;currentTitle=title;currentTrackId=trackId||audio.dataset.trackId||'';waitingForManualStart=false;
+      if(isAppleMobile()){
+        try{audio.currentTime=0}catch(e){}
+        resumeAudio(audio,title,currentTrackId);
+        return;
+      }
+      countdownActive=true;if(btn)btn.textContent='מתכונן...';if(st)st.textContent='מתחיל בעוד 3...';showCountdownVisualizer(title);primeAudioMutedForCountdown(currentAudio);startCountdownSequence()}function resumeAudio(audio,title,trackId=''){const btn=getButtonForAudio(audio),st=getStatusForAudio(audio);currentAudio=audio;currentTitle=title;currentTrackId=trackId||audio.dataset.trackId||'';countdownActive=false;waitingForManualStart=false;hideCountdownOverlay();if(audio.currentTime<=.05)try{audio.currentTime=0}catch(e){}audio.muted=false;audio.volume=1;if(audio.error)audio.load();const p=audio.play();if(p&&typeof p.then==='function')p.then(()=>{if(currentAudio!==audio || audio.paused)return;if(btn)btn.textContent='❚❚ עצור';if(st)st.textContent='מנגן';showVisualizer(title)}).catch(()=>{recoverTrack(audio,'לא ניתן לנגן כרגע. לחצו על ▶ לניסיון נוסף.')});else{if(btn)btn.textContent='❚❚ עצור';if(st)st.textContent='מנגן';showVisualizer(title)}}function pauseCurrent(){if(!currentAudio)return;clearCountdown();currentAudio.pause();currentAudio.muted=false;currentAudio.volume=1;const btn=getButtonForAudio(currentAudio),st=getStatusForAudio(currentAudio);if(btn)btn.textContent='▶︎ נגן';if(st)st.textContent='הושהה';showPausedVisualizer(currentTitle||'השהייה')}function stopCurrent(){stopCountdownMusic();clearCountdown();if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;currentAudio.volume=1;currentAudio.muted=false;setIdle(currentAudio)}currentAudio=null;currentTitle='';currentTrackId='';waitingForManualStart=false;countdownAudioPrimed=false;hideVisualizer()}
     function bindProgressEvents(){progressRange.addEventListener('input',()=>{if(!currentAudio||countdownActive)return;isSeeking=true;const d=currentAudio.duration||0,v=Number(progressRange.value||0);if(Number.isFinite(d)&&d>0)progressCurrent.textContent=formatTime(v/1000*d)});['change','pointerup'].forEach(ev=>progressRange.addEventListener(ev,()=>{if(!currentAudio||countdownActive){isSeeking=false;return}const d=currentAudio.duration||0,v=Number(progressRange.value||0);if(Number.isFinite(d)&&d>0){currentAudio.currentTime=v/1000*d;updateTimerDisplay();updateCueDisplay()}isSeeking=false}));progressRange.addEventListener('pointerdown',()=>{if(!countdownActive)isSeeking=true})}
     
 function bindCardClickEvents(){
@@ -2192,7 +2219,7 @@ function bindCardClickEvents(){
     const button=card.querySelector('.play');
     if(!button||button.disabled)return;
     card.addEventListener('click',event=>{
-      if(event.target.closest('button,a,input,textarea,select'))return;
+      if(card.classList.contains('breathing-split-card') || event.target.closest('button,a,input,textarea,select'))return;
       button.click();
     });
     card.addEventListener('keydown',event=>{
@@ -2281,7 +2308,7 @@ function bindCardClickEvents(){
       }
     }
 
-function bindAudioEvents(){buttons=Array.from(document.querySelectorAll('.play'));audios=Array.from(grid.querySelectorAll('audio'));audios.forEach(a=>{if(a.dataset.configStatus==='preparing'){markAudioPreparing(a);const pill=document.getElementById(`duration-${a.id}`);if(pill){pill.textContent='בהכנה';pill.classList.remove('loading-duration')}return}if(a.dataset.configStatus==='ready'){a.dataset.available='true';setIdle(a)}else markAudioPreparing(a);a.addEventListener('canplaythrough',()=>{markAudioReady(a);updateDurationPill(a);if(currentAudio===a)updateTimerDisplay()},{once:true});a.addEventListener('loadedmetadata',()=>{markAudioReady(a);updateDurationPill(a);if(currentAudio===a){updateTimerDisplay();updateProgressDisplay()}},{once:true});a.addEventListener('error',()=>{if(currentAudio===a)stopCurrent();setIdle(a);const st=getStatusForAudio(a);if(st)st.textContent='טעינה נכשלה — נסו שוב';updateDurationPill(a)});a.addEventListener('timeupdate',()=>{if(currentAudio===a){updateTimerDisplay();updateCueDisplay()}});updateDurationPill(a)});buttons.forEach(button=>{const audioId=button.dataset.audio,audio=document.getElementById(audioId),title=button.dataset.title,trackId=button.dataset.trackId||audio.dataset.trackId||'',st=document.getElementById(`status-${audioId}`);button.addEventListener('click',()=>{if(audio.dataset.available!=='true'){st.textContent='בהכנה';return}if(waitingForManualStart&&currentAudio===audio){resumeAudio(audio,title,trackId);return}if(audio.error)audio.load();if(audio.paused){const isResume=currentAudio===audio&&audio.currentTime>0&&!countdownActive;isResume?resumeAudio(audio,title,trackId):(markCardSelectedFromButton(button),startAudioWithCountdown(audio,title,trackId))}else{currentAudio=audio;currentTitle=title;currentTrackId=trackId;pauseCurrent()}});audio.addEventListener('ended',()=>{button.textContent='▶︎ נגן';st.textContent='הסתיים';audio.volume=1;audio.muted=false;clearCountdown();if(currentAudio===audio){currentAudio=null;currentTitle='';currentTrackId=''}waitingForManualStart=false;countdownAudioPrimed=false;showEndScreen()})})}
+function bindAudioEvents(){buttons=Array.from(document.querySelectorAll('.play'));audios=Array.from(grid.querySelectorAll('audio'));audios.forEach(a=>{if(a.dataset.configStatus==='preparing'){markAudioPreparing(a);const pill=document.getElementById(`duration-${a.id}`);if(pill){pill.textContent='בהכנה';pill.classList.remove('loading-duration')}return}if(a.dataset.configStatus==='ready'){a.dataset.available='true';setIdle(a)}else markAudioPreparing(a);a.addEventListener('canplaythrough',()=>{markAudioReady(a);updateDurationPill(a);if(currentAudio===a)updateTimerDisplay()},{once:true});a.addEventListener('loadedmetadata',()=>{markAudioReady(a);updateDurationPill(a);if(currentAudio===a){updateTimerDisplay();updateProgressDisplay()}},{once:true});a.addEventListener('error',()=>{if(currentAudio===a)recoverTrack(a,'טעינת האודיו נקטעה. לחצו על ▶ לניסיון נוסף.');setIdle(a);const st=getStatusForAudio(a);if(st)st.textContent='טעינה נכשלה — נסו שוב';updateDurationPill(a)});a.addEventListener('timeupdate',()=>{if(currentAudio===a){updateTimerDisplay();updateCueDisplay()}});updateDurationPill(a)});buttons.forEach(button=>{const audioId=button.dataset.audio,audio=document.getElementById(audioId),title=button.dataset.title,trackId=button.dataset.trackId||audio.dataset.trackId||'',st=document.getElementById(`status-${audioId}`);button.addEventListener('click',()=>{if(audio.dataset.available!=='true'){st.textContent='בהכנה';return}if(waitingForManualStart&&currentAudio===audio){resumeAudio(audio,title,trackId);return}if(audio.error)audio.load();if(audio.paused){const isResume=currentAudio===audio&&audio.currentTime>0&&!countdownActive;isResume?resumeAudio(audio,title,trackId):(markCardSelectedFromButton(button),startAudioWithCountdown(audio,title,trackId))}else{currentAudio=audio;currentTitle=title;currentTrackId=trackId;pauseCurrent()}});audio.addEventListener('ended',()=>{if(!acceptTrackEnd(audio))return;button.textContent='▶︎ נגן';st.textContent='הסתיים';audio.volume=1;audio.muted=false;clearCountdown();if(currentAudio===audio){currentAudio=null;currentTitle='';currentTrackId=''}waitingForManualStart=false;countdownAudioPrimed=false;showEndScreen()})})}
     if(endBackButton)endBackButton.addEventListener('click',returnToMainPracticePage);vizPlay.addEventListener('click',()=>{if(currentAudio&&currentAudio.paused)resumeAudio(currentAudio,currentTitle,currentTrackId)});vizPause.addEventListener('click',pauseCurrent);vizStop.addEventListener('click',()=>{stopCountdownMusic();stopCurrent()});vizClose.addEventListener('click',()=>{stopCountdownMusic();stopCurrent()});bindProgressEvents();
     bindPracticeTrackerEvents();
     let tracksInteracted=false;
@@ -2377,7 +2404,7 @@ function bindAudioEvents(){buttons=Array.from(document.querySelectorAll('.play')
           });
 
           audio.addEventListener('error',()=>{
-            if(currentAudio===audio)stopCurrent();
+            if(currentAudio===audio)recoverTrack(audio,'טעינת האודיו נקטעה. לחצו על ▶ לניסיון נוסף.');
           });
 
           audio.addEventListener('timeupdate',()=>{
@@ -2388,6 +2415,7 @@ function bindAudioEvents(){buttons=Array.from(document.querySelectorAll('.play')
           });
 
           audio.addEventListener('ended',()=>{
+            if(!acceptTrackEnd(audio))return;
             audio.volume=1;
             audio.muted=false;
             clearCountdown();
